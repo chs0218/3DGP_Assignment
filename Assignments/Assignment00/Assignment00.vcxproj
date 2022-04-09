@@ -146,6 +146,7 @@
     <ClInclude Include="GraphicsPipeline.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Rail.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="stdafx.h" />
@@ -160,6 +161,7 @@
     <ClCompile Include="GraphicsPipeline.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Rail.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Timer.cpp" />

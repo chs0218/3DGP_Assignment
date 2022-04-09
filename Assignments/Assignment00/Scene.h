@@ -2,6 +2,7 @@
 
 #include "GameObject.h"
 #include "Camera.h"
+#include "Rail.h"
 #include "Player.h"
 
 class CScene
@@ -15,6 +16,8 @@ private:
 	CGameObject					**m_ppObjects = NULL;
 
 	CWallsObject*				m_pWallsObject = NULL;
+
+	CRail*						m_pRailObject = NULL;
 
 	CPlayer*					m_pPlayer = NULL;
 

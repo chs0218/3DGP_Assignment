@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Player.h"
+#include "Rail.h"
 #include "Scene.h"
 #include "Timer.h"
 
@@ -23,6 +24,7 @@ private:
     HBITMAP						m_hBitmapSelect = NULL;
 
 	CPlayer*					m_pPlayer = NULL;
+	CRail*						m_pRail = NULL;
 	CScene*						m_pScene = NULL;
 	CGameObject*				m_pLockedObject = NULL;
 

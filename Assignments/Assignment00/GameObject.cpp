@@ -1,3 +1,4 @@
+#include <array>
 #include "stdafx.h"
 #include "GameObject.h"
 #include "GraphicsPipeline.h"
@@ -191,6 +192,56 @@ int CGameObject::PickObjectByRayIntersection(XMVECTOR& xmvPickPosition, XMMATRIX
 	}
 	return(nIntersected);
 }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+CRailObject::CRailObject()
+{
+	
+}
+
+CRailObject::CRailObject(std::array<float, 6> arr, CCubeMesh* railMesh)
+{
+	SetPosition(arr[0], arr[1], arr[2]);
+	Rotate(arr[3], arr[4], arr[5]);
+	SetMesh(railMesh);
+	SetColor(RGB(255, 0, 0));
+}
+
+CRailObject::CRailObject(std::array<float, 6> arr1, std::array<float, 6> arr2, CCubeMesh* railMesh, float t)
+{
+	t = t / 20.0;
+	SetPosition(((1 - t) * arr1[0] + t * arr2[0]), ((1 - t) * arr1[1] + t * arr2[1]), ((1 - t) * arr1[2] + t * arr2[2]));
+	rotateToVec((arr2[0] - arr1[0]), (arr2[1] - arr1[1]), (arr2[2] - arr1[2]));
+	SetMesh(railMesh);
+	SetColor(RGB(255, 0, 0));
+}
+
+CRailObject::~CRailObject()
+{
+}
+
+void CRailObject::Render(HDC hDCFrameBuffer, CCamera* pCamera)
+{
+	CGameObject::Render(hDCFrameBuffer, &m_xmf4x4World, m_pMesh);
+}
+
+void CRailObject::rotateToVec(float x, float y, float z)
+{
+	XMFLOAT3 first{ 0.0, 0.0, 1.0 };
+	XMFLOAT3 second{ x, y, z };
+
+	XMVECTOR vfirst = XMLoadFloat3(&first);
+	XMVECTOR vsecond = XMLoadFloat3(&second);
+	XMFLOAT3 result;
+	XMStoreFloat3(&result, XMVector3Cross(vfirst, vsecond));
+
+	vsecond = XMVector3Normalize(vsecond);
+	Rotate(result, XMConvertToDegrees(acos(XMVectorGetX(XMVector3Dot(vfirst, vsecond)))));
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //

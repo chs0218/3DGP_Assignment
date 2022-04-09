@@ -1,0 +1,593 @@
+﻿  Assignment00.cpp
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(137,110): error C2665: 'Vector3::Angle': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(135,15): message : 'float Vector3::Angle(DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(129,15): message : 또는       'float Vector3::Angle(DirectX::XMVECTOR &,DirectX::XMVECTOR &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(137,110): message : 인수 목록 '(DirectX::XMVECTOR, DirectX::XMVECTOR)'을(를) 일치시키는 동안
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(149,69): error C2665: 'Vector3::TransformNormal': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(147,18): message : 'DirectX::XMFLOAT3 Vector3::TransformNormal(DirectX::XMFLOAT3 &,DirectX::XMFLOAT4X4 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(140,18): message : 또는       'DirectX::XMFLOAT3 Vector3::TransformNormal(DirectX::XMFLOAT3 &,DirectX::XMMATRIX &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(149,69): message : 인수 목록 '(DirectX::XMFLOAT3, DirectX::XMMATRIX)'을(를) 일치시키는 동안
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(161,68): error C2665: 'Vector3::TransformCoord': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(159,18): message : 'DirectX::XMFLOAT3 Vector3::TransformCoord(DirectX::XMFLOAT3 &,DirectX::XMFLOAT4X4 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(152,18): message : 또는       'DirectX::XMFLOAT3 Vector3::TransformCoord(DirectX::XMFLOAT3 &,DirectX::XMMATRIX &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(161,68): message : 인수 목록 '(DirectX::XMFLOAT3, DirectX::XMMATRIX)'을(를) 일치시키는 동안
+  Camera.cpp
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(137,110): error C2665: 'Vector3::Angle': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(135,15): message : 'float Vector3::Angle(DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(129,15): message : 또는       'float Vector3::Angle(DirectX::XMVECTOR &,DirectX::XMVECTOR &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(137,110): message : 인수 목록 '(DirectX::XMVECTOR, DirectX::XMVECTOR)'을(를) 일치시키는 동안
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(149,69): error C2665: 'Vector3::TransformNormal': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(147,18): message : 'DirectX::XMFLOAT3 Vector3::TransformNormal(DirectX::XMFLOAT3 &,DirectX::XMFLOAT4X4 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(140,18): message : 또는       'DirectX::XMFLOAT3 Vector3::TransformNormal(DirectX::XMFLOAT3 &,DirectX::XMMATRIX &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(149,69): message : 인수 목록 '(DirectX::XMFLOAT3, DirectX::XMMATRIX)'을(를) 일치시키는 동안
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(161,68): error C2665: 'Vector3::TransformCoord': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(159,18): message : 'DirectX::XMFLOAT3 Vector3::TransformCoord(DirectX::XMFLOAT3 &,DirectX::XMFLOAT4X4 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(152,18): message : 또는       'DirectX::XMFLOAT3 Vector3::TransformCoord(DirectX::XMFLOAT3 &,DirectX::XMMATRIX &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(161,68): message : 인수 목록 '(DirectX::XMFLOAT3, DirectX::XMMATRIX)'을(를) 일치시키는 동안
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.cpp(27,78): error C2664: 'DirectX::XMFLOAT3 Vector3::Normalize(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.cpp(27,56): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(108,18): message : 'Vector3::Normalize' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.cpp(28,78): error C2664: 'DirectX::XMFLOAT3 Vector3::Normalize(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.cpp(28,53): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(108,18): message : 'Vector3::Normalize' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.cpp(51,97): error C2664: 'DirectX::XMFLOAT3 Vector3::Normalize(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.cpp(51,43): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(108,18): message : 'Vector3::Normalize' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.cpp(52,94): error C2664: 'DirectX::XMFLOAT3 Vector3::Normalize(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.cpp(52,40): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(108,18): message : 'Vector3::Normalize' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.cpp(53,96): error C2664: 'DirectX::XMFLOAT3 Vector3::Normalize(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.cpp(53,42): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(108,18): message : 'Vector3::Normalize' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.cpp(103,24): error C2664: 'void CCamera::Move(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.cpp(103,15): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.cpp(96,15): message : 'CCamera::Move' 선언을 참조하십시오.
+  GameFramework.cpp
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(137,110): error C2665: 'Vector3::Angle': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(135,15): message : 'float Vector3::Angle(DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(129,15): message : 또는       'float Vector3::Angle(DirectX::XMVECTOR &,DirectX::XMVECTOR &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(137,110): message : 인수 목록 '(DirectX::XMVECTOR, DirectX::XMVECTOR)'을(를) 일치시키는 동안
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(149,69): error C2665: 'Vector3::TransformNormal': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(147,18): message : 'DirectX::XMFLOAT3 Vector3::TransformNormal(DirectX::XMFLOAT3 &,DirectX::XMFLOAT4X4 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(140,18): message : 또는       'DirectX::XMFLOAT3 Vector3::TransformNormal(DirectX::XMFLOAT3 &,DirectX::XMMATRIX &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(149,69): message : 인수 목록 '(DirectX::XMFLOAT3, DirectX::XMMATRIX)'을(를) 일치시키는 동안
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(161,68): error C2665: 'Vector3::TransformCoord': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(159,18): message : 'DirectX::XMFLOAT3 Vector3::TransformCoord(DirectX::XMFLOAT3 &,DirectX::XMFLOAT4X4 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(152,18): message : 또는       'DirectX::XMFLOAT3 Vector3::TransformCoord(DirectX::XMFLOAT3 &,DirectX::XMMATRIX &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(161,68): message : 인수 목록 '(DirectX::XMFLOAT3, DirectX::XMMATRIX)'을(를) 일치시키는 동안
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameFramework.cpp(80,57): error C2664: 'void CPlayer::SetCameraOffset(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameFramework.cpp(80,37): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.h(41,7): message : 'CPlayer::SetCameraOffset' 선언을 참조하십시오.
+  GameObject.cpp
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(137,110): error C2665: 'Vector3::Angle': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(135,15): message : 'float Vector3::Angle(DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(129,15): message : 또는       'float Vector3::Angle(DirectX::XMVECTOR &,DirectX::XMVECTOR &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(137,110): message : 인수 목록 '(DirectX::XMVECTOR, DirectX::XMVECTOR)'을(를) 일치시키는 동안
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(149,69): error C2665: 'Vector3::TransformNormal': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(147,18): message : 'DirectX::XMFLOAT3 Vector3::TransformNormal(DirectX::XMFLOAT3 &,DirectX::XMFLOAT4X4 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(140,18): message : 또는       'DirectX::XMFLOAT3 Vector3::TransformNormal(DirectX::XMFLOAT3 &,DirectX::XMMATRIX &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(149,69): message : 인수 목록 '(DirectX::XMFLOAT3, DirectX::XMMATRIX)'을(를) 일치시키는 동안
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(161,68): error C2665: 'Vector3::TransformCoord': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(159,18): message : 'DirectX::XMFLOAT3 Vector3::TransformCoord(DirectX::XMFLOAT3 &,DirectX::XMFLOAT4X4 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(152,18): message : 또는       'DirectX::XMFLOAT3 Vector3::TransformCoord(DirectX::XMFLOAT3 &,DirectX::XMMATRIX &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(161,68): message : 인수 목록 '(DirectX::XMFLOAT3, DirectX::XMMATRIX)'을(를) 일치시키는 동안
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(123,79): error C2664: 'DirectX::XMFLOAT4X4 Matrix4x4::LookToLH(DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(123,57): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(261,20): message : 'Matrix4x4::LookToLH' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(131,79): error C2664: 'DirectX::XMFLOAT4X4 Matrix4x4::LookAtLH(DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(131,57): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(254,20): message : 'Matrix4x4::LookAtLH' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(261,162): error C2665: 'Matrix4x4::Multiply': 4개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(212,20): message : 'DirectX::XMFLOAT4X4 Matrix4x4::Multiply(DirectX::XMMATRIX &,DirectX::XMMATRIX &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(205,20): message : 또는       'DirectX::XMFLOAT4X4 Matrix4x4::Multiply(DirectX::XMMATRIX &,DirectX::XMFLOAT4X4 &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(198,20): message : 또는       'DirectX::XMFLOAT4X4 Matrix4x4::Multiply(DirectX::XMFLOAT4X4 &,DirectX::XMMATRIX &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(191,20): message : 또는       'DirectX::XMFLOAT4X4 Matrix4x4::Multiply(DirectX::XMFLOAT4X4 &,DirectX::XMFLOAT4X4 &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(261,162): message : 인수 목록 '(DirectX::XMFLOAT4X4, DirectX::XMFLOAT4X4)'을(를) 일치시키는 동안
+  GraphicsPipeline.cpp
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(137,110): error C2665: 'Vector3::Angle': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(135,15): message : 'float Vector3::Angle(DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(129,15): message : 또는       'float Vector3::Angle(DirectX::XMVECTOR &,DirectX::XMVECTOR &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(137,110): message : 인수 목록 '(DirectX::XMVECTOR, DirectX::XMVECTOR)'을(를) 일치시키는 동안
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(149,69): error C2665: 'Vector3::TransformNormal': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(147,18): message : 'DirectX::XMFLOAT3 Vector3::TransformNormal(DirectX::XMFLOAT3 &,DirectX::XMFLOAT4X4 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(140,18): message : 또는       'DirectX::XMFLOAT3 Vector3::TransformNormal(DirectX::XMFLOAT3 &,DirectX::XMMATRIX &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(149,69): message : 인수 목록 '(DirectX::XMFLOAT3, DirectX::XMMATRIX)'을(를) 일치시키는 동안
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(161,68): error C2665: 'Vector3::TransformCoord': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(159,18): message : 'DirectX::XMFLOAT3 Vector3::TransformCoord(DirectX::XMFLOAT3 &,DirectX::XMFLOAT4X4 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(152,18): message : 또는       'DirectX::XMFLOAT3 Vector3::TransformCoord(DirectX::XMFLOAT3 &,DirectX::XMMATRIX &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(161,68): message : 인수 목록 '(DirectX::XMFLOAT3, DirectX::XMMATRIX)'을(를) 일치시키는 동안
+  Mesh.cpp
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(137,110): error C2665: 'Vector3::Angle': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(135,15): message : 'float Vector3::Angle(DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(129,15): message : 또는       'float Vector3::Angle(DirectX::XMVECTOR &,DirectX::XMVECTOR &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(137,110): message : 인수 목록 '(DirectX::XMVECTOR, DirectX::XMVECTOR)'을(를) 일치시키는 동안
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(149,69): error C2665: 'Vector3::TransformNormal': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(147,18): message : 'DirectX::XMFLOAT3 Vector3::TransformNormal(DirectX::XMFLOAT3 &,DirectX::XMFLOAT4X4 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(140,18): message : 또는       'DirectX::XMFLOAT3 Vector3::TransformNormal(DirectX::XMFLOAT3 &,DirectX::XMMATRIX &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(149,69): message : 인수 목록 '(DirectX::XMFLOAT3, DirectX::XMMATRIX)'을(를) 일치시키는 동안
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(161,68): error C2665: 'Vector3::TransformCoord': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(159,18): message : 'DirectX::XMFLOAT3 Vector3::TransformCoord(DirectX::XMFLOAT3 &,DirectX::XMFLOAT4X4 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(152,18): message : 또는       'DirectX::XMFLOAT3 Vector3::TransformCoord(DirectX::XMFLOAT3 &,DirectX::XMMATRIX &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(161,68): message : 인수 목록 '(DirectX::XMFLOAT3, DirectX::XMMATRIX)'을(를) 일치시키는 동안
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(137,74): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(137,34): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(138,74): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(138,34): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(139,74): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(139,34): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(140,74): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(140,34): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(144,72): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(144,32): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(145,72): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(145,32): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(146,72): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(146,32): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(147,72): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(147,32): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(151,73): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(151,33): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(152,73): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(152,33): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(153,73): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(153,33): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(154,73): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(154,33): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(158,75): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(158,35): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(159,75): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(159,35): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(160,75): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(160,35): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(161,75): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(161,35): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(165,73): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(165,33): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(166,73): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(166,33): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(167,73): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(167,33): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(168,73): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(168,33): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(172,74): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(172,34): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(173,74): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(173,34): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(174,74): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(174,34): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(175,74): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(175,34): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(199,114): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(199,35): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(200,120): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(200,35): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(201,126): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(201,35): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(202,120): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(202,35): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(213,115): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(213,36): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(214,121): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(214,36): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(215,127): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(215,36): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(216,121): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(216,36): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(227,112): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(227,34): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(228,118): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(228,34): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(229,124): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(229,34): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(230,118): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(230,34): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(241,115): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(241,37): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(242,121): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(242,37): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(243,127): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(243,37): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(244,121): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(244,37): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(250,74): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(250,34): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(251,74): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(251,34): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(252,74): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(252,34): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(253,74): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(253,34): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(257,73): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(257,33): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(258,73): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(258,33): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(259,73): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(259,33): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(260,73): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(260,33): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(277,52): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(277,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(278,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(278,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(279,46): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(279,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(283,52): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(283,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(284,46): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(284,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(285,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(285,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(289,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(289,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(290,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(290,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(291,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(291,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(295,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(295,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(296,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(296,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(297,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(297,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(302,52): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(302,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(303,46): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(303,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(304,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(304,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(308,52): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(308,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(309,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(309,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(310,46): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(310,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(314,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(314,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(315,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(315,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(316,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(316,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(320,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(320,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(321,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(321,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(322,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(322,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(327,52): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(327,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(328,52): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(328,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(329,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(329,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(333,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(333,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(334,52): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(334,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(335,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(335,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(339,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(339,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(340,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(340,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(341,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(341,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(345,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(345,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(346,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(346,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(347,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(347,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(352,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(352,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(353,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(353,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(354,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(354,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(358,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(358,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(359,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(359,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(360,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(360,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(364,46): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(364,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(365,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(365,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(366,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(366,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(370,46): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(370,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(371,44): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(371,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(372,46): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(372,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(377,52): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(377,29): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(18,16): message : 'CPolygon::SetVertex' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(378,52): error C2664: 'void CPolygon::SetVertex(int,CVertex &)': 인수 2을(를) 'CVertex'에서 'CVertex &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(378,52): fatal error C1003: 오류 수가 100개를 초과했습니다. 컴파일을 중지합니다.
+  Player.cpp
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(137,110): error C2665: 'Vector3::Angle': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(135,15): message : 'float Vector3::Angle(DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(129,15): message : 또는       'float Vector3::Angle(DirectX::XMVECTOR &,DirectX::XMVECTOR &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(137,110): message : 인수 목록 '(DirectX::XMVECTOR, DirectX::XMVECTOR)'을(를) 일치시키는 동안
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(149,69): error C2665: 'Vector3::TransformNormal': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(147,18): message : 'DirectX::XMFLOAT3 Vector3::TransformNormal(DirectX::XMFLOAT3 &,DirectX::XMFLOAT4X4 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(140,18): message : 또는       'DirectX::XMFLOAT3 Vector3::TransformNormal(DirectX::XMFLOAT3 &,DirectX::XMMATRIX &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(149,69): message : 인수 목록 '(DirectX::XMFLOAT3, DirectX::XMMATRIX)'을(를) 일치시키는 동안
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(161,68): error C2665: 'Vector3::TransformCoord': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(159,18): message : 'DirectX::XMFLOAT3 Vector3::TransformCoord(DirectX::XMFLOAT3 &,DirectX::XMFLOAT4X4 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(152,18): message : 또는       'DirectX::XMFLOAT3 Vector3::TransformCoord(DirectX::XMFLOAT3 &,DirectX::XMMATRIX &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(161,68): message : 인수 목록 '(DirectX::XMFLOAT3, DirectX::XMMATRIX)'을(를) 일치시키는 동안
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(25,97): error C2664: 'void CCamera::SetLookAt(DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(25,35): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(63,7): message : 'CCamera::SetLookAt' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(60,31): error C2664: 'void CPlayer::Move(DWORD,float)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DWORD'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(60,15): message : 이 변환을 수행할 수 있는 사용 가능한 사용자 정의 변환 연산자가 없거나 연산자를 호출할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(29,15): message : 'CPlayer::Move' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(86,78): error C2664: 'DirectX::XMFLOAT3 Vector3::Normalize(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(86,56): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(108,18): message : 'Vector3::Normalize' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(87,78): error C2664: 'DirectX::XMFLOAT3 Vector3::Normalize(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(87,53): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(108,18): message : 'Vector3::Normalize' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(93,91): error C2664: 'DirectX::XMFLOAT3 Vector3::Normalize(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(93,43): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(108,18): message : 'Vector3::Normalize' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(94,88): error C2664: 'DirectX::XMFLOAT3 Vector3::Normalize(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(94,40): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(108,18): message : 'Vector3::Normalize' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(95,90): error C2664: 'DirectX::XMFLOAT3 Vector3::Normalize(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(95,42): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(108,18): message : 'Vector3::Normalize' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(105,94): error C2664: 'DirectX::XMFLOAT3 Vector3::Normalize(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(105,71): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(108,18): message : 'Vector3::Normalize' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(141,61): error C2664: 'void CGameObject::SetRotationAxis(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(141,43): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(45,7): message : 'CGameObject::SetRotationAxis' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(167,120): error C2665: 'Matrix4x4::Multiply': 4개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(212,20): message : 'DirectX::XMFLOAT4X4 Matrix4x4::Multiply(DirectX::XMMATRIX &,DirectX::XMMATRIX &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(205,20): message : 또는       'DirectX::XMFLOAT4X4 Matrix4x4::Multiply(DirectX::XMMATRIX &,DirectX::XMFLOAT4X4 &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(198,20): message : 또는       'DirectX::XMFLOAT4X4 Matrix4x4::Multiply(DirectX::XMFLOAT4X4 &,DirectX::XMMATRIX &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(191,20): message : 또는       'DirectX::XMFLOAT4X4 Matrix4x4::Multiply(DirectX::XMFLOAT4X4 &,DirectX::XMFLOAT4X4 &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(167,120): message : 인수 목록 '(DirectX::XMMATRIX, DirectX::XMFLOAT4X4)'을(를) 일치시키는 동안
+  Rail.cpp
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(12,15): error C3646: 'm_xmf3Position': 알 수 없는 재정의 지정자입니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(12,30): error C2059: 구문 오류: '='
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(12,58): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(8,14): error C2065: 'm_xmf3Position': 선언되지 않은 식별자입니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(8,31): error C3861: 'XMFLOAT3': 식별자를 찾을 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(9,39): error C2065: 'm_xmf3Position': 선언되지 않은 식별자입니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(9,56): error C3861: 'XMFLOAT3': 식별자를 찾을 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(23,30): error C2065: 'NULL': 선언되지 않은 식별자입니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(49,24): error C3646: 'm_xmOOBB': 알 수 없는 재정의 지정자입니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(49,33): error C2059: 구문 오류: '='
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(49,56): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(54,22): error C2061: 구문 오류: 식별자 'HDC'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(56,7): error C3646: 'RayIntersectionByTriangle': 알 수 없는 재정의 지정자입니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(56,32): error C2059: 구문 오류: '('
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(56,146): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(57,27): error C2061: 구문 오류: 식별자 'XMVECTOR'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(46,32): error C2065: 'NULL': 선언되지 않은 식별자입니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(87,22): error C2061: 구문 오류: 식별자 'HDC'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(30,15): error C3646: 'm_xmf3Position': 알 수 없는 재정의 지정자입니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(30,30): error C2059: 구문 오류: '='
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(30,58): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(31,15): error C3646: 'm_xmf3Right': 알 수 없는 재정의 지정자입니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(31,27): error C2059: 구문 오류: '='
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(31,55): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(32,15): error C3646: 'm_xmf3Up': 알 수 없는 재정의 지정자입니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(32,24): error C2059: 구문 오류: '='
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(32,52): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(33,15): error C3646: 'm_xmf3Look': 알 수 없는 재정의 지정자입니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(33,26): error C2059: 구문 오류: '='
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(33,54): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(40,21): error C3646: 'm_xmFrustumView': 알 수 없는 재정의 지정자입니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(40,37): error C2059: 구문 오류: '='
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(40,56): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(41,21): error C3646: 'm_xmFrustumWorld': 알 수 없는 재정의 지정자입니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(41,38): error C2059: 구문 오류: '='
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(41,57): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(42,17): error C3646: 'm_xmf4x4InverseView': 알 수 없는 재정의 지정자입니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(42,37): error C2059: 구문 오류: '='
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(42,39): error C2653: 'Matrix4x4': 클래스 또는 네임스페이스 이름이 아닙니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(42,60): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(45,17): error C3646: 'm_xmf4x4View': 알 수 없는 재정의 지정자입니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(45,30): error C2059: 구문 오류: '='
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(45,32): error C2653: 'Matrix4x4': 클래스 또는 네임스페이스 이름이 아닙니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(45,53): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(46,17): error C3646: 'm_xmf4x4PerspectiveProject': 알 수 없는 재정의 지정자입니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(46,44): error C2059: 구문 오류: '='
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(46,46): error C2653: 'Matrix4x4': 클래스 또는 네임스페이스 이름이 아닙니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(46,67): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(47,17): error C3646: 'm_xmf4x4ViewPerspectiveProject': 알 수 없는 재정의 지정자입니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(47,48): error C2059: 구문 오류: '='
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(47,50): error C2653: 'Matrix4x4': 클래스 또는 네임스페이스 이름이 아닙니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(47,71): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(49,17): error C3646: 'm_xmf4x4OrthographicProject': 알 수 없는 재정의 지정자입니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(49,45): error C2059: 구문 오류: '='
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(49,47): error C2653: 'Matrix4x4': 클래스 또는 네임스페이스 이름이 아닙니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(49,68): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(50,17): error C3646: 'm_xmf4x4ViewOrthographicProject': 알 수 없는 재정의 지정자입니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(50,49): error C2059: 구문 오류: '='
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(50,51): error C2653: 'Matrix4x4': 클래스 또는 네임스페이스 이름이 아닙니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(50,72): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(62,17): error C2061: 구문 오류: 식별자 'XMFLOAT3'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(63,17): error C2061: 구문 오류: 식별자 'XMFLOAT3'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(63,77): error C2535: 'void CCamera::SetLookAt(void)': 멤버 함수를 이미 정의했거나 선언했습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(62): message : 'CCamera::SetLookAt' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(65,12): error C2061: 구문 오류: 식별자 'XMFLOAT3'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(68,32): error C2061: 구문 오류: 식별자 'XMFLOAT3'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(70,19): error C2061: 구문 오류: 식별자 'BoundingOrientedBox'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(16,17): error C3646: 'm_xmf4x4World': 알 수 없는 재정의 지정자입니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(16,31): error C2059: 구문 오류: '='
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(16,33): error C2653: 'Matrix4x4': 클래스 또는 네임스페이스 이름이 아닙니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(16,54): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(18,24): error C3646: 'm_xmOOBB': 알 수 없는 재정의 지정자입니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(18,33): error C2059: 구문 오류: '='
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(18,56): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(21,13): error C3646: 'm_dwColor': 알 수 없는 재정의 지정자입니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(21,23): error C2059: 구문 오류: '='
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(21,39): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(23,15): error C3646: 'm_xmf3MovingDirection': 알 수 없는 재정의 지정자입니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(23,37): error C2059: 구문 오류: '='
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(23,65): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(27,15): error C3646: 'm_xmf3RotationAxis': 알 수 없는 재정의 지정자입니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(27,34): error C2059: 구문 오류: '='
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(27,62): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(34,16): error C2061: 구문 오류: 식별자 'DWORD'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(36,28): error C2061: 구문 오류: 식별자 'XMFLOAT4X4'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(39,19): error C2061: 구문 오류: 식별자 'XMFLOAT3'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(41,26): error C2061: 구문 오류: 식별자 'XMFLOAT3'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(45,23): error C2061: 구문 오류: 식별자 'XMFLOAT3'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(51,12): error C2061: 구문 오류: 식별자 'XMFLOAT3'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(54,14): error C2061: 구문 오류: 식별자 'XMFLOAT3'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(56,11): error C3646: 'GetPosition': 알 수 없는 재정의 지정자입니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(56,22): error C2059: 구문 오류: '('
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(56,24): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(57,11): error C3646: 'GetLook': 알 수 없는 재정의 지정자입니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(57,18): error C2059: 구문 오류: '('
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(57,20): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(58,11): error C3646: 'GetUp': 알 수 없는 재정의 지정자입니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(58,16): error C2059: 구문 오류: '('
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(58,18): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(59,11): error C3646: 'GetRight': 알 수 없는 재정의 지정자입니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(59,19): error C2059: 구문 오류: '('
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(59,21): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(59,21): fatal error C1003: 오류 수가 100개를 초과했습니다. 컴파일을 중지합니다.
+  Scene.cpp
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(137,110): error C2665: 'Vector3::Angle': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(135,15): message : 'float Vector3::Angle(DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(129,15): message : 또는       'float Vector3::Angle(DirectX::XMVECTOR &,DirectX::XMVECTOR &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(137,110): message : 인수 목록 '(DirectX::XMVECTOR, DirectX::XMVECTOR)'을(를) 일치시키는 동안
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(149,69): error C2665: 'Vector3::TransformNormal': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(147,18): message : 'DirectX::XMFLOAT3 Vector3::TransformNormal(DirectX::XMFLOAT3 &,DirectX::XMFLOAT4X4 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(140,18): message : 또는       'DirectX::XMFLOAT3 Vector3::TransformNormal(DirectX::XMFLOAT3 &,DirectX::XMMATRIX &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(149,69): message : 인수 목록 '(DirectX::XMFLOAT3, DirectX::XMMATRIX)'을(를) 일치시키는 동안
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(161,68): error C2665: 'Vector3::TransformCoord': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(159,18): message : 'DirectX::XMFLOAT3 Vector3::TransformCoord(DirectX::XMFLOAT3 &,DirectX::XMFLOAT4X4 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(152,18): message : 또는       'DirectX::XMFLOAT3 Vector3::TransformCoord(DirectX::XMFLOAT3 &,DirectX::XMMATRIX &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(161,68): message : 인수 목록 '(DirectX::XMFLOAT3, DirectX::XMMATRIX)'을(를) 일치시키는 동안
+  stdafx.cpp
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(137,110): error C2665: 'Vector3::Angle': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(135,15): message : 'float Vector3::Angle(DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(129,15): message : 또는       'float Vector3::Angle(DirectX::XMVECTOR &,DirectX::XMVECTOR &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(137,110): message : 인수 목록 '(DirectX::XMVECTOR, DirectX::XMVECTOR)'을(를) 일치시키는 동안
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(149,69): error C2665: 'Vector3::TransformNormal': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(147,18): message : 'DirectX::XMFLOAT3 Vector3::TransformNormal(DirectX::XMFLOAT3 &,DirectX::XMFLOAT4X4 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(140,18): message : 또는       'DirectX::XMFLOAT3 Vector3::TransformNormal(DirectX::XMFLOAT3 &,DirectX::XMMATRIX &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(149,69): message : 인수 목록 '(DirectX::XMFLOAT3, DirectX::XMMATRIX)'을(를) 일치시키는 동안
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(161,68): error C2665: 'Vector3::TransformCoord': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(159,18): message : 'DirectX::XMFLOAT3 Vector3::TransformCoord(DirectX::XMFLOAT3 &,DirectX::XMFLOAT4X4 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(152,18): message : 또는       'DirectX::XMFLOAT3 Vector3::TransformCoord(DirectX::XMFLOAT3 &,DirectX::XMMATRIX &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(161,68): message : 인수 목록 '(DirectX::XMFLOAT3, DirectX::XMMATRIX)'을(를) 일치시키는 동안
+  Timer.cpp
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(137,110): error C2665: 'Vector3::Angle': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(135,15): message : 'float Vector3::Angle(DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(129,15): message : 또는       'float Vector3::Angle(DirectX::XMVECTOR &,DirectX::XMVECTOR &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(137,110): message : 인수 목록 '(DirectX::XMVECTOR, DirectX::XMVECTOR)'을(를) 일치시키는 동안
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(149,69): error C2665: 'Vector3::TransformNormal': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(147,18): message : 'DirectX::XMFLOAT3 Vector3::TransformNormal(DirectX::XMFLOAT3 &,DirectX::XMFLOAT4X4 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(140,18): message : 또는       'DirectX::XMFLOAT3 Vector3::TransformNormal(DirectX::XMFLOAT3 &,DirectX::XMMATRIX &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(149,69): message : 인수 목록 '(DirectX::XMFLOAT3, DirectX::XMMATRIX)'을(를) 일치시키는 동안
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(161,68): error C2665: 'Vector3::TransformCoord': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(159,18): message : 'DirectX::XMFLOAT3 Vector3::TransformCoord(DirectX::XMFLOAT3 &,DirectX::XMFLOAT4X4 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(152,18): message : 또는       'DirectX::XMFLOAT3 Vector3::TransformCoord(DirectX::XMFLOAT3 &,DirectX::XMMATRIX &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(161,68): message : 인수 목록 '(DirectX::XMFLOAT3, DirectX::XMMATRIX)'을(를) 일치시키는 동안
