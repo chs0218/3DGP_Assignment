@@ -103,8 +103,8 @@ class CRailObject : public CGameObject
 {
 public:
 	CRailObject();
-	CRailObject(std::array<float, 6> arr, CCubeMesh* railMesh);
-	CRailObject(std::array<float, 6> arr1, std::array<float, 6> arr2, CCubeMesh* railMesh, float t);
+	CRailObject(std::array<float, 3> arr, CCubeMesh* railMesh);
+	CRailObject(std::array<std::array<float, 3>, 4> arr, CCubeMesh* railMesh, float t);
 	virtual ~CRailObject();
 	virtual void Render(HDC hDCFrameBuffer, CCamera* pCamera);
 	void rotateToVec(float x, float y, float z);

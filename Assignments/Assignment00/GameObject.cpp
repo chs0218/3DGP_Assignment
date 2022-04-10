@@ -200,19 +200,30 @@ CRailObject::CRailObject()
 	
 }
 
-CRailObject::CRailObject(std::array<float, 6> arr, CCubeMesh* railMesh)
+CRailObject::CRailObject(std::array<float, 3> arr, CCubeMesh* railMesh)
 {
 	SetPosition(arr[0], arr[1], arr[2]);
-	Rotate(arr[3], arr[4], arr[5]);
 	SetMesh(railMesh);
 	SetColor(RGB(255, 0, 0));
 }
 
-CRailObject::CRailObject(std::array<float, 6> arr1, std::array<float, 6> arr2, CCubeMesh* railMesh, float t)
+CRailObject::CRailObject(std::array<std::array<float, 3>, 4> arr, CCubeMesh* railMesh, float t)
 {
-	t = t / 20.0;
-	SetPosition(((1 - t) * arr1[0] + t * arr2[0]), ((1 - t) * arr1[1] + t * arr2[1]), ((1 - t) * arr1[2] + t * arr2[2]));
-	rotateToVec((arr2[0] - arr1[0]), (arr2[1] - arr1[1]), (arr2[2] - arr1[2]));
+	t = t / 40.0;
+	std::array<float, 4> Coefficient;
+
+	Coefficient[0] = (-1.0) * pow(t, 3) + 2.0 * pow(t, 2) - t;
+	Coefficient[1] = 3.0 * pow(t, 3) - 5.0 * pow(t, 2) + 2.0;
+	Coefficient[2] = (-3.0) * pow(t, 3) + 4.0 * pow(t, 2) + t;
+	Coefficient[3] = pow(t, 3) -  pow(t, 2);
+
+	std::array<float, 3> xyz;
+
+	xyz[0] = (Coefficient[0] * arr[0][0] + Coefficient[1] * arr[1][0] + Coefficient[2] * arr[2][0] + Coefficient[3] * arr[3][0]) / 2.0f;
+	xyz[1] = (Coefficient[0] * arr[0][1] + Coefficient[1] * arr[1][1] + Coefficient[2] * arr[2][1] + Coefficient[3] * arr[3][1]) / 2.0f;
+	xyz[2] = (Coefficient[0] * arr[0][2] + Coefficient[1] * arr[1][2] + Coefficient[2] * arr[2][2] + Coefficient[3] * arr[3][2]) / 2.0f;
+
+	SetPosition(xyz[0], xyz[1], xyz[2]);
 	SetMesh(railMesh);
 	SetColor(RGB(255, 0, 0));
 }
@@ -233,10 +244,10 @@ void CRailObject::rotateToVec(float x, float y, float z)
 
 	XMVECTOR vfirst = XMLoadFloat3(&first);
 	XMVECTOR vsecond = XMLoadFloat3(&second);
+	vsecond = XMVector3Normalize(vsecond);
+
 	XMFLOAT3 result;
 	XMStoreFloat3(&result, XMVector3Cross(vfirst, vsecond));
-
-	vsecond = XMVector3Normalize(vsecond);
 	Rotate(result, XMConvertToDegrees(acos(XMVectorGetX(XMVector3Dot(vfirst, vsecond)))));
 }
 
