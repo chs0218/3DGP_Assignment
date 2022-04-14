@@ -1,8 +1,8 @@
 #include <random>
 #include "Rail.h"
 
-// std::random_device rd;
-std::default_random_engine dre{};
+std::random_device rd;
+std::default_random_engine dre{ rd() };
 
 CRail::CRail()
 {
@@ -35,45 +35,20 @@ void CRail::setRail()
 			cur_index += 1;
 		}
 
-		float dis = sqrt(pow(tmp[1][0] - tmp[2][0], 2) + pow(tmp[1][1] - tmp[2][1], 2) + pow(tmp[1][2] - tmp[2][2], 2));
-		float para = dis / 4.0f;
-
-		for (int j = 0; j < (para - 1); ++j)
+		for (int j = 0; j < 40; ++j)
 		{
-			if (rails.size() == 0)
-			{
-				std::array<float, 3> tmpradius{ 0.0, 0.0, 1.0 };
-				rails.push_back(new CRailObject(tmp, tmpRailMesh, (float)j * 100.0 / para));
-				rails[0]->vradius = tmpradius;
-				rails[0]->rotateToVec(rails[0]->getDirection((tmp), (float)j * 100.0 / para));
-			}
-			else
-			{
-				std::array<float, 3> tmpradius = rails.back()->vradius;
-				rails.push_back(new CRailObject(tmp, tmpRailMesh, (float)j * 100.0 / para));
-				rails.back()->vradius = tmpradius;
-				rails.back()->rotateToVec(rails[0]->getDirection((tmp), (float)j * 100.0 / para));
-			}
+			rails.push_back(new CRailObject(tmp, tmpRailMesh, (float)j));
 		}
 
 	}
 
-	/*for (int i = 0; i < rails.size(); ++i)
+	for (int i = 0; i < rails.size() - 1; ++i)
 	{
 		XMFLOAT3 now, next;
-		if (i == rails.size() - 1)
-		{
-			now = rails[i]->GetPosition();
-			next = rails[0]->GetPosition();
-			rails[i]->rotateToVec((next.x - now.x), (next.y - now.y), (next.z - now.z));
-		}
-		else
-		{
-			now = rails[i]->GetPosition();
-			next = rails[i + 1]->GetPosition();
-			rails[i]->rotateToVec((next.x - now.x), (next.y - now.y), (next.z - now.z));
-		}
-	}*/
+		now = rails[i]->GetPosition();
+		next = rails[i + 1]->GetPosition();
+		rails[i]->rotateToVec((next.x - now.x), (next.y - now.y), (next.z - now.z));
+	}
 }
 
 

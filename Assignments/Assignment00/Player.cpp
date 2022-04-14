@@ -28,7 +28,6 @@ void CPlayer::SetCameraOffset(XMFLOAT3& xmf3CameraOffset)
 
 void CPlayer::Move(DWORD dwDirection, float fDistance)
 {
-	fDistance = fDistance * 5;
 	if (dwDirection)
 	{
 		XMFLOAT3 xmf3Shift = XMFLOAT3(0, 0, 0);

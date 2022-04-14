@@ -1,4 +1,7 @@
-﻿  GameObject.cpp
+﻿  Assignment00.cpp
+  Camera.cpp
+  GameFramework.cpp
+  GameObject.cpp
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(212,8): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(215,56): warning C4244: '=': 'double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
           with
@@ -20,47 +23,12 @@ D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp
           [
               _Ty=float
           ]
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(228,48): warning C4244: '=': 'double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-          with
-          [
-              _Ty=float
-          ]
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(229,35): warning C4244: '=': 'double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-          with
-          [
-              _Ty=float
-          ]
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(230,48): warning C4244: '=': 'double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-          with
-          [
-              _Ty=float
-          ]
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(231,35): warning C4244: '=': 'double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-          with
-          [
-              _Ty=float
-          ]
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(256,8): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(260,48): warning C4244: '=': 'double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-          with
-          [
-              _Ty=float
-          ]
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(261,35): warning C4244: '=': 'double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-          with
-          [
-              _Ty=float
-          ]
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(262,48): warning C4244: '=': 'double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-          with
-          [
-              _Ty=float
-          ]
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(263,35): warning C4244: '=': 'double'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-          with
-          [
-              _Ty=float
-          ]
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(283,40): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(285,18): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(254,40): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  GraphicsPipeline.cpp
+  Mesh.cpp
+  Player.cpp
+  Rail.cpp
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Rail.cpp(22,43): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Scene.cpp
+  코드를 생성하고 있습니다...
   Assignment00.vcxproj -> D:\Visual Studio\Project\3DGP_Assignment\Assignments\x64\Debug\Assignment00.exe

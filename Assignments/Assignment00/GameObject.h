@@ -102,15 +102,12 @@ public:
 class CRailObject : public CGameObject
 {
 public:
-	std::array<float, 3> vradius;
-
 	CRailObject();
 	CRailObject(std::array<float, 3> arr, CCubeMesh* railMesh);
 	CRailObject(std::array<std::array<float, 3>, 4> arr, CCubeMesh* railMesh, float t);
 	virtual ~CRailObject();
 	virtual void Render(HDC hDCFrameBuffer, CCamera* pCamera);
-	std::array<float, 3> getDirection(std::array<std::array<float, 3>, 4> arr, float t);
-	void rotateToVec(std::array<float, 3> xyz);
+	void rotateToVec(float x, float y, float z);
 };
 
 class CWallsObject : public CGameObject

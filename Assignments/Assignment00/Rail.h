@@ -3,7 +3,7 @@
 #include <vector>
 #include "GameObject.h"
 
-#define KEY_RAIL_NUM 12
+#define KEY_RAIL_NUM 10
 
 class CRail
 {
