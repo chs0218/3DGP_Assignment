@@ -209,7 +209,7 @@ CRailObject::CRailObject(std::array<float, 3> arr, CCubeMesh* railMesh)
 
 CRailObject::CRailObject(std::array<std::array<float, 3>, 4> arr, CCubeMesh* railMesh, float t)
 {
-	t = t / 40.0;
+	t = t / 100.0;
 	std::array<float, 4> Coefficient;
 
 	Coefficient[0] = (-1.0) * pow(t, 3) + 2.0 * pow(t, 2) - t;
@@ -224,6 +224,20 @@ CRailObject::CRailObject(std::array<std::array<float, 3>, 4> arr, CCubeMesh* rai
 	xyz[2] = (Coefficient[0] * arr[0][2] + Coefficient[1] * arr[1][2] + Coefficient[2] * arr[2][2] + Coefficient[3] * arr[3][2]) / 2.0f;
 
 	SetPosition(xyz[0], xyz[1], xyz[2]);
+
+	Coefficient[0] = (-3.0) * pow(t, 2) + 4.0 * t - 1;
+	Coefficient[1] = 9.0 * pow(t, 2) - 10.0 * t;
+	Coefficient[2] = (-9.0) * pow(t, 2) + 8.0 * t + 1;
+	Coefficient[3] = 3.0 * pow(t, 2) -  2.0 * t;
+	
+	xyz[0] = (Coefficient[0] * arr[0][0] + Coefficient[1] * arr[1][0] + Coefficient[2] * arr[2][0] + Coefficient[3] * arr[3][0]) / 2.0f;
+	xyz[1] = (Coefficient[0] * arr[0][1] + Coefficient[1] * arr[1][1] + Coefficient[2] * arr[2][1] + Coefficient[3] * arr[3][1]) / 2.0f;
+	xyz[2] = (Coefficient[0] * arr[0][2] + Coefficient[1] * arr[1][2] + Coefficient[2] * arr[2][2] + Coefficient[3] * arr[3][2]) / 2.0f;
+	
+	vradius[0] = xyz[0];
+	vradius[1] = xyz[1];
+	vradius[2] = xyz[2];
+
 	SetMesh(railMesh);
 	SetColor(RGB(255, 0, 0));
 }
@@ -237,10 +251,28 @@ void CRailObject::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 	CGameObject::Render(hDCFrameBuffer, &m_xmf4x4World, m_pMesh);
 }
 
-void CRailObject::rotateToVec(float x, float y, float z)
+std::array<float, 3> CRailObject::getDirection(std::array<std::array<float, 3>, 4> arr, float t)
 {
-	XMFLOAT3 first{ 0.0, 0.0, 1.0 };
-	XMFLOAT3 second{ x, y, z };
+	t = t / 100.0;
+	std::array<float, 4> Coefficient;
+	std::array<float, 3> xyz;
+
+	Coefficient[0] = (-3.0) * pow(t, 2) + 4.0 * t - 1;
+	Coefficient[1] = 9.0 * pow(t, 2) - 10.0 * t;
+	Coefficient[2] = (-9.0) * pow(t, 2) + 8.0 * t + 1;
+	Coefficient[3] = 3.0 * pow(t, 2) - 2.0 * t;
+
+	xyz[0] = (Coefficient[0] * arr[0][0] + Coefficient[1] * arr[1][0] + Coefficient[2] * arr[2][0] + Coefficient[3] * arr[3][0]) / 2.0f;
+	xyz[1] = (Coefficient[0] * arr[0][1] + Coefficient[1] * arr[1][1] + Coefficient[2] * arr[2][1] + Coefficient[3] * arr[3][1]) / 2.0f;
+	xyz[2] = (Coefficient[0] * arr[0][2] + Coefficient[1] * arr[1][2] + Coefficient[2] * arr[2][2] + Coefficient[3] * arr[3][2]) / 2.0f;
+
+	return xyz;
+}
+
+void CRailObject::rotateToVec(std::array<float, 3> xyz)
+{
+	XMFLOAT3 first{ vradius[0], vradius[1], vradius[2] };
+	XMFLOAT3 second{ xyz[0], xyz[1], xyz[2] };
 
 	XMVECTOR vfirst = XMLoadFloat3(&first);
 	XMVECTOR vsecond = XMLoadFloat3(&second);
@@ -248,8 +280,12 @@ void CRailObject::rotateToVec(float x, float y, float z)
 
 	XMFLOAT3 result;
 	XMStoreFloat3(&result, XMVector3Cross(vfirst, vsecond));
-	Rotate(result, XMConvertToDegrees(acos(XMVectorGetX(XMVector3Dot(vfirst, vsecond)))));
+	float degree = XMConvertToDegrees(acos(XMVectorGetX(XMVector3Dot(vfirst, vsecond))));
+	if (degree > 90.0)
+		degree = 360.0 - degree;
+	Rotate(result, degree);
 }
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include "GameObject.h"
 #include "Camera.h"
 
@@ -25,7 +26,6 @@ public:
 	float           			m_fRoll = 0.0f;
 
 	CCamera*					m_pCamera = NULL;
-
 public:
 	void SetPosition(float x, float y, float z);
 	void SetRotation(float x, float y, float z);
