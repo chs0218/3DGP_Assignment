@@ -70,14 +70,17 @@ void CGameFramework::BuildObjects()
 
 	pCamera->GenerateOrthographicProjectionMatrix(1.01f, 50.0f, FRAMEBUFFER_WIDTH, FRAMEBUFFER_HEIGHT);
 
-	CAirplaneMesh* pAirplaneMesh = new CAirplaneMesh(6.0f, 6.0f, 1.0f);
+	CGunMesh* pGunMesh = new CGunMesh(0.5f, 0.5f, 3.0f);
 
 	m_pPlayer = new CAirplanePlayer();
 	m_pPlayer->SetPosition(0.0f, 0.0f, 0.0f);
-	m_pPlayer->SetMesh(pAirplaneMesh);
+	m_pPlayer->SetMesh(pGunMesh);
 	m_pPlayer->SetColor(RGB(0, 0, 255));
 	m_pPlayer->SetCamera(pCamera);
 	m_pPlayer->SetCameraOffset(XMFLOAT3(0.0f, 5.0f, -15.0f));
+	m_pPlayer->m_xmfcorrection.y = 4.5f;
+	m_pPlayer->m_xmfcorrection.z = 1.0f;
+
 
 	m_pScene = new CScene(m_pPlayer);
 	m_pScene->BuildObjects();
@@ -177,7 +180,7 @@ LRESULT CALLBACK CGameFramework::OnProcessingWindowMessage(HWND hWnd, UINT nMess
 void CGameFramework::ProcessInput()
 {
 	static UCHAR pKeyBuffer[256];
-	if (GetKeyboardState(pKeyBuffer))
+	/*if (GetKeyboardState(pKeyBuffer))
 	{
 		DWORD dwDirection = 0;
 		if (pKeyBuffer[VK_UP] & 0xF0) dwDirection |= DIR_FORWARD;
@@ -188,7 +191,7 @@ void CGameFramework::ProcessInput()
 		if (pKeyBuffer[VK_NEXT] & 0xF0) dwDirection |= DIR_DOWN;
 
 		if (dwDirection) m_pPlayer->Move(dwDirection, 0.15f);
-	}
+	}*/
 
 	if (GetCapture() == m_hWnd)
 	{
@@ -201,9 +204,15 @@ void CGameFramework::ProcessInput()
 		if (cxMouseDelta || cyMouseDelta)
 		{
 			if (pKeyBuffer[VK_RBUTTON] & 0xF0)
-				m_pPlayer->Rotate(cyMouseDelta, 0.0f, -cxMouseDelta);
+			{
+				m_pPlayer-> m_fPitch = m_pPlayer->myClampfunc(m_pPlayer->m_fPitch + cyMouseDelta);
+				m_pPlayer-> m_fRoll = m_pPlayer->myClampfunc(m_pPlayer->m_fRoll - cxMouseDelta);
+			}
 			else
-				m_pPlayer->Rotate(cyMouseDelta, cxMouseDelta, 0.0f);
+			{
+				m_pPlayer->m_fPitch = m_pPlayer->myClampfunc(m_pPlayer->m_fPitch + cyMouseDelta);
+				m_pPlayer->m_fYaw = m_pPlayer->myClampfunc(m_pPlayer->m_fYaw + cxMouseDelta);
+			}
 		}
 	}
 

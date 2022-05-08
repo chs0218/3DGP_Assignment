@@ -21,6 +21,7 @@ private:
 
 	CPlayer*					m_pPlayer = NULL;
 
+	CCartObject*				m_pCartObject	 = NULL;
 #ifdef _WITH_DRAW_AXIS
 	CGameObject*				m_pWorldAxis = NULL;
 #endif
@@ -33,6 +34,7 @@ public:
 	void CheckObjectByWallCollisions();
 	void CheckPlayerByWallCollision();
 	void CheckObjectByBulletCollisions();
+	void GenObjects(float width, float height, float depth);
 
 	virtual void Animate(float fElapsedTime);
 	virtual void Render(HDC hDCFrameBuffer, CCamera* pCamera);

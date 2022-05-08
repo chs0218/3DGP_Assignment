@@ -102,12 +102,25 @@ public:
 class CRailObject : public CGameObject
 {
 public:
+	XMVECTOR myrot;
 	CRailObject();
-	CRailObject(std::array<float, 3> arr, CCubeMesh* railMesh);
-	CRailObject(std::array<std::array<float, 3>, 4> arr, CCubeMesh* railMesh, float t);
+	CRailObject(std::array<XMVECTOR, 4> arr, CCubeMesh* railMesh, float t);
 	virtual ~CRailObject();
 	virtual void Render(HDC hDCFrameBuffer, CCamera* pCamera);
-	void rotateToVec(float x, float y, float z);
+	void rotateToVec(XMVECTOR pre, XMVECTOR now);
+};
+
+class CCartObject : public CGameObject
+{
+public:
+	std::vector<CRailObject*> *m_pRail = NULL;
+	int	railIndex[2] = { 0, 1 };
+	float t = 0;
+public:
+	CCartObject();
+	void move(float fTimeElapsed);
+	virtual ~CCartObject();
+	virtual void Render(HDC hDCFrameBuffer, CCamera* pCamera);
 };
 
 class CWallsObject : public CGameObject
@@ -155,3 +168,4 @@ public:
 	virtual void Render(HDC hDCFrameBuffer, CCamera* pCamera);
 };
 
+XMVECTOR returnCatmullVec(XMVECTOR p0, XMVECTOR p1, XMVECTOR p2, XMVECTOR p3, float t);

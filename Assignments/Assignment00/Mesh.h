@@ -87,3 +87,19 @@ public:
 
 	virtual void Render(HDC hDCFrameBuffer);
 };
+
+class CCartMesh : public CMesh
+{
+public:
+	CCartMesh(float fWidth = 20.0f, float fHeight = 20.0f, float fDepth = 4.0f);
+	virtual ~CCartMesh() {}
+
+};
+
+class CGunMesh : public CMesh
+{
+public:
+	CGunMesh(float fWidth = 20.0f, float fHeight = 20.0f, float fDepth = 4.0f);
+	virtual ~CGunMesh() {}
+
+};

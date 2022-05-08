@@ -7,8 +7,8 @@
 
 class CRail
 {
-private:
-	std::vector<std::array<float, 3>> vkeyrails;
+public:
+	std::vector<XMFLOAT3> vkeyrails;
 	std::vector<CRailObject*> rails;
 	
 public:

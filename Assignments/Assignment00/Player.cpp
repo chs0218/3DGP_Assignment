@@ -12,6 +12,17 @@ CPlayer::~CPlayer()
 	if (m_pCamera) delete m_pCamera;
 }
 
+float CPlayer::myClampfunc(float f)
+{
+	if (f < -15.0f)
+		return -15.0f;
+	
+	if (f > 15.0f)
+		return 15.0f;
+	
+	return f;
+}
+
 void CPlayer::SetPosition(float x, float y, float z)
 {
 	m_xmf3Position = XMFLOAT3(x, y, z);
@@ -26,43 +37,43 @@ void CPlayer::SetCameraOffset(XMFLOAT3& xmf3CameraOffset)
 	m_pCamera->GenerateViewMatrix();
 }
 
-void CPlayer::Move(DWORD dwDirection, float fDistance)
+void CPlayer::Move(float fTimeElapsed)
 {
-	if (dwDirection)
-	{
-		XMFLOAT3 xmf3Shift = XMFLOAT3(0, 0, 0);
-		if (dwDirection & DIR_FORWARD) xmf3Shift = Vector3::Add(xmf3Shift, m_xmf3Look, fDistance);
-		if (dwDirection & DIR_BACKWARD) xmf3Shift = Vector3::Add(xmf3Shift, m_xmf3Look, -fDistance);
-		if (dwDirection & DIR_RIGHT) xmf3Shift = Vector3::Add(xmf3Shift, m_xmf3Right, fDistance);
-		if (dwDirection & DIR_LEFT) xmf3Shift = Vector3::Add(xmf3Shift, m_xmf3Right, -fDistance);
-		if (dwDirection & DIR_UP) xmf3Shift = Vector3::Add(xmf3Shift, m_xmf3Up, fDistance);
-		if (dwDirection & DIR_DOWN) xmf3Shift = Vector3::Add(xmf3Shift, m_xmf3Up, -fDistance);
+	XMStoreFloat3(&m_xmf3Position, XMVectorLerp(XMLoadFloat3(&m_pRail->rails[railIndex[0]]->GetPosition()), XMLoadFloat3(&m_pRail->rails[railIndex[1]]->GetPosition()), t));
+	XMStoreFloat3(&m_xmf3Right, XMVectorLerp(XMLoadFloat3(&m_pRail->rails[railIndex[0]]->GetRight()), XMLoadFloat3(&m_pRail->rails[railIndex[1]]->GetRight()), t));
+	XMStoreFloat3(&m_xmf3Up, XMVectorLerp(XMLoadFloat3(&m_pRail->rails[railIndex[0]]->GetUp()), XMLoadFloat3(&m_pRail->rails[railIndex[1]]->GetUp()), t));
+	XMStoreFloat3(&m_xmf3Look, XMVectorLerp(XMLoadFloat3(&m_pRail->rails[railIndex[0]]->GetLook()), XMLoadFloat3(&m_pRail->rails[railIndex[1]]->GetLook()), t));
+	
+	XMFLOAT4X4 mtxRotate = Matrix4x4::Identity();
+	mtxRotate._11 = m_xmf3Right.x; mtxRotate._21 = m_xmf3Up.x; mtxRotate._31 = m_xmf3Look.x;
+	mtxRotate._12 = m_xmf3Right.y; mtxRotate._22 = m_xmf3Up.y; mtxRotate._32 = m_xmf3Look.y;
+	mtxRotate._13 = m_xmf3Right.z; mtxRotate._23 = m_xmf3Up.z; mtxRotate._33 = m_xmf3Look.z;
 
-		Move(xmf3Shift, true);
-	}
-}
+	XMFLOAT3 transformedCorrectioin = Vector3::TransformCoord(m_xmfcorrection, mtxRotate);
+	m_xmf3Position = Vector3::Add(m_xmf3Position, transformedCorrectioin);
 
-void CPlayer::Move(XMFLOAT3& xmf3Shift, bool bUpdateVelocity)
-{
-	if (bUpdateVelocity)
+	Rotate(m_fPitch, m_fYaw, m_fRoll);
+	t += fTimeElapsed * (1.0f / 0.1f);
+	
+	if (t > 1.0)
 	{
-		m_xmf3Velocity = Vector3::Add(m_xmf3Velocity, xmf3Shift);
-	}
-	else
-	{
-		m_xmf3Position = Vector3::Add(xmf3Shift, m_xmf3Position);
-		m_pCamera->Move(xmf3Shift);
-	}
-}
+		t = 0.0;
+		
+		if (railIndex[0] < m_pRail->rails.size() - 1)
+			railIndex[0] += 1;
+		else
+			railIndex[0] = 0;
 
-void CPlayer::Move(float x, float y, float z)
-{
-	Move(XMFLOAT3(x, y, z), false);
+		if (railIndex[1] < m_pRail->rails.size() - 1)
+			railIndex[1] += 1;
+		else
+			railIndex[1] = 0;
+
+	}
 }
 
 void CPlayer::Rotate(float fPitch, float fYaw, float fRoll)
 {
-	m_pCamera->Rotate(fPitch, fYaw, fRoll);
 	if (fPitch != 0.0f)
 	{
 		XMMATRIX mtxRotate = XMMatrixRotationAxis(XMLoadFloat3(&m_xmf3Right), XMConvertToRadians(fPitch));
@@ -97,16 +108,16 @@ void CPlayer::LookAt(XMFLOAT3& xmf3LookAt, XMFLOAT3& xmf3Up)
 
 void CPlayer::Update(float fTimeElapsed)
 {
-	Move(m_xmf3Velocity, false);
-
+	Move(fTimeElapsed);
 	m_pCamera->Update(this, m_xmf3Position, fTimeElapsed);
 	m_pCamera->GenerateViewMatrix();
 
-	XMFLOAT3 xmf3Deceleration = Vector3::Normalize(Vector3::ScalarProduct(m_xmf3Velocity, -1.0f));
+
+	/*XMFLOAT3 xmf3Deceleration = Vector3::Normalize(Vector3::ScalarProduct(m_xmf3Velocity, -1.0f));
 	float fLength = Vector3::Length(m_xmf3Velocity);
 	float fDeceleration = m_fFriction * fTimeElapsed;
 	if (fDeceleration > fLength) fDeceleration = fLength;
-	m_xmf3Velocity = Vector3::Add(m_xmf3Velocity, xmf3Deceleration, fDeceleration);
+	m_xmf3Velocity = Vector3::Add(m_xmf3Velocity, xmf3Deceleration, fDeceleration);*/
 }
 
 void CPlayer::Animate(float fElapsedTime)
@@ -133,7 +144,7 @@ void CPlayer::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 //
 CAirplanePlayer::CAirplanePlayer()
 {
-	CCubeMesh* pBulletMesh = new CCubeMesh(1.0f, 4.0f, 1.0f);
+	CCubeMesh* pBulletMesh = new CCubeMesh(1.0f, 1.0f, 1.0f);
 	for (int i = 0; i < BULLETS; i++)
 	{
 		m_ppBullets[i] = new CBulletObject(m_fBulletEffectiveRange);
@@ -164,7 +175,7 @@ void CAirplanePlayer::OnUpdateTransform()
 {
 	CPlayer::OnUpdateTransform();
 
-	m_xmf4x4World = Matrix4x4::Multiply(XMMatrixRotationRollPitchYaw(XMConvertToRadians(90.0f), 0.0f, 0.0f), m_xmf4x4World);
+	m_xmf4x4World = Matrix4x4::Multiply(XMMatrixRotationRollPitchYaw(0.0f, 0.0f, 0.0f), m_xmf4x4World);
 }
 
 void CAirplanePlayer::Render(HDC hDCFrameBuffer, CCamera* pCamera)
@@ -197,14 +208,14 @@ void CAirplanePlayer::FireBullet(CGameObject* pLockedObject)
 	if (pBulletObject)
 	{
 		XMFLOAT3 xmf3Position = GetPosition();
-		XMFLOAT3 xmf3Direction = GetUp();
+		XMFLOAT3 xmf3Direction = GetLook();
 		XMFLOAT3 xmf3FirePosition = Vector3::Add(xmf3Position, Vector3::ScalarProduct(xmf3Direction, 6.0f, false));
 
 		pBulletObject->m_xmf4x4World = m_xmf4x4World;
 
 		pBulletObject->SetFirePosition(xmf3FirePosition);
 		pBulletObject->SetMovingDirection(xmf3Direction);
-		pBulletObject->SetColor(RGB(255, 0, 0));
+		pBulletObject->SetColor(RGB(255, 51, 153));
 		pBulletObject->SetActive(true);
 
 		if (pLockedObject)

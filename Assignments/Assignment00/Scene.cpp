@@ -1,6 +1,11 @@
+#include <random>
+#include <cmath>
 #include "stdafx.h"
 #include "Scene.h"
 #include "GraphicsPipeline.h"
+
+std::random_device rdScene;
+std::default_random_engine dreScene{ rdScene() };
 
 CScene::CScene(CPlayer* pPlayer)
 {
@@ -14,13 +19,37 @@ CScene::~CScene()
 void CScene::BuildObjects()
 {
 	CExplosiveObject::PrepareExplosion();
-	float fHalfWidth = 45.0f, fHalfHeight = 45.0f, fHalfDepth = 200.0f;
 
 	m_pRailObject = new CRail();
 	m_pRailObject->randRail();
 	m_pRailObject->setRail();
+	m_pPlayer->m_pRail = m_pRailObject;
 
-	/*CWallMesh* pWallCubeMesh = new CWallMesh(fHalfWidth * 2.0f, fHalfHeight * 2.0f, fHalfDepth * 2.0f, 30);
+	CCartMesh* pCartMesh = new CCartMesh(4.0f, 4.0f, 6.0f);
+	m_pCartObject = new CCartObject();
+	m_pCartObject->SetMesh(pCartMesh);
+	m_pCartObject->SetColor(RGB(0, 0, 0));
+	m_pCartObject->m_pRail = &m_pRailObject->rails;
+
+
+	float fHalfWidth = 0.0f, fHalfHeight = 0.0f, fHalfDepth = 0.0f;
+
+	for (const XMFLOAT3& xmf : m_pRailObject->vkeyrails)
+	{
+		if (abs(xmf.x) > fHalfWidth)
+			fHalfWidth = abs(xmf.x);
+
+		if (abs(xmf.y) > fHalfHeight)
+			fHalfHeight = abs(xmf.y);
+
+		if (abs(xmf.z) > fHalfDepth)
+			fHalfDepth = abs(xmf.z);
+	}
+	fHalfWidth += 5.0f;
+	fHalfHeight += 5.0f;
+	fHalfDepth += 5.0f;
+
+	CWallMesh* pWallCubeMesh = new CWallMesh(fHalfWidth * 2.0f, fHalfHeight * 2.0f, fHalfDepth * 2.0f, 30);
 
 	m_pWallsObject = new CWallsObject();
 	m_pWallsObject->SetPosition(0.0f, 0.0f, 0.0f);
@@ -32,102 +61,10 @@ void CScene::BuildObjects()
 	m_pWallsObject->m_pxmf4WallPlanes[3] = XMFLOAT4(0.0f, -1.0f, 0.0f, fHalfHeight);
 	m_pWallsObject->m_pxmf4WallPlanes[4] = XMFLOAT4(0.0f, 0.0f, +1.0f, fHalfDepth);
 	m_pWallsObject->m_pxmf4WallPlanes[5] = XMFLOAT4(0.0f, 0.0f, -1.0f, fHalfDepth);
-	m_pWallsObject->m_xmOOBBPlayerMoveCheck = BoundingOrientedBox(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(fHalfWidth, fHalfHeight, fHalfDepth * 0.05f), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));*/
 
-	/*CCubeMesh* pCubeMesh = new CCubeMesh(4.0f, 4.0f, 4.0f);
-
-	m_nObjects = 10;
-	m_ppObjects = new CGameObject * [m_nObjects];
-
-	m_ppObjects[0] = new CExplosiveObject();
-	m_ppObjects[0]->SetMesh(pCubeMesh);
-	m_ppObjects[0]->SetColor(RGB(255, 0, 0));
-	m_ppObjects[0]->SetPosition(-13.5f, 0.0f, -14.0f);
-	m_ppObjects[0]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 1.0f));
-	m_ppObjects[0]->SetRotationSpeed(90.0f);
-	m_ppObjects[0]->SetMovingDirection(XMFLOAT3(1.0f, 0.0f, 0.0f));
-	m_ppObjects[0]->SetMovingSpeed(10.5f);
-
-	m_ppObjects[1] = new CExplosiveObject();
-	m_ppObjects[1]->SetMesh(pCubeMesh);
-	m_ppObjects[1]->SetColor(RGB(0, 0, 255));
-	m_ppObjects[1]->SetPosition(+13.5f, 0.0f, -14.0f);
-	m_ppObjects[1]->SetRotationAxis(XMFLOAT3(1.0f, 1.0f, 0.0f));
-	m_ppObjects[1]->SetRotationSpeed(180.0f);
-	m_ppObjects[1]->SetMovingDirection(XMFLOAT3(-1.0f, 0.0f, 0.0f));
-	m_ppObjects[1]->SetMovingSpeed(8.8f);
-
-	m_ppObjects[2] = new CExplosiveObject();
-	m_ppObjects[2]->SetMesh(pCubeMesh);
-	m_ppObjects[2]->SetColor(RGB(0, 255, 0));
-	m_ppObjects[2]->SetPosition(0.0f, +5.0f, 20.0f);
-	m_ppObjects[2]->SetRotationAxis(XMFLOAT3(1.0f, 1.0f, 0.0f));
-	m_ppObjects[2]->SetRotationSpeed(30.15f);
-	m_ppObjects[2]->SetMovingDirection(XMFLOAT3(1.0f, -1.0f, 0.0f));
-	m_ppObjects[2]->SetMovingSpeed(5.2f);
-
-	m_ppObjects[3] = new CExplosiveObject();
-	m_ppObjects[3]->SetMesh(pCubeMesh);
-	m_ppObjects[3]->SetColor(RGB(0, 255, 255));
-	m_ppObjects[3]->SetPosition(0.0f, 0.0f, 0.0f);
-	m_ppObjects[3]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 1.0f));
-	m_ppObjects[3]->SetRotationSpeed(40.6f);
-	m_ppObjects[3]->SetMovingDirection(XMFLOAT3(0.0f, 0.0f, 1.0f));
-	m_ppObjects[3]->SetMovingSpeed(20.4f);
-
-	m_ppObjects[4] = new CExplosiveObject();
-	m_ppObjects[4]->SetMesh(pCubeMesh);
-	m_ppObjects[4]->SetColor(RGB(128, 0, 255));
-	m_ppObjects[4]->SetPosition(10.0f, 0.0f, 0.0f);
-	m_ppObjects[4]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
-	m_ppObjects[4]->SetRotationSpeed(50.06f);
-	m_ppObjects[4]->SetMovingDirection(XMFLOAT3(0.0f, 1.0f, 1.0f));
-	m_ppObjects[4]->SetMovingSpeed(6.4f);
-
-	m_ppObjects[5] = new CExplosiveObject();
-	m_ppObjects[5]->SetMesh(pCubeMesh);
-	m_ppObjects[5]->SetColor(RGB(255, 0, 255));
-	m_ppObjects[5]->SetPosition(-10.0f, 0.0f, -10.0f);
-	m_ppObjects[5]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
-	m_ppObjects[5]->SetRotationSpeed(60.06f);
-	m_ppObjects[5]->SetMovingDirection(XMFLOAT3(1.0f, 0.0f, 1.0f));
-	m_ppObjects[5]->SetMovingSpeed(8.9f);
-
-	m_ppObjects[6] = new CExplosiveObject();
-	m_ppObjects[6]->SetMesh(pCubeMesh);
-	m_ppObjects[6]->SetColor(RGB(255, 0, 255));
-	m_ppObjects[6]->SetPosition(-10.0f, 10.0f, -10.0f);
-	m_ppObjects[6]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
-	m_ppObjects[6]->SetRotationSpeed(60.06f);
-	m_ppObjects[6]->SetMovingDirection(XMFLOAT3(1.0f, 1.0f, 1.0f));
-	m_ppObjects[6]->SetMovingSpeed(9.7f);
-
-	m_ppObjects[7] = new CExplosiveObject();
-	m_ppObjects[7]->SetMesh(pCubeMesh);
-	m_ppObjects[7]->SetColor(RGB(255, 0, 128));
-	m_ppObjects[7]->SetPosition(-10.0f, 10.0f, -20.0f);
-	m_ppObjects[7]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
-	m_ppObjects[7]->SetRotationSpeed(70.06f);
-	m_ppObjects[7]->SetMovingDirection(XMFLOAT3(-1.0f, 1.0f, 1.0f));
-	m_ppObjects[7]->SetMovingSpeed(15.6f);
-
-	m_ppObjects[8] = new CExplosiveObject();
-	m_ppObjects[8]->SetMesh(pCubeMesh);
-	m_ppObjects[8]->SetColor(RGB(128, 0, 255));
-	m_ppObjects[8]->SetPosition(-15.0f, 10.0f, -30.0f);
-	m_ppObjects[8]->SetRotationAxis(XMFLOAT3(1.0f, 1.0f, 0.0f));
-	m_ppObjects[8]->SetRotationSpeed(90.06f);
-	m_ppObjects[8]->SetMovingDirection(XMFLOAT3(0.0f, 0.0f, -1.0f));
-	m_ppObjects[8]->SetMovingSpeed(15.0f);
-
-	m_ppObjects[9] = new CExplosiveObject();
-	m_ppObjects[9]->SetMesh(pCubeMesh);
-	m_ppObjects[9]->SetColor(RGB(255, 64, 64));
-	m_ppObjects[9]->SetPosition(+15.0f, 10.0f, 0.0f);
-	m_ppObjects[9]->SetRotationAxis(XMFLOAT3(1.0f, 1.0f, 0.0f));
-	m_ppObjects[9]->SetRotationSpeed(90.06f);
-	m_ppObjects[9]->SetMovingDirection(XMFLOAT3(-0.0f, 0.0f, -1.0f));
-	m_ppObjects[9]->SetMovingSpeed(15.0f);*/
+	m_nObjects = 20;
+	m_ppObjects = new CGameObject* [m_nObjects];
+	GenObjects(fHalfWidth, fHalfHeight, fHalfDepth);
 
 #ifdef _WITH_DRAW_AXIS
 	m_pWorldAxis = new CGameObject();
@@ -146,6 +83,8 @@ void CScene::ReleaseObjects()
 	if (m_pRailObject) delete m_pRailObject;
 
 	if (m_pWallsObject) delete m_pWallsObject;
+
+	if (m_pCartObject) delete m_pCartObject;
 
 #ifdef _WITH_DRAW_AXIS
 	if (m_pWorldAxis) delete m_pWorldAxis;
@@ -330,17 +269,16 @@ void CScene::CheckObjectByBulletCollisions()
 
 void CScene::Animate(float fElapsedTime)
 {
-	//m_pWallsObject->Animate(fElapsedTime);
 
-	//for (int i = 0; i < m_nObjects; i++) m_ppObjects[i]->Animate(fElapsedTime);
+	if (m_pCartObject) m_pCartObject->move(fElapsedTime);
 
-	//CheckPlayerByWallCollision();
+	for (int i = 0; i < m_nObjects; i++) m_ppObjects[i]->Animate(fElapsedTime);
 
-	//CheckObjectByWallCollisions();
+	CheckObjectByWallCollisions();
 
 	//CheckObjectByObjectCollisions();
 
-	//CheckObjectByBulletCollisions();
+	CheckObjectByBulletCollisions();
 }
 
 void CScene::Render(HDC hDCFrameBuffer, CCamera* pCamera)
@@ -348,11 +286,12 @@ void CScene::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 	CGraphicsPipeline::SetViewport(&pCamera->m_Viewport);
 
 	CGraphicsPipeline::SetViewPerspectiveProjectTransform(&pCamera->m_xmf4x4ViewPerspectiveProject);
-	//m_pWallsObject->Render(hDCFrameBuffer, pCamera);
 	for (int i = 0; i < m_nObjects; i++) m_ppObjects[i]->Render(hDCFrameBuffer, pCamera);
+	m_pWallsObject->Render(hDCFrameBuffer, pCamera);
 
 	if (m_pPlayer) m_pPlayer->Render(hDCFrameBuffer, pCamera);
 	if (m_pRailObject) m_pRailObject->Render(hDCFrameBuffer, pCamera);
+	if (m_pCartObject) m_pCartObject->Render(hDCFrameBuffer, pCamera);
 
 //UI
 #ifdef _WITH_DRAW_AXIS
@@ -360,4 +299,42 @@ void CScene::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 	m_pWorldAxis->SetRotationTransform(&m_pPlayer->m_xmf4x4World);
 	m_pWorldAxis->Render(hDCFrameBuffer, pCamera);
 #endif
+}
+
+void CScene::GenObjects(float width, float height, float depth)
+{
+	for (int i = 0; i < m_nObjects; ++i)
+	{
+		CCubeMesh* pCubeMesh = new CCubeMesh(20.0f, 20.0f, 20.0f);
+
+		XMFLOAT3 pPosition = m_pPlayer->GetPosition();
+		XMFLOAT4X4 mtxRotate = Matrix4x4::Identity();
+		std::uniform_int_distribution<int> uidDepth(-width, +width);
+		std::uniform_int_distribution<int> uidHeight(-height, +height);
+		std::uniform_int_distribution<int> uidWidth(-depth, +depth);
+		std::uniform_int_distribution<int> uidColor(0, 255);
+		std::uniform_int_distribution<int> uidSpeed(40, 70);
+		std::uniform_int_distribution<int> uidRSpeed(25, 40);
+		std::uniform_int_distribution<int> uidDir(-1, 1);
+
+		mtxRotate._11 = m_pPlayer->m_xmf3Right.x; mtxRotate._21 = m_pPlayer->m_xmf3Up.x; mtxRotate._31 = m_pPlayer->m_xmf3Look.x;
+		mtxRotate._12 = m_pPlayer->m_xmf3Right.y; mtxRotate._22 = m_pPlayer->m_xmf3Up.y; mtxRotate._32 = m_pPlayer->m_xmf3Look.y;
+		mtxRotate._13 = m_pPlayer->m_xmf3Right.z; mtxRotate._23 = m_pPlayer->m_xmf3Up.z; mtxRotate._33 = m_pPlayer->m_xmf3Look.z;
+
+		XMFLOAT3 xmf3objPosition{ (float)uidWidth(dreScene), (float)uidHeight(dreScene), (float)uidDepth(dreScene) };
+		XMFLOAT3 xmf3Direction{(float)uidDir(dreScene), (float)uidDir(dreScene) , (float)uidDir(dreScene) };
+		while (xmf3Direction.x + xmf3Direction.y + xmf3Direction.z == 0)
+		{
+			xmf3Direction = XMFLOAT3{ (float)uidDir(dreScene), (float)uidDir(dreScene) , (float)uidDir(dreScene) };
+		} 
+
+		m_ppObjects[i] = new CExplosiveObject();
+		m_ppObjects[i]->SetMesh(pCubeMesh);
+		m_ppObjects[i]->SetColor(RGB(uidColor(dreScene), uidColor(dreScene), uidColor(dreScene)));
+		m_ppObjects[i]->SetPosition(xmf3objPosition);
+		m_ppObjects[i]->SetRotationAxis(XMFLOAT3(1.0f, 1.0f, 0.0f));
+		m_ppObjects[i]->SetRotationSpeed((float)uidRSpeed(dreScene));
+		m_ppObjects[i]->SetMovingDirection(xmf3Direction);
+		m_ppObjects[i]->SetMovingSpeed((float)uidSpeed(dreScene));
+	}
 }

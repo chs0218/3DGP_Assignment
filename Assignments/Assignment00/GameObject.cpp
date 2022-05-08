@@ -200,30 +200,11 @@ CRailObject::CRailObject()
 	
 }
 
-CRailObject::CRailObject(std::array<float, 3> arr, CCubeMesh* railMesh)
+CRailObject::CRailObject(std::array<XMVECTOR, 4> arr, CCubeMesh* railMesh, float t)
 {
-	SetPosition(arr[0], arr[1], arr[2]);
-	SetMesh(railMesh);
-	SetColor(RGB(255, 0, 0));
-}
-
-CRailObject::CRailObject(std::array<std::array<float, 3>, 4> arr, CCubeMesh* railMesh, float t)
-{
-	t = t / 40.0;
-	std::array<float, 4> Coefficient;
-
-	Coefficient[0] = (-1.0) * pow(t, 3) + 2.0 * pow(t, 2) - t;
-	Coefficient[1] = 3.0 * pow(t, 3) - 5.0 * pow(t, 2) + 2.0;
-	Coefficient[2] = (-3.0) * pow(t, 3) + 4.0 * pow(t, 2) + t;
-	Coefficient[3] = pow(t, 3) -  pow(t, 2);
-
-	std::array<float, 3> xyz;
-
-	xyz[0] = (Coefficient[0] * arr[0][0] + Coefficient[1] * arr[1][0] + Coefficient[2] * arr[2][0] + Coefficient[3] * arr[3][0]) / 2.0f;
-	xyz[1] = (Coefficient[0] * arr[0][1] + Coefficient[1] * arr[1][1] + Coefficient[2] * arr[2][1] + Coefficient[3] * arr[3][1]) / 2.0f;
-	xyz[2] = (Coefficient[0] * arr[0][2] + Coefficient[1] * arr[1][2] + Coefficient[2] * arr[2][2] + Coefficient[3] * arr[3][2]) / 2.0f;
-
-	SetPosition(xyz[0], xyz[1], xyz[2]);
+	t = t / 100.0;
+	XMVECTOR position = XMVectorCatmullRom(arr[0], arr[1], arr[2], arr[3], t);
+	SetPosition(position.m128_f32[0], position.m128_f32[1], position.m128_f32[2]);
 	SetMesh(railMesh);
 	SetColor(RGB(255, 0, 0));
 }
@@ -237,22 +218,64 @@ void CRailObject::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 	CGameObject::Render(hDCFrameBuffer, &m_xmf4x4World, m_pMesh);
 }
 
-void CRailObject::rotateToVec(float x, float y, float z)
+void CRailObject::rotateToVec(XMVECTOR lookat, XMVECTOR now)
 {
-	XMFLOAT3 first{ 0.0, 0.0, 1.0 };
-	XMFLOAT3 second{ x, y, z };
+	XMVECTOR vfirst = lookat;
+	XMVECTOR vsecond = now;
 
-	XMVECTOR vfirst = XMLoadFloat3(&first);
-	XMVECTOR vsecond = XMLoadFloat3(&second);
+	vfirst = XMVector3Normalize(vfirst);
 	vsecond = XMVector3Normalize(vsecond);
 
 	XMFLOAT3 result;
-	XMStoreFloat3(&result, XMVector3Cross(vfirst, vsecond));
+	XMStoreFloat3(&result, XMVector3Normalize(XMVector3Cross(vfirst, vsecond)));
 	Rotate(result, XMConvertToDegrees(acos(XMVectorGetX(XMVector3Dot(vfirst, vsecond)))));
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
+CCartObject::CCartObject()
+{
+}
 
+CCartObject::~CCartObject()
+{
+}
+
+void CCartObject::move(float fTimeElapsed)
+{
+	XMFLOAT3 newPositon, newRight, newUp, newLook;
+	XMStoreFloat3(&newPositon, XMVectorLerp(XMLoadFloat3(&(m_pRail->at(railIndex[0])->GetPosition())), XMLoadFloat3(&m_pRail->at(railIndex[1])->GetPosition()), t));
+	XMStoreFloat3(&newRight, XMVectorLerp(XMLoadFloat3(&(m_pRail->at(railIndex[0])->GetRight())), XMLoadFloat3(&m_pRail->at(railIndex[1])->GetRight()), t));
+	XMStoreFloat3(&newUp, XMVectorLerp(XMLoadFloat3(&(m_pRail->at(railIndex[0])->GetUp())), XMLoadFloat3(&m_pRail->at(railIndex[1])->GetUp()), t));
+	XMStoreFloat3(&newLook, XMVectorLerp(XMLoadFloat3(&(m_pRail->at(railIndex[0])->GetLook())), XMLoadFloat3(&m_pRail->at(railIndex[1])->GetLook()), t));
+
+	m_xmf4x4World._11 = newRight.x; m_xmf4x4World._12 = newRight.y; m_xmf4x4World._13 = newRight.z;
+	m_xmf4x4World._21 = newUp.x; m_xmf4x4World._22 = newUp.y; m_xmf4x4World._23 = newUp.z;
+	m_xmf4x4World._31 = newLook.x; m_xmf4x4World._32 = newLook.y; m_xmf4x4World._33 = newLook.z;
+
+	SetPosition(newPositon);
+	t += fTimeElapsed * (1.0f / 0.1f);
+
+	if (t > 1.0)
+	{
+		t = 0.0;
+
+		if (railIndex[0] < m_pRail->size() - 1)
+			railIndex[0] += 1;
+		else
+			railIndex[0] = 0;
+
+		if (railIndex[1] < m_pRail->size() - 1)
+			railIndex[1] += 1;
+		else
+			railIndex[1] = 0;
+
+	}
+}
+
+void CCartObject::Render(HDC hDCFrameBuffer, CCamera* pCamera)
+{
+	CGameObject::Render(hDCFrameBuffer, &m_xmf4x4World, m_pMesh);
+}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //

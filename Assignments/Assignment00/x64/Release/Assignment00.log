@@ -39,6 +39,15 @@ D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(108,1
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.cpp(53,96): error C2664: 'DirectX::XMFLOAT3 Vector3::Normalize(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.cpp(53,42): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(108,18): message : 'Vector3::Normalize' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.cpp(59,91): error C2664: 'DirectX::XMFLOAT3 Vector3::Normalize(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.cpp(59,43): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(108,18): message : 'Vector3::Normalize' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.cpp(60,88): error C2664: 'DirectX::XMFLOAT3 Vector3::Normalize(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.cpp(60,40): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(108,18): message : 'Vector3::Normalize' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.cpp(61,90): error C2664: 'DirectX::XMFLOAT3 Vector3::Normalize(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.cpp(61,42): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(108,18): message : 'Vector3::Normalize' 선언을 참조하십시오.
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.cpp(103,24): error C2664: 'void CCamera::Move(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.cpp(103,15): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.cpp(96,15): message : 'CCamera::Move' 선언을 참조하십시오.
@@ -57,7 +66,7 @@ D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(152,1
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(161,68): message : 인수 목록 '(DirectX::XMFLOAT3, DirectX::XMMATRIX)'을(를) 일치시키는 동안
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameFramework.cpp(80,57): error C2664: 'void CPlayer::SetCameraOffset(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameFramework.cpp(80,37): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.h(41,7): message : 'CPlayer::SetCameraOffset' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.h(40,7): message : 'CPlayer::SetCameraOffset' 선언을 참조하십시오.
   GameObject.cpp
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(137,110): error C2665: 'Vector3::Angle': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(135,15): message : 'float Vector3::Angle(DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &)'일 수 있습니다.
@@ -71,18 +80,20 @@ D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(161,6
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(159,18): message : 'DirectX::XMFLOAT3 Vector3::TransformCoord(DirectX::XMFLOAT3 &,DirectX::XMFLOAT4X4 &)'일 수 있습니다.
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(152,18): message : 또는       'DirectX::XMFLOAT3 Vector3::TransformCoord(DirectX::XMFLOAT3 &,DirectX::XMMATRIX &)'
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(161,68): message : 인수 목록 '(DirectX::XMFLOAT3, DirectX::XMMATRIX)'을(를) 일치시키는 동안
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(123,79): error C2664: 'DirectX::XMFLOAT4X4 Matrix4x4::LookToLH(DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(123,57): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(124,79): error C2664: 'DirectX::XMFLOAT4X4 Matrix4x4::LookToLH(DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(124,57): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(261,20): message : 'Matrix4x4::LookToLH' 선언을 참조하십시오.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(131,79): error C2664: 'DirectX::XMFLOAT4X4 Matrix4x4::LookAtLH(DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(131,57): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(132,79): error C2664: 'DirectX::XMFLOAT4X4 Matrix4x4::LookAtLH(DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(132,57): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(254,20): message : 'Matrix4x4::LookAtLH' 선언을 참조하십시오.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(261,162): error C2665: 'Matrix4x4::Multiply': 4개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(205,8): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(233,40): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(288,162): error C2665: 'Matrix4x4::Multiply': 4개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(212,20): message : 'DirectX::XMFLOAT4X4 Matrix4x4::Multiply(DirectX::XMMATRIX &,DirectX::XMMATRIX &)'일 수 있습니다.
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(205,20): message : 또는       'DirectX::XMFLOAT4X4 Matrix4x4::Multiply(DirectX::XMMATRIX &,DirectX::XMFLOAT4X4 &)'
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(198,20): message : 또는       'DirectX::XMFLOAT4X4 Matrix4x4::Multiply(DirectX::XMFLOAT4X4 &,DirectX::XMMATRIX &)'
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(191,20): message : 또는       'DirectX::XMFLOAT4X4 Matrix4x4::Multiply(DirectX::XMFLOAT4X4 &,DirectX::XMFLOAT4X4 &)'
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(261,162): message : 인수 목록 '(DirectX::XMFLOAT4X4, DirectX::XMFLOAT4X4)'을(를) 일치시키는 동안
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(288,162): message : 인수 목록 '(DirectX::XMFLOAT4X4, DirectX::XMFLOAT4X4)'을(를) 일치시키는 동안
   GraphicsPipeline.cpp
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(137,110): error C2665: 'Vector3::Angle': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(135,15): message : 'float Vector3::Angle(DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &)'일 수 있습니다.
@@ -418,140 +429,49 @@ D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(161,6
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(25,97): error C2664: 'void CCamera::SetLookAt(DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(25,35): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(63,7): message : 'CCamera::SetLookAt' 선언을 참조하십시오.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(60,31): error C2664: 'void CPlayer::Move(DWORD,float)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DWORD'(으)로 변환할 수 없습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(60,15): message : 이 변환을 수행할 수 있는 사용 가능한 사용자 정의 변환 연산자가 없거나 연산자를 호출할 수 없습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(29,15): message : 'CPlayer::Move' 선언을 참조하십시오.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(86,78): error C2664: 'DirectX::XMFLOAT3 Vector3::Normalize(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(86,56): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(31): error C2102: '&'에 l-value가 있어야 합니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(32): error C2102: '&'에 l-value가 있어야 합니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(33): error C2102: '&'에 l-value가 있어야 합니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(34): error C2102: '&'에 l-value가 있어야 합니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(79,78): error C2664: 'DirectX::XMFLOAT3 Vector3::Normalize(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(79,56): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(108,18): message : 'Vector3::Normalize' 선언을 참조하십시오.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(87,78): error C2664: 'DirectX::XMFLOAT3 Vector3::Normalize(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(87,53): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(80,78): error C2664: 'DirectX::XMFLOAT3 Vector3::Normalize(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(80,53): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(108,18): message : 'Vector3::Normalize' 선언을 참조하십시오.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(93,91): error C2664: 'DirectX::XMFLOAT3 Vector3::Normalize(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(93,43): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(86,91): error C2664: 'DirectX::XMFLOAT3 Vector3::Normalize(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(86,43): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(108,18): message : 'Vector3::Normalize' 선언을 참조하십시오.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(94,88): error C2664: 'DirectX::XMFLOAT3 Vector3::Normalize(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(94,40): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(87,88): error C2664: 'DirectX::XMFLOAT3 Vector3::Normalize(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(87,40): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(108,18): message : 'Vector3::Normalize' 선언을 참조하십시오.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(95,90): error C2664: 'DirectX::XMFLOAT3 Vector3::Normalize(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(95,42): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(88,90): error C2664: 'DirectX::XMFLOAT3 Vector3::Normalize(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(88,42): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(108,18): message : 'Vector3::Normalize' 선언을 참조하십시오.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(105,94): error C2664: 'DirectX::XMFLOAT3 Vector3::Normalize(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(105,71): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(108,18): message : 'Vector3::Normalize' 선언을 참조하십시오.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(141,61): error C2664: 'void CGameObject::SetRotationAxis(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(141,43): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(45,7): message : 'CGameObject::SetRotationAxis' 선언을 참조하십시오.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(167,120): error C2665: 'Matrix4x4::Multiply': 4개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(133,61): error C2664: 'void CGameObject::SetRotationAxis(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(133,43): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(46,7): message : 'CGameObject::SetRotationAxis' 선언을 참조하십시오.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(159,99): error C2665: 'Matrix4x4::Multiply': 4개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(212,20): message : 'DirectX::XMFLOAT4X4 Matrix4x4::Multiply(DirectX::XMMATRIX &,DirectX::XMMATRIX &)'일 수 있습니다.
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(205,20): message : 또는       'DirectX::XMFLOAT4X4 Matrix4x4::Multiply(DirectX::XMMATRIX &,DirectX::XMFLOAT4X4 &)'
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(198,20): message : 또는       'DirectX::XMFLOAT4X4 Matrix4x4::Multiply(DirectX::XMFLOAT4X4 &,DirectX::XMMATRIX &)'
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(191,20): message : 또는       'DirectX::XMFLOAT4X4 Matrix4x4::Multiply(DirectX::XMFLOAT4X4 &,DirectX::XMFLOAT4X4 &)'
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(167,120): message : 인수 목록 '(DirectX::XMMATRIX, DirectX::XMFLOAT4X4)'을(를) 일치시키는 동안
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Player.cpp(159,99): message : 인수 목록 '(DirectX::XMMATRIX, DirectX::XMFLOAT4X4)'을(를) 일치시키는 동안
   Rail.cpp
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(12,15): error C3646: 'm_xmf3Position': 알 수 없는 재정의 지정자입니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(12,30): error C2059: 구문 오류: '='
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(12,58): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(8,14): error C2065: 'm_xmf3Position': 선언되지 않은 식별자입니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(8,31): error C3861: 'XMFLOAT3': 식별자를 찾을 수 없습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(9,39): error C2065: 'm_xmf3Position': 선언되지 않은 식별자입니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(9,56): error C3861: 'XMFLOAT3': 식별자를 찾을 수 없습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(23,30): error C2065: 'NULL': 선언되지 않은 식별자입니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(49,24): error C3646: 'm_xmOOBB': 알 수 없는 재정의 지정자입니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(49,33): error C2059: 구문 오류: '='
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(49,56): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(54,22): error C2061: 구문 오류: 식별자 'HDC'
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(56,7): error C3646: 'RayIntersectionByTriangle': 알 수 없는 재정의 지정자입니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(56,32): error C2059: 구문 오류: '('
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(56,146): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(57,27): error C2061: 구문 오류: 식별자 'XMVECTOR'
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(46,32): error C2065: 'NULL': 선언되지 않은 식별자입니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.h(87,22): error C2061: 구문 오류: 식별자 'HDC'
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(30,15): error C3646: 'm_xmf3Position': 알 수 없는 재정의 지정자입니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(30,30): error C2059: 구문 오류: '='
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(30,58): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(31,15): error C3646: 'm_xmf3Right': 알 수 없는 재정의 지정자입니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(31,27): error C2059: 구문 오류: '='
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(31,55): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(32,15): error C3646: 'm_xmf3Up': 알 수 없는 재정의 지정자입니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(32,24): error C2059: 구문 오류: '='
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(32,52): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(33,15): error C3646: 'm_xmf3Look': 알 수 없는 재정의 지정자입니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(33,26): error C2059: 구문 오류: '='
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(33,54): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(40,21): error C3646: 'm_xmFrustumView': 알 수 없는 재정의 지정자입니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(40,37): error C2059: 구문 오류: '='
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(40,56): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(41,21): error C3646: 'm_xmFrustumWorld': 알 수 없는 재정의 지정자입니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(41,38): error C2059: 구문 오류: '='
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(41,57): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(42,17): error C3646: 'm_xmf4x4InverseView': 알 수 없는 재정의 지정자입니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(42,37): error C2059: 구문 오류: '='
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(42,39): error C2653: 'Matrix4x4': 클래스 또는 네임스페이스 이름이 아닙니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(42,60): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(45,17): error C3646: 'm_xmf4x4View': 알 수 없는 재정의 지정자입니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(45,30): error C2059: 구문 오류: '='
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(45,32): error C2653: 'Matrix4x4': 클래스 또는 네임스페이스 이름이 아닙니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(45,53): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(46,17): error C3646: 'm_xmf4x4PerspectiveProject': 알 수 없는 재정의 지정자입니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(46,44): error C2059: 구문 오류: '='
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(46,46): error C2653: 'Matrix4x4': 클래스 또는 네임스페이스 이름이 아닙니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(46,67): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(47,17): error C3646: 'm_xmf4x4ViewPerspectiveProject': 알 수 없는 재정의 지정자입니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(47,48): error C2059: 구문 오류: '='
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(47,50): error C2653: 'Matrix4x4': 클래스 또는 네임스페이스 이름이 아닙니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(47,71): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(49,17): error C3646: 'm_xmf4x4OrthographicProject': 알 수 없는 재정의 지정자입니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(49,45): error C2059: 구문 오류: '='
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(49,47): error C2653: 'Matrix4x4': 클래스 또는 네임스페이스 이름이 아닙니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(49,68): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(50,17): error C3646: 'm_xmf4x4ViewOrthographicProject': 알 수 없는 재정의 지정자입니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(50,49): error C2059: 구문 오류: '='
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(50,51): error C2653: 'Matrix4x4': 클래스 또는 네임스페이스 이름이 아닙니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(50,72): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(62,17): error C2061: 구문 오류: 식별자 'XMFLOAT3'
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(63,17): error C2061: 구문 오류: 식별자 'XMFLOAT3'
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(63,77): error C2535: 'void CCamera::SetLookAt(void)': 멤버 함수를 이미 정의했거나 선언했습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(62): message : 'CCamera::SetLookAt' 선언을 참조하십시오.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(65,12): error C2061: 구문 오류: 식별자 'XMFLOAT3'
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(68,32): error C2061: 구문 오류: 식별자 'XMFLOAT3'
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Camera.h(70,19): error C2061: 구문 오류: 식별자 'BoundingOrientedBox'
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(16,17): error C3646: 'm_xmf4x4World': 알 수 없는 재정의 지정자입니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(16,31): error C2059: 구문 오류: '='
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(16,33): error C2653: 'Matrix4x4': 클래스 또는 네임스페이스 이름이 아닙니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(16,54): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(18,24): error C3646: 'm_xmOOBB': 알 수 없는 재정의 지정자입니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(18,33): error C2059: 구문 오류: '='
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(18,56): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(21,13): error C3646: 'm_dwColor': 알 수 없는 재정의 지정자입니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(21,23): error C2059: 구문 오류: '='
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(21,39): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(23,15): error C3646: 'm_xmf3MovingDirection': 알 수 없는 재정의 지정자입니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(23,37): error C2059: 구문 오류: '='
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(23,65): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(27,15): error C3646: 'm_xmf3RotationAxis': 알 수 없는 재정의 지정자입니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(27,34): error C2059: 구문 오류: '='
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(27,62): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(34,16): error C2061: 구문 오류: 식별자 'DWORD'
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(36,28): error C2061: 구문 오류: 식별자 'XMFLOAT4X4'
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(39,19): error C2061: 구문 오류: 식별자 'XMFLOAT3'
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(41,26): error C2061: 구문 오류: 식별자 'XMFLOAT3'
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(45,23): error C2061: 구문 오류: 식별자 'XMFLOAT3'
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(51,12): error C2061: 구문 오류: 식별자 'XMFLOAT3'
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(54,14): error C2061: 구문 오류: 식별자 'XMFLOAT3'
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(56,11): error C3646: 'GetPosition': 알 수 없는 재정의 지정자입니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(56,22): error C2059: 구문 오류: '('
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(56,24): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(57,11): error C3646: 'GetLook': 알 수 없는 재정의 지정자입니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(57,18): error C2059: 구문 오류: '('
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(57,20): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(58,11): error C3646: 'GetUp': 알 수 없는 재정의 지정자입니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(58,16): error C2059: 구문 오류: '('
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(58,18): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(59,11): error C3646: 'GetRight': 알 수 없는 재정의 지정자입니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(59,19): error C2059: 구문 오류: '('
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(59,21): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.h(59,21): fatal error C1003: 오류 수가 100개를 초과했습니다. 컴파일을 중지합니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(137,110): error C2665: 'Vector3::Angle': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(135,15): message : 'float Vector3::Angle(DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(129,15): message : 또는       'float Vector3::Angle(DirectX::XMVECTOR &,DirectX::XMVECTOR &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(137,110): message : 인수 목록 '(DirectX::XMVECTOR, DirectX::XMVECTOR)'을(를) 일치시키는 동안
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(149,69): error C2665: 'Vector3::TransformNormal': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(147,18): message : 'DirectX::XMFLOAT3 Vector3::TransformNormal(DirectX::XMFLOAT3 &,DirectX::XMFLOAT4X4 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(140,18): message : 또는       'DirectX::XMFLOAT3 Vector3::TransformNormal(DirectX::XMFLOAT3 &,DirectX::XMMATRIX &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(149,69): message : 인수 목록 '(DirectX::XMFLOAT3, DirectX::XMMATRIX)'을(를) 일치시키는 동안
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(161,68): error C2665: 'Vector3::TransformCoord': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(159,18): message : 'DirectX::XMFLOAT3 Vector3::TransformCoord(DirectX::XMFLOAT3 &,DirectX::XMFLOAT4X4 &)'일 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(152,18): message : 또는       'DirectX::XMFLOAT3 Vector3::TransformCoord(DirectX::XMFLOAT3 &,DirectX::XMMATRIX &)'
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(161,68): message : 인수 목록 '(DirectX::XMFLOAT3, DirectX::XMMATRIX)'을(를) 일치시키는 동안
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Rail.cpp(25,43): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Rail.cpp(48,71): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   Scene.cpp
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(137,110): error C2665: 'Vector3::Angle': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\stdafx.h(135,15): message : 'float Vector3::Angle(DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &)'일 수 있습니다.
