@@ -2,7 +2,6 @@
 
 #include "GameObject.h"
 #include "Camera.h"
-#include "Rail.h"
 class CPlayer : public CGameObject
 {
 public:
@@ -17,8 +16,7 @@ public:
 
 	XMFLOAT3					m_xmf3CameraOffset = XMFLOAT3(0.0f, 0.0f, 0.0f);
 	XMFLOAT3					m_xmfcorrection = XMFLOAT3(0.0f, 0.0f, 0.0f);
-	int							railIndex[2] = {0, 1};
-	float						t = 0;
+
 	float						m_fFriction = 125.0f;
 
 	float           			m_fPitch = 0.0f;
@@ -26,7 +24,7 @@ public:
 	float           			m_fRoll = 0.0f;
 
 	CCamera*					m_pCamera = NULL;
-	CRail*						m_pRail = NULL;
+	CCartObject*				m_pCart = NULL;
 
 public:
 	float myClampfunc(float f);
@@ -42,6 +40,8 @@ public:
 	void SetCameraOffset(XMFLOAT3& xmf3CameraOffset);
 
 	void Update(float fTimeElapsed = 0.016f);
+	void Reset();
+	
 
 	virtual void OnUpdateTransform();
 	virtual void Animate(float fElapsedTime);
@@ -51,13 +51,13 @@ public:
 	CCamera* GetCamera() { return(m_pCamera); }
 };
 
-#define BULLETS					50
+#define BULLETS					100
 
-class CAirplanePlayer : public CPlayer
+class CBarrelPlayer : public CPlayer
 {
 public:
-	CAirplanePlayer();
-	virtual ~CAirplanePlayer();
+	CBarrelPlayer();
+	virtual ~CBarrelPlayer();
 
 	float						m_fBulletEffectiveRange = 200.0f;
 	CBulletObject*				m_ppBullets[BULLETS];
