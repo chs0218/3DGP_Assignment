@@ -253,7 +253,7 @@ void CCartObject::move(float fTimeElapsed)
 	m_xmf4x4World._31 = newLook.x; m_xmf4x4World._32 = newLook.y; m_xmf4x4World._33 = newLook.z;
 
 	SetPosition(newPositon);
-	t += fTimeElapsed * (1.0f / speed);
+	t += fTimeElapsed * (1.0f / 0.1f);
 
 	if (t > 1.0)
 	{
@@ -277,19 +277,6 @@ void CCartObject::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 	CGameObject::Render(hDCFrameBuffer, &m_xmf4x4World, m_pMesh);
 }
 
-void CCartObject::SpeedUp()
-{
-	speed -= 0.01f;
-	if (speed < 0.1)
-		speed = 0.1f;
-}
-
-void CCartObject::SpeedDown()
-{
-	speed += 0.01f;
-	if (speed > 0.3f)
-		speed = 0.3f;
-}
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 CWallsObject::CWallsObject()

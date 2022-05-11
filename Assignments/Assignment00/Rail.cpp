@@ -77,7 +77,7 @@ void CRail::setRail()
 
 void CRail::randRail()
 {
-	std::uniform_int_distribution<int> uid(30, 100);
+	std::uniform_int_distribution<int> uid(-100, 100);
 	std::uniform_int_distribution<int> uidmp(0, 1);
 	for (int i = 0; i < KEY_RAIL_NUM; ++i)
 	{
@@ -92,21 +92,9 @@ void CRail::randRail()
 
 		else
 		{
-			if (uidmp(dreRail) < 1)
-				tmp.x = vkeyrails[i - 1].x - (float)(uid(dreRail));
-			else
-				tmp.x = vkeyrails[i - 1].x + (float)(uid(dreRail));
-			
-			if (uidmp(dreRail) < 1)
-				tmp.y = vkeyrails[i - 1].y - (float)(uid(dreRail));
-			else
-				tmp.y = vkeyrails[i - 1].y + (float)(uid(dreRail));
-
-			if (uidmp(dreRail) < 1)
-				tmp.z = vkeyrails[i - 1].z - (float)(uid(dreRail));
-			else
-				tmp.z = vkeyrails[i - 1].z + (float)(uid(dreRail));
-			
+			tmp.x = vkeyrails[i - 1].x + (float)(uid(dreRail));
+			tmp.y = vkeyrails[i - 1].y + (float)(uid(dreRail));
+			tmp.z = vkeyrails[i - 1].z + (float)(uid(dreRail));
 		}
 		vkeyrails.push_back(tmp);
 	}

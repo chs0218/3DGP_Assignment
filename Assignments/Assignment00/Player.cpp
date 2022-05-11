@@ -14,11 +14,11 @@ CPlayer::~CPlayer()
 
 float CPlayer::myClampfunc(float f)
 {
-	if (f < -30.0f)
-		return -30.0f;
+	if (f < -15.0f)
+		return -15.0f;
 	
-	if (f > 30.0f)
-		return 30.0f;
+	if (f > 15.0f)
+		return 15.0f;
 	
 	return f;
 }
@@ -39,10 +39,10 @@ void CPlayer::SetCameraOffset(XMFLOAT3& xmf3CameraOffset)
 
 void CPlayer::Move(float fTimeElapsed)
 {
-	XMStoreFloat3(&m_xmf3Position, XMLoadFloat3(&m_pCart->GetPosition()));
-	XMStoreFloat3(&m_xmf3Right, XMLoadFloat3(&m_pCart->GetRight()));
-	XMStoreFloat3(&m_xmf3Up, XMLoadFloat3(&m_pCart->GetUp()));
-	XMStoreFloat3(&m_xmf3Look, XMLoadFloat3(&m_pCart->GetLook()));
+	XMStoreFloat3(&m_xmf3Position, XMVectorLerp(XMLoadFloat3(&m_pRail->rails[railIndex[0]]->GetPosition()), XMLoadFloat3(&m_pRail->rails[railIndex[1]]->GetPosition()), t));
+	XMStoreFloat3(&m_xmf3Right, XMVectorLerp(XMLoadFloat3(&m_pRail->rails[railIndex[0]]->GetRight()), XMLoadFloat3(&m_pRail->rails[railIndex[1]]->GetRight()), t));
+	XMStoreFloat3(&m_xmf3Up, XMVectorLerp(XMLoadFloat3(&m_pRail->rails[railIndex[0]]->GetUp()), XMLoadFloat3(&m_pRail->rails[railIndex[1]]->GetUp()), t));
+	XMStoreFloat3(&m_xmf3Look, XMVectorLerp(XMLoadFloat3(&m_pRail->rails[railIndex[0]]->GetLook()), XMLoadFloat3(&m_pRail->rails[railIndex[1]]->GetLook()), t));
 	
 	XMFLOAT4X4 mtxRotate = Matrix4x4::Identity();
 	mtxRotate._11 = m_xmf3Right.x; mtxRotate._21 = m_xmf3Up.x; mtxRotate._31 = m_xmf3Look.x;
@@ -53,6 +53,23 @@ void CPlayer::Move(float fTimeElapsed)
 	m_xmf3Position = Vector3::Add(m_xmf3Position, transformedCorrectioin);
 
 	Rotate(m_fPitch, m_fYaw, m_fRoll);
+	t += fTimeElapsed * (1.0f / 0.1f);
+	
+	if (t > 1.0)
+	{
+		t = 0.0;
+		
+		if (railIndex[0] < m_pRail->rails.size() - 1)
+			railIndex[0] += 1;
+		else
+			railIndex[0] = 0;
+
+		if (railIndex[1] < m_pRail->rails.size() - 1)
+			railIndex[1] += 1;
+		else
+			railIndex[1] = 0;
+
+	}
 }
 
 void CPlayer::Rotate(float fPitch, float fYaw, float fRoll)
@@ -94,6 +111,13 @@ void CPlayer::Update(float fTimeElapsed)
 	Move(fTimeElapsed);
 	m_pCamera->Update(this, m_xmf3Position, fTimeElapsed);
 	m_pCamera->GenerateViewMatrix();
+
+
+	/*XMFLOAT3 xmf3Deceleration = Vector3::Normalize(Vector3::ScalarProduct(m_xmf3Velocity, -1.0f));
+	float fLength = Vector3::Length(m_xmf3Velocity);
+	float fDeceleration = m_fFriction * fTimeElapsed;
+	if (fDeceleration > fLength) fDeceleration = fLength;
+	m_xmf3Velocity = Vector3::Add(m_xmf3Velocity, xmf3Deceleration, fDeceleration);*/
 }
 
 void CPlayer::Animate(float fElapsedTime)
@@ -118,7 +142,7 @@ void CPlayer::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 //
-CBarrelPlayer::CBarrelPlayer()
+CAirplanePlayer::CAirplanePlayer()
 {
 	CCubeMesh* pBulletMesh = new CCubeMesh(1.0f, 1.0f, 1.0f);
 	for (int i = 0; i < BULLETS; i++)
@@ -132,12 +156,12 @@ CBarrelPlayer::CBarrelPlayer()
 	}
 }
 
-CBarrelPlayer::~CBarrelPlayer()
+CAirplanePlayer::~CAirplanePlayer()
 {
 	for (int i = 0; i < BULLETS; i++) if (m_ppBullets[i]) delete m_ppBullets[i];
 }
 
-void CBarrelPlayer::Animate(float fElapsedTime)
+void CAirplanePlayer::Animate(float fElapsedTime)
 {
 	CPlayer::Animate(fElapsedTime);
 
@@ -147,22 +171,29 @@ void CBarrelPlayer::Animate(float fElapsedTime)
 	}
 }
 
-void CBarrelPlayer::OnUpdateTransform()
+void CAirplanePlayer::OnUpdateTransform()
 {
 	CPlayer::OnUpdateTransform();
 
 	m_xmf4x4World = Matrix4x4::Multiply(XMMatrixRotationRollPitchYaw(0.0f, 0.0f, 0.0f), m_xmf4x4World);
 }
 
-void CBarrelPlayer::Render(HDC hDCFrameBuffer, CCamera* pCamera)
+void CAirplanePlayer::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 {
 	CPlayer::Render(hDCFrameBuffer, pCamera);
 
 	for (int i = 0; i < BULLETS; i++) if (m_ppBullets[i]->m_bActive) m_ppBullets[i]->Render(hDCFrameBuffer, pCamera);
 }
 
-void CBarrelPlayer::FireBullet(CGameObject* pLockedObject)
+void CAirplanePlayer::FireBullet(CGameObject* pLockedObject)
 {
+/*
+	if (pLockedObject) 
+	{
+		LookAt(pLockedObject->GetPosition(), XMFLOAT3(0.0f, 1.0f, 0.0f));
+		OnUpdateTransform();
+	}
+*/
 
 	CBulletObject* pBulletObject = NULL;
 	for (int i = 0; i < BULLETS; i++)
@@ -190,16 +221,7 @@ void CBarrelPlayer::FireBullet(CGameObject* pLockedObject)
 		if (pLockedObject)
 		{
 			pBulletObject->m_pLockedObject = pLockedObject;
-			pBulletObject->SetColor(RGB(0, 0, 0));
+			pBulletObject->SetColor(RGB(0, 0, 255));
 		}
 	}
 }
-
-void CPlayer::Reset()
-{
-	SetPosition(0.0f, 0.0f, 0.0f);
-	m_fPitch = 0.0f;
-	m_fYaw = 0.0f;
-	m_fRoll = 0.0f;
-}
-
