@@ -34,6 +34,7 @@ public:
 	void CheckObjectByWallCollisions();
 	void CheckPlayerByWallCollision();
 	void CheckObjectByBulletCollisions();
+	void Reset();
 	void GenObjects(float width, float height, float depth);
 
 	virtual void Animate(float fElapsedTime);

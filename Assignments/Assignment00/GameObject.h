@@ -116,11 +116,14 @@ public:
 	std::vector<CRailObject*> *m_pRail = NULL;
 	int	railIndex[2] = { 0, 1 };
 	float t = 0;
+	float speed = 0.15f;
 public:
 	CCartObject();
 	void move(float fTimeElapsed);
 	virtual ~CCartObject();
 	virtual void Render(HDC hDCFrameBuffer, CCamera* pCamera);
+	void SpeedUp();
+	void SpeedDown();
 };
 
 class CWallsObject : public CGameObject

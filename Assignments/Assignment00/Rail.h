@@ -3,12 +3,12 @@
 #include <vector>
 #include "GameObject.h"
 
-#define KEY_RAIL_NUM 10
+#define KEY_RAIL_NUM 6
 
 class CRail
 {
 public:
-	std::vector<XMFLOAT3> vkeyrails;
+	std::array<XMFLOAT3, KEY_RAIL_NUM> vkeyrails;
 	std::vector<CRailObject*> rails;
 	
 public:

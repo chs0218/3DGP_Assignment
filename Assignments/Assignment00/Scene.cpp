@@ -23,13 +23,13 @@ void CScene::BuildObjects()
 	m_pRailObject = new CRail();
 	m_pRailObject->randRail();
 	m_pRailObject->setRail();
-	m_pPlayer->m_pRail = m_pRailObject;
 
 	CCartMesh* pCartMesh = new CCartMesh(4.0f, 4.0f, 6.0f);
 	m_pCartObject = new CCartObject();
 	m_pCartObject->SetMesh(pCartMesh);
 	m_pCartObject->SetColor(RGB(0, 0, 0));
 	m_pCartObject->m_pRail = &m_pRailObject->rails;
+	m_pPlayer->m_pCart = m_pCartObject;
 
 
 	float fHalfWidth = 0.0f, fHalfHeight = 0.0f, fHalfDepth = 0.0f;
@@ -45,11 +45,11 @@ void CScene::BuildObjects()
 		if (abs(xmf.z) > fHalfDepth)
 			fHalfDepth = abs(xmf.z);
 	}
-	fHalfWidth += 5.0f;
-	fHalfHeight += 5.0f;
-	fHalfDepth += 5.0f;
+	fHalfWidth += 20.0f;
+	fHalfHeight += 20.0f;
+	fHalfDepth += 20.0f;
 
-	CWallMesh* pWallCubeMesh = new CWallMesh(fHalfWidth * 2.0f, fHalfHeight * 2.0f, fHalfDepth * 2.0f, 30);
+	CWallMesh* pWallCubeMesh = new CWallMesh(fHalfWidth * 2.0f, fHalfHeight * 2.0f, fHalfDepth * 2.0f, 4);
 
 	m_pWallsObject = new CWallsObject();
 	m_pWallsObject->SetPosition(0.0f, 0.0f, 0.0f);
@@ -62,7 +62,7 @@ void CScene::BuildObjects()
 	m_pWallsObject->m_pxmf4WallPlanes[4] = XMFLOAT4(0.0f, 0.0f, +1.0f, fHalfDepth);
 	m_pWallsObject->m_pxmf4WallPlanes[5] = XMFLOAT4(0.0f, 0.0f, -1.0f, fHalfDepth);
 
-	m_nObjects = 20;
+	m_nObjects = 40;
 	m_ppObjects = new CGameObject* [m_nObjects];
 	GenObjects(fHalfWidth, fHalfHeight, fHalfDepth);
 
@@ -123,6 +123,15 @@ void CScene::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wPar
 				pExplosiveObject->m_bBlowingUp = true;
 			}
 			break;
+		case 'R':
+			Reset();
+			m_pPlayer->Reset();
+			break;
+		case VK_UP:
+			m_pCartObject->SpeedUp();
+			break;
+		case VK_DOWN:
+			m_pCartObject->SpeedDown();
 		default:
 			break;
 		}
@@ -252,7 +261,7 @@ void CScene::CheckPlayerByWallCollision()
 
 void CScene::CheckObjectByBulletCollisions()
 {
-	CBulletObject** ppBullets = ((CAirplanePlayer*)m_pPlayer)->m_ppBullets;
+	CBulletObject** ppBullets = ((CBarrelPlayer*)m_pPlayer)->m_ppBullets;
 	for (int i = 0; i < m_nObjects; i++)
 	{
 		for (int j = 0; j < BULLETS; j++)
@@ -276,7 +285,7 @@ void CScene::Animate(float fElapsedTime)
 
 	CheckObjectByWallCollisions();
 
-	//CheckObjectByObjectCollisions();
+	CheckObjectByObjectCollisions();
 
 	CheckObjectByBulletCollisions();
 }
@@ -313,7 +322,7 @@ void CScene::GenObjects(float width, float height, float depth)
 		std::uniform_int_distribution<int> uidHeight(-height, +height);
 		std::uniform_int_distribution<int> uidWidth(-depth, +depth);
 		std::uniform_int_distribution<int> uidColor(0, 255);
-		std::uniform_int_distribution<int> uidSpeed(40, 70);
+		std::uniform_int_distribution<int> uidSpeed(20, 40);
 		std::uniform_int_distribution<int> uidRSpeed(25, 40);
 		std::uniform_int_distribution<int> uidDir(-1, 1);
 
@@ -337,4 +346,10 @@ void CScene::GenObjects(float width, float height, float depth)
 		m_ppObjects[i]->SetMovingDirection(xmf3Direction);
 		m_ppObjects[i]->SetMovingSpeed((float)uidSpeed(dreScene));
 	}
+}
+
+void CScene::Reset()
+{
+	ReleaseObjects();
+	BuildObjects();
 }

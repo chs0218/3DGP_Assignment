@@ -146,7 +146,6 @@ void CCamera::Update(CPlayer* pPlayer, XMFLOAT3& xmf3LookAt, float fTimeElapsed)
 	{
 		m_xmf3Position = Vector3::Add(m_xmf3Position, xmf3Direction, fDistance);
 		SetLookAt(pPlayer->m_xmf3Position, pPlayer->m_xmf3Up);
-		//Rotate(pPlayer->m_fPitch, pPlayer->m_fYaw, pPlayer->m_fRoll);
 
 	}
 }

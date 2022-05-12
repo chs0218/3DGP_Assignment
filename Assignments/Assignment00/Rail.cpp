@@ -77,8 +77,7 @@ void CRail::setRail()
 
 void CRail::randRail()
 {
-	std::uniform_int_distribution<int> uid(-100, 100);
-	std::uniform_int_distribution<int> uidmp(0, 1);
+	std::uniform_int_distribution<int> uid(-300, +300);
 	for (int i = 0; i < KEY_RAIL_NUM; ++i)
 	{
 		XMFLOAT3 tmp;
@@ -92,11 +91,11 @@ void CRail::randRail()
 
 		else
 		{
-			tmp.x = vkeyrails[i - 1].x + (float)(uid(dreRail));
-			tmp.y = vkeyrails[i - 1].y + (float)(uid(dreRail));
-			tmp.z = vkeyrails[i - 1].z + (float)(uid(dreRail));
+			tmp.x = uid(dreRail);
+			tmp.y = uid(dreRail);
+			tmp.z = uid(dreRail);
 		}
-		vkeyrails.push_back(tmp);
+		vkeyrails[i] = tmp;
 	}
 
 }

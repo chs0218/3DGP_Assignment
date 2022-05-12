@@ -1,4 +1,3 @@
-#include <array>
 #include "stdafx.h"
 #include "GameObject.h"
 #include "GraphicsPipeline.h"
@@ -253,7 +252,7 @@ void CCartObject::move(float fTimeElapsed)
 	m_xmf4x4World._31 = newLook.x; m_xmf4x4World._32 = newLook.y; m_xmf4x4World._33 = newLook.z;
 
 	SetPosition(newPositon);
-	t += fTimeElapsed * (1.0f / 0.1f);
+	t += fTimeElapsed * (1.0f / speed);
 
 	if (t > 1.0)
 	{
@@ -275,6 +274,20 @@ void CCartObject::move(float fTimeElapsed)
 void CCartObject::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 {
 	CGameObject::Render(hDCFrameBuffer, &m_xmf4x4World, m_pMesh);
+}
+
+void CCartObject::SpeedUp()
+{
+	speed -= 0.01f;
+	if (speed < 0.05)
+		speed = 0.05f;
+}
+
+void CCartObject::SpeedDown()
+{
+	speed += 0.01f;
+	if (speed > 0.3f)
+		speed = 0.3f;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
