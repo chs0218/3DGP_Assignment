@@ -1,7 +1,82 @@
 ﻿  Assignment00.cpp
   Camera.cpp
   GameFramework.cpp
+  GameObject.cpp
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(204,8): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\GameObject.cpp(230,40): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  GraphicsPipeline.cpp
+  Mesh.cpp
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(377,86): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(377,52): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(378,86): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(378,52): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(379,94): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(379,52): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(380,94): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(380,52): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(384,87): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(384,53): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(385,87): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(385,53): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(386,94): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(386,53): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(387,94): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(387,53): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(391,86): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(391,52): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(392,86): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(392,52): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(393,93): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(393,52): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(394,93): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(394,52): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(398,87): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(398,53): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(399,87): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(399,53): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(400,94): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(400,53): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(401,94): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(401,53): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(405,96): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(405,55): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(406,96): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(406,55): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(407,89): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(407,55): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(408,89): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(408,55): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(412,97): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(412,56): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(413,97): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(413,56): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(414,90): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(414,56): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(415,90): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(415,56): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(419,96): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(419,55): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(420,96): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(420,55): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(421,88): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(421,55): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(422,88): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(422,55): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(426,97): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(426,56): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(427,97): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(427,56): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(428,89): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(428,56): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(429,89): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Mesh.cpp(429,56): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   Player.cpp
+  Rail.cpp
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Rail.cpp(25,43): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Rail.cpp(48,75): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Rail.cpp(94,15): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Rail.cpp(95,15): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Rail.cpp(96,15): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   Scene.cpp
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Scene.cpp(321,55): warning C4244: '인수': 'float'에서 '_Ty'(으)로 변환하면서 데이터가 손실될 수 있습니다.
           with
@@ -33,9 +108,10 @@ D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment00\Scene.cpp(323,
           [
               _Ty=int
           ]
+  stdafx.cpp
+  Timer.cpp
   코드를 생성하고 있습니다.
-  10 of 458 functions ( 2.2%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    8 functions had inline decision re-evaluated but remain unchanged
+  Previous IPDB not found, fall back to full compilation.
+  All 458 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   코드를 생성했습니다.
   Assignment00.vcxproj -> D:\Visual Studio\Project\3DGP_Assignment\Assignments\x64\Release\Assignment00.exe
