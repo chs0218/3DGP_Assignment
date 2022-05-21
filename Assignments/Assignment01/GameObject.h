@@ -59,14 +59,14 @@ public:
 	XMFLOAT3 GetRight();
 	XMFLOAT4X4 Getxmf4x4World() const;
 	//게임 객체의 위치를 설정한다. 
-	void SetPosition(float x, float y, float z);
-	void SetPosition(XMFLOAT3 xmf3Position);
+	virtual void SetPosition(float x, float y, float z);
+	virtual void SetPosition(XMFLOAT3 xmf3Position);
 	//게임 객체를 로컬 x-축, y-축, z-축 방향으로 이동한다.
-	void MoveStrafe(float fDistance = 1.0f);
-	void MoveUp(float fDistance = 1.0f);
-	void MoveForward(float fDistance = 1.0f);
+	virtual void MoveStrafe(float fDistance = 1.0f);
+	virtual void MoveUp(float fDistance = 1.0f);
+	virtual void MoveForward(float fDistance = 1.0f);
 	//게임 객체를 회전(x-축, y-축, z-축)한다. 
-	void Rotate(float fPitch = 10.0f, float fYaw = 10.0f, float fRoll = 10.0f);
+	virtual void Rotate(float fPitch = 10.0f, float fYaw = 10.0f, float fRoll = 10.0f);
 	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera, UINT nInstances);
 protected:
 	XMFLOAT4X4 m_xmf4x4World;
@@ -148,9 +148,48 @@ public:
 	virtual ~CHierarchyObject();
 	void SetChild(CHierarchyObject* pChild);
 	void SetMaterial(int nMaterial, CMaterial* pMaterial);
+	virtual void SetPosition(float x, float y, float z)
+	{
+		m_xmf4x4Transform._41 = x;
+		m_xmf4x4Transform._42 = y;
+		m_xmf4x4Transform._43 = z;
+		UpdateTransform(NULL);
+	}
+
+	virtual void Rotate(float fPitch = 10.0f, float fYaw = 10.0f, float fRoll = 10.0f)
+	{
+		XMMATRIX mtxRotate = XMMatrixRotationRollPitchYaw(XMConvertToRadians(fPitch), XMConvertToRadians(fYaw), XMConvertToRadians(fRoll));
+		m_xmf4x4Transform = Matrix4x4::Multiply(mtxRotate, m_xmf4x4Transform);
+
+		UpdateTransform(NULL);
+	}
+	void SetScale(float x, float y, float z)
+	{
+		XMMATRIX mtxScale = XMMatrixScaling(x, y, z);
+		m_xmf4x4Transform = Matrix4x4::Multiply(mtxScale, m_xmf4x4Transform);
+
+		UpdateTransform(NULL);
+	}
+	void UpdateTransform(XMFLOAT4X4* pxmf4x4Parent)
+	{
+		m_xmf4x4World = (pxmf4x4Parent) ? Matrix4x4::Multiply(m_xmf4x4Transform, *pxmf4x4Parent) : m_xmf4x4Transform;
+
+		if (m_pSibling) m_pSibling->UpdateTransform(pxmf4x4Parent);
+		if (m_pChild) m_pChild->UpdateTransform(&m_xmf4x4World);
+	}
 	UINT GetMeshType() { return((m_pMesh) ? m_pMesh->GetType() : 0); }
 public:
+
+	void Animate(float fTimeElapsed, XMFLOAT4X4* pxmf4x4Parent)
+	{
+		if (m_pSibling) m_pSibling->Animate(fTimeElapsed, pxmf4x4Parent);
+		if (m_pChild) m_pChild->Animate(fTimeElapsed, &m_xmf4x4World);
+	}
+
+	void UpdateShaderVariable(ID3D12GraphicsCommandList* pd3dCommandList, XMFLOAT4X4* pxmf4x4World);
+	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera = NULL);
 	static void PrintFrameInfo(CHierarchyObject* pGameObject, CHierarchyObject* pParent);
+
 	static MATERIALSLOADINFO* LoadMaterialsInfoFromFile(wifstream& InFile);
 	static CMeshLoadInfo* LoadMeshInfoFromFile(wifstream& InFile);
 	static CHierarchyObject* LoadFrameHierarchyFromFile(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, ID3D12RootSignature* pd3dGraphicsRootSignature, wifstream& InFile);

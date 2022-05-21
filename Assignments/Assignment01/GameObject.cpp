@@ -443,6 +443,30 @@ void CHierarchyObject::SetMaterial(int nMaterial, CMaterial* pMaterial)
 	if (m_ppMaterials[nMaterial]) m_ppMaterials[nMaterial]->AddRef();
 }
 
+void CHierarchyObject::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera)
+{
+
+	OnPrepareRender();
+	
+	UpdateShaderVariables(pd3dCommandList);
+
+	if (m_nMaterials > 0)
+	{
+		for (int i = 0; i < m_nMaterials; i++)
+		{
+			if (m_ppMaterials[i])
+			{
+				if (m_ppMaterials[i]->m_pShader) m_ppMaterials[i]->m_pShader->Render(pd3dCommandList, pCamera, 1);
+				m_ppMaterials[i]->UpdateShaderVariable(pd3dCommandList);
+			}
+
+			if (m_pMesh) m_pMesh->Render(pd3dCommandList, i, true);
+		}
+	}
+	if (m_pSibling) m_pSibling->Render(pd3dCommandList, pCamera);
+	if (m_pChild) m_pChild->Render(pd3dCommandList, pCamera);
+}
+
 MATERIALSLOADINFO* CHierarchyObject::LoadMaterialsInfoFromFile(wifstream& InFile)
 {
 	TCHAR pstrToken[256] = { 0 };

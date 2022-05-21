@@ -281,6 +281,17 @@ void CGameFramework::BuildObjects()
 	CAirplanePlayer* pAirplanePlayer = new CAirplanePlayer(m_pd3dDevice, m_pd3dCommandList, m_pScene->GetGraphicsRootSignature());
 	m_pPlayer = pAirplanePlayer;
 	m_pCamera = m_pPlayer->GetCamera();
+
+	CMaterial::PrepareShaders(m_pd3dDevice, m_pd3dCommandList, m_pScene->GetGraphicsRootSignature());
+
+	CHierarchyObject* pObject = new CHierarchyObject();
+	CHierarchyObject* pGameObject = CHierarchyObject::LoadGeometryFromFile(m_pd3dDevice, m_pd3dCommandList, m_pScene->GetGraphicsRootSignature(), L"Model/Apache.txt");
+	pObject->SetChild(pGameObject);
+	pObject->SetPosition(-50.0f, 0.0f, 150.0f);
+	pObject->SetScale(1.5f, 1.5f, 1.5f);
+	pObject->Rotate(0.0f, 90.0f, 0.0f);
+	m_tmp = pObject;
+
 	m_pd3dCommandList->Close();
 	ID3D12CommandList* ppd3dCommandLists[] = { m_pd3dCommandList };
 	m_pd3dCommandQueue->ExecuteCommandLists(1, ppd3dCommandLists);
@@ -474,7 +485,11 @@ void CGameFramework::FrameAdvance()
 
 	AnimateObjects();
 
-
+	if (m_tmp)
+	{
+		m_tmp->Animate(m_GameTimer.GetTimeElapsed(), NULL);
+		m_tmp->UpdateTransform(NULL);
+	}
 
 	HRESULT hResult = m_pd3dCommandAllocator->Reset();
 	hResult = m_pd3dCommandList->Reset(m_pd3dCommandAllocator, NULL);
@@ -512,7 +527,8 @@ void CGameFramework::FrameAdvance()
 	//원하는 값으로 깊이-스텐실(뷰)을 지운다.
 
 	if (m_pScene) m_pScene->Render(m_pd3dCommandList, m_pCamera);
-	
+	if (m_tmp) m_tmp->Render(m_pd3dCommandList, m_pCamera);
+
 	//3인칭 카메라일 때 플레이어가 항상 보이도록 렌더링한다. 
 #ifdef _WITH_PLAYER_TOP
 	//렌더 타겟은 그대로 두고 깊이 버퍼를 1.0으로 지우고 플레이어를 렌더링하면 플레이어는 무조건 그려질 것이다.
@@ -521,6 +537,8 @@ void CGameFramework::FrameAdvance()
 #endif
 	//3인칭 카메라일 때 플레이어를 렌더링한다. 
 	if (m_pPlayer) m_pPlayer->Render(m_pd3dCommandList, m_pCamera);
+
+
 
 	d3dResourceBarrier.Transition.StateBefore = D3D12_RESOURCE_STATE_RENDER_TARGET;
 	d3dResourceBarrier.Transition.StateAfter = D3D12_RESOURCE_STATE_PRESENT;
