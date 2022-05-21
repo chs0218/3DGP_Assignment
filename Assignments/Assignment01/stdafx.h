@@ -14,7 +14,6 @@
 // #define _WITH_SWAPCHAIN_FULLSCREEN_STATE
 #define RANDOM_COLOR XMFLOAT4(rand() / float(RAND_MAX), rand() / float(RAND_MAX), rand() / float(RAND_MAX), rand() / float(RAND_MAX))
 
-#include "targetver.h"
 #define WIN32_LEAN_AND_MEAN             // 거의 사용되지 않는 내용을 Windows 헤더에서 제외합니다.
 // Windows 헤더 파일
 #include <windows.h>
@@ -23,6 +22,8 @@
 #include <malloc.h>
 #include <memory.h>
 #include <tchar.h>
+
+#include <fstream>
 
 #include <string>
 #include <wrl.h>
@@ -35,6 +36,7 @@
 #include <DirectXColors.h>
 #include <DirectXCollision.h>
 #include <DXGIDebug.h>
+using namespace std;
 using namespace DirectX;
 using namespace DirectX::PackedVector;
 using Microsoft::WRL::ComPtr;

@@ -53,7 +53,7 @@ void CGameObject::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pC
 	OnPrepareRender();
 	//객체의 정보를 셰이더 변수(상수 버퍼)로 복사한다. 
 	UpdateShaderVariables(pd3dCommandList);
-	if (m_pShader) m_pShader->Render(pd3dCommandList, pCamera);
+	if (m_pShader) m_pShader->Render(pd3dCommandList, pCamera, 0);
 	if (m_pMesh) m_pMesh->Render(pd3dCommandList);
 }
 
@@ -154,3 +154,382 @@ void CRotatingObject::Animate(float fTimeElapsed)
 {
 	CGameObject::Rotate(&m_xmf3RotationAxis, m_fRotationSpeed * fTimeElapsed);
 }
+
+
+//-------------------------------------------------------------------------------------------------------------
+CHierarchyObject::CHierarchyObject()
+{
+	m_xmf4x4Transform = Matrix4x4::Identity();
+	m_xmf4x4World = Matrix4x4::Identity();
+}
+
+CHierarchyObject::~CHierarchyObject()
+{
+	if (m_pMesh) m_pMesh->Release();
+
+	if (m_nMaterials > 0)
+	{
+		for (int i = 0; i < m_nMaterials; i++)
+		{
+			if (m_ppMaterials[i]) m_ppMaterials[i]->Release();
+		}
+	}
+	if (m_ppMaterials) delete[] m_ppMaterials;
+
+	if (m_pSibling) delete m_pSibling;
+	if (m_pChild) delete m_pChild;
+}
+
+CHierarchyObject* CHierarchyObject::LoadFrameHierarchyFromFile(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, ID3D12RootSignature* pd3dGraphicsRootSignature, wifstream& InFile)
+{
+	TCHAR pstrToken[256] = { 0 };
+
+	int nFrame = 0;
+
+	CHierarchyObject* pGameObject = NULL;
+
+	for (; ; )
+	{
+		InFile >> pstrToken;
+		if (!InFile) break;
+
+		if (!_tcscmp(pstrToken, _T("<Frame>:")))
+		{
+			pGameObject = new CHierarchyObject();
+
+			InFile >> nFrame;
+			InFile >> pGameObject->m_pstrFrameName;
+		}
+		else if (!_tcscmp(pstrToken, _T("<Transform>:")))
+		{
+			XMFLOAT3 xmf3Position, xmf3Rotation, xmf3Scale;
+			XMFLOAT4 xmf4Rotation;
+			InFile >> xmf3Position.x >> xmf3Position.y >> xmf3Position.z;
+			InFile >> xmf3Rotation.x >> xmf3Rotation.y >> xmf3Rotation.z; //Euler Angle
+			InFile >> xmf3Scale.x >> xmf3Scale.y >> xmf3Scale.z;
+			InFile >> xmf4Rotation.x >> xmf4Rotation.y >> xmf4Rotation.z >> xmf4Rotation.w; //Quaternion
+		}
+		else if (!_tcscmp(pstrToken, _T("<TransformMatrix>:")))
+		{
+			InFile >> pGameObject->m_xmf4x4Transform._11 >> pGameObject->m_xmf4x4Transform._12 >> pGameObject->m_xmf4x4Transform._13 >> pGameObject->m_xmf4x4Transform._14; //ToParentTransform
+			InFile >> pGameObject->m_xmf4x4Transform._21 >> pGameObject->m_xmf4x4Transform._22 >> pGameObject->m_xmf4x4Transform._23 >> pGameObject->m_xmf4x4Transform._24;
+			InFile >> pGameObject->m_xmf4x4Transform._31 >> pGameObject->m_xmf4x4Transform._32 >> pGameObject->m_xmf4x4Transform._33 >> pGameObject->m_xmf4x4Transform._34;
+			InFile >> pGameObject->m_xmf4x4Transform._41 >> pGameObject->m_xmf4x4Transform._42 >> pGameObject->m_xmf4x4Transform._43 >> pGameObject->m_xmf4x4Transform._44;
+		}
+		else if (!_tcscmp(pstrToken, _T("<Mesh>:")))
+		{
+			CMeshLoadInfo* pMeshInfo = pGameObject->LoadMeshInfoFromFile(InFile);
+			if (pMeshInfo)
+			{
+				CMesh* pMesh = NULL;
+				if (pMeshInfo->m_nType & VERTEXT_NORMAL)
+				{
+					pMesh = new CMeshIlluminatedFromFile(pd3dDevice, pd3dCommandList, pMeshInfo);
+				}
+				if (pMesh) pGameObject->SetMesh(pMesh);
+				delete pMeshInfo;
+			}
+		}
+		else if (!_tcscmp(pstrToken, _T("<Materials>:")))
+		{
+			MATERIALSLOADINFO* pMaterialsInfo = pGameObject->LoadMaterialsInfoFromFile(InFile);
+			if (pMaterialsInfo && (pMaterialsInfo->m_nMaterials > 0))
+			{
+				pGameObject->m_nMaterials = pMaterialsInfo->m_nMaterials;
+				pGameObject->m_ppMaterials = new CMaterial * [pMaterialsInfo->m_nMaterials];
+
+				for (int i = 0; i < pMaterialsInfo->m_nMaterials; i++)
+				{
+					pGameObject->m_ppMaterials[i] = NULL;
+
+					CMaterial* pMaterial = new CMaterial();
+					if (pGameObject->GetMeshType() & VERTEXT_NORMAL) pMaterial->SetPseudoLightingShader();
+
+					pGameObject->SetMaterial(i, pMaterial);
+				}
+			}
+		}
+		else if (!_tcscmp(pstrToken, _T("<Children>:")))
+		{
+			int nChilds = 0;
+			InFile >> nChilds;
+
+			if (nChilds > 0)
+			{
+				for (int i = 0; i < nChilds; i++)
+				{
+					CHierarchyObject* pChild = CHierarchyObject::LoadFrameHierarchyFromFile(pd3dDevice, pd3dCommandList, pd3dGraphicsRootSignature, InFile);
+					if (pChild) pGameObject->SetChild(pChild);
+#ifdef _WITH_DEBUG_RUNTIME_FRAME_HIERARCHY
+					TCHAR pstrDebug[256] = { 0 };
+					_stprintf_s(pstrDebug, 256, _T("(Child Frame: %p) (Parent Frame: %p)\n"), pChild, pGameObject);
+					OutputDebugString(pstrDebug);
+#endif
+				}
+			}
+		}
+		else if (!_tcscmp(pstrToken, _T("</Frame>")))
+		{
+			break;
+		}
+	}
+	return(pGameObject);
+}
+
+#define _WITH_DEBUG_FRAME_HIERARCHY
+
+CMeshLoadInfo* CHierarchyObject::LoadMeshInfoFromFile(wifstream& InFile)
+{
+	TCHAR pstrToken[256] = { 0 };
+	int nPositions = 0, nColors = 0, nNormals = 0, nIndices = 0, nSubMeshes = 0, nSubIndices = 0;
+
+	CMeshLoadInfo* pMeshInfo = new CMeshLoadInfo;
+
+	InFile >> pMeshInfo->m_nVertices;
+	InFile >> pMeshInfo->m_pstrMeshName;
+
+	for (; ; )
+	{
+		InFile >> pstrToken;
+		if (!InFile) break;
+
+		if (!_tcscmp(pstrToken, _T("<Bounds>:")))
+		{
+			InFile >> pMeshInfo->m_xmf3AABBCenter.x >> pMeshInfo->m_xmf3AABBCenter.y >> pMeshInfo->m_xmf3AABBCenter.z >> pMeshInfo->m_xmf3AABBExtents.x >> pMeshInfo->m_xmf3AABBExtents.y >> pMeshInfo->m_xmf3AABBExtents.z;
+		}
+		else if (!_tcscmp(pstrToken, _T("<Positions>:")))
+		{
+			InFile >> nPositions;
+			if (nPositions > 0)
+			{
+				pMeshInfo->m_nType |= VERTEXT_POSITION;
+				pMeshInfo->m_pxmf3Positions = new XMFLOAT3[nPositions];
+				for (int i = 0; i < nPositions; i++)
+				{
+					InFile >> pMeshInfo->m_pxmf3Positions[i].x >> pMeshInfo->m_pxmf3Positions[i].y >> pMeshInfo->m_pxmf3Positions[i].z;
+				}
+			}
+		}
+		else if (!_tcscmp(pstrToken, _T("<Colors>:")))
+		{
+			InFile >> nColors;
+			if (nColors > 0)
+			{
+				pMeshInfo->m_nType |= VERTEXT_COLOR;
+				pMeshInfo->m_pxmf4Colors = new XMFLOAT4[nColors];
+				for (int i = 0; i < nColors; i++)
+				{
+					InFile >> pMeshInfo->m_pxmf4Colors[i].x >> pMeshInfo->m_pxmf4Colors[i].y >> pMeshInfo->m_pxmf4Colors[i].z >> pMeshInfo->m_pxmf4Colors[i].w;
+				}
+			}
+		}
+		else if (!_tcscmp(pstrToken, _T("<Normals>:")))
+		{
+			InFile >> nNormals;
+			if (nNormals > 0)
+			{
+				pMeshInfo->m_nType |= VERTEXT_NORMAL;
+				pMeshInfo->m_pxmf3Normals = new XMFLOAT3[nNormals];
+				for (int i = 0; i < nNormals; i++)
+				{
+					InFile >> pMeshInfo->m_pxmf3Normals[i].x >> pMeshInfo->m_pxmf3Normals[i].y >> pMeshInfo->m_pxmf3Normals[i].z;
+				}
+			}
+		}
+		else if (!_tcscmp(pstrToken, _T("<Indices>:")))
+		{
+			InFile >> nIndices;
+			if (nIndices > 0)
+			{
+				pMeshInfo->m_pnIndices = new UINT[nIndices];
+				for (int i = 0; i < nIndices; i++) InFile >> pMeshInfo->m_pnIndices[i];
+			}
+		}
+		else if (!_tcscmp(pstrToken, _T("<SubMeshes>:")))
+		{
+			InFile >> pMeshInfo->m_nSubMeshes;
+			if (pMeshInfo->m_nSubMeshes > 0)
+			{
+				pMeshInfo->m_pnSubSetIndices = new int[pMeshInfo->m_nSubMeshes];
+				pMeshInfo->m_ppnSubSetIndices = new UINT * [pMeshInfo->m_nSubMeshes];
+				for (int i = 0; i < pMeshInfo->m_nSubMeshes; i++)
+				{
+					InFile >> pstrToken;
+					if (!_tcscmp(pstrToken, _T("<SubMesh>:")))
+					{
+						InFile >> pstrToken; //i
+						InFile >> pMeshInfo->m_pnSubSetIndices[i];
+						if (pMeshInfo->m_pnSubSetIndices[i] > 0)
+						{
+							pMeshInfo->m_ppnSubSetIndices[i] = new UINT[pMeshInfo->m_pnSubSetIndices[i]];
+							for (int j = 0; j < pMeshInfo->m_pnSubSetIndices[i]; j++) InFile >> pMeshInfo->m_ppnSubSetIndices[i][j];
+						}
+
+					}
+				}
+			}
+		}
+		else if (!_tcscmp(pstrToken, _T("</Mesh>")))
+		{
+			break;
+		}
+	}
+	return(pMeshInfo);
+}
+
+CHierarchyObject* CHierarchyObject::LoadGeometryFromFile(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, ID3D12RootSignature* pd3dGraphicsRootSignature, TCHAR* pstrFileName)
+{
+	CHierarchyObject* pGameObject = NULL;
+
+	wifstream InFile(pstrFileName);
+
+	TCHAR pstrToken[256] = { 0 };
+
+	for (; ; )
+	{
+		InFile >> pstrToken;
+		if (!InFile) break;
+
+		if (!_tcscmp(pstrToken, _T("<Hierarchy>:")))
+		{
+			pGameObject = LoadFrameHierarchyFromFile(pd3dDevice, pd3dCommandList, pd3dGraphicsRootSignature, InFile);
+		}
+		else if (!_tcscmp(pstrToken, _T("</Hierarchy>")))
+		{
+			break;
+		}
+	}
+
+#ifdef _WITH_DEBUG_FRAME_HIERARCHY
+	TCHAR pstrDebug[256] = { 0 };
+	_stprintf_s(pstrDebug, 256, _T("\nFrame Hierarchy(%s)\n"), pstrFileName);
+	OutputDebugString(pstrDebug);
+
+	CHierarchyObject::PrintFrameInfo(pGameObject, NULL);
+#endif
+
+	return(pGameObject);
+}
+
+void CHierarchyObject::PrintFrameInfo(CHierarchyObject* pGameObject, CHierarchyObject* pParent)
+{
+	TCHAR pstrDebug[256] = { 0 };
+
+	_stprintf_s(pstrDebug, 256, _T("(Frame: %p) (Parent: %p)\n"), pGameObject, pParent);
+	OutputDebugString(pstrDebug);
+
+	if (pGameObject->m_pSibling) CHierarchyObject::PrintFrameInfo(pGameObject->m_pSibling, pParent);
+	if (pGameObject->m_pChild) CHierarchyObject::PrintFrameInfo(pGameObject->m_pChild, pGameObject);
+}
+
+void CHierarchyObject::SetChild(CHierarchyObject* pChild)
+{
+	if (m_pChild)
+	{
+		if (pChild) pChild->m_pSibling = m_pChild->m_pSibling;
+		m_pChild->m_pSibling = pChild;
+	}
+	else
+	{
+		m_pChild = pChild;
+	}
+	if (pChild) pChild->m_pParent = this;
+}
+
+void CHierarchyObject::SetMaterial(int nMaterial, CMaterial* pMaterial)
+{
+	if (m_ppMaterials[nMaterial]) m_ppMaterials[nMaterial]->Release();
+	m_ppMaterials[nMaterial] = pMaterial;
+	if (m_ppMaterials[nMaterial]) m_ppMaterials[nMaterial]->AddRef();
+}
+
+MATERIALSLOADINFO* CHierarchyObject::LoadMaterialsInfoFromFile(wifstream& InFile)
+{
+	TCHAR pstrToken[256] = { 0 };
+	int nMaterial = 0;
+
+	MATERIALSLOADINFO* pMaterialsInfo = new MATERIALSLOADINFO;
+
+	InFile >> pMaterialsInfo->m_nMaterials;
+	pMaterialsInfo->m_pMaterials = new MATERIALLOADINFO[pMaterialsInfo->m_nMaterials];
+
+	for (; ; )
+	{
+		InFile >> pstrToken;
+		if (!InFile) break;
+
+		if (!_tcscmp(pstrToken, _T("<Material>:")))
+		{
+			InFile >> nMaterial;
+		}
+		else if (!_tcscmp(pstrToken, _T("<AlbedoColor>:")))
+		{
+			InFile >> pMaterialsInfo->m_pMaterials[nMaterial].m_xmf4AlbedoColor.x >> pMaterialsInfo->m_pMaterials[nMaterial].m_xmf4AlbedoColor.y >> pMaterialsInfo->m_pMaterials[nMaterial].m_xmf4AlbedoColor.z >> pMaterialsInfo->m_pMaterials[nMaterial].m_xmf4AlbedoColor.w;
+		}
+		else if (!_tcscmp(pstrToken, _T("<EmissiveColor>:")))
+		{
+			InFile >> pMaterialsInfo->m_pMaterials[nMaterial].m_xmf4EmissiveColor.x >> pMaterialsInfo->m_pMaterials[nMaterial].m_xmf4EmissiveColor.y >> pMaterialsInfo->m_pMaterials[nMaterial].m_xmf4EmissiveColor.z >> pMaterialsInfo->m_pMaterials[nMaterial].m_xmf4EmissiveColor.w;
+		}
+		else if (!_tcscmp(pstrToken, _T("<SpecularColor>:")))
+		{
+			InFile >> pMaterialsInfo->m_pMaterials[nMaterial].m_xmf4SpecularColor.x >> pMaterialsInfo->m_pMaterials[nMaterial].m_xmf4SpecularColor.y >> pMaterialsInfo->m_pMaterials[nMaterial].m_xmf4SpecularColor.z >> pMaterialsInfo->m_pMaterials[nMaterial].m_xmf4SpecularColor.w;
+		}
+		else if (!_tcscmp(pstrToken, _T("<Glossiness>:")))
+		{
+			InFile >> pMaterialsInfo->m_pMaterials[nMaterial].m_fGlossiness;
+		}
+		else if (!_tcscmp(pstrToken, _T("<Smoothness>:")))
+		{
+			InFile >> pMaterialsInfo->m_pMaterials[nMaterial].m_fSmoothness;
+		}
+		else if (!_tcscmp(pstrToken, _T("<Metallic>:")))
+		{
+			InFile >> pMaterialsInfo->m_pMaterials[nMaterial].m_fSpecularHighlight;
+		}
+		else if (!_tcscmp(pstrToken, _T("<SpecularHighlight>:")))
+		{
+			InFile >> pMaterialsInfo->m_pMaterials[nMaterial].m_fMetallic;
+		}
+		else if (!_tcscmp(pstrToken, _T("<GlossyReflection>:")))
+		{
+			InFile >> pMaterialsInfo->m_pMaterials[nMaterial].m_fGlossyReflection;
+		}
+		else if (!_tcscmp(pstrToken, _T("</Materials>")))
+		{
+			break;
+		}
+	}
+	return(pMaterialsInfo);
+}
+
+//-------------------------------------
+CShader* CMaterial::m_pPseudoLightingShader = NULL;
+
+CMaterial::CMaterial()
+{
+}
+
+CMaterial::~CMaterial()
+{
+	if (m_pShader) m_pShader->Release();
+}
+
+void CMaterial::SetShader(CShader* pShader)
+{
+	if (m_pShader) m_pShader->Release();
+	m_pShader = pShader;
+	if (m_pShader) m_pShader->AddRef();
+}
+
+void CMaterial::UpdateShaderVariable(ID3D12GraphicsCommandList* pd3dCommandList)
+{
+}
+
+void CMaterial::PrepareShaders(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, ID3D12RootSignature* pd3dGraphicsRootSignature)
+{
+	m_pPseudoLightingShader = new CLightShader();
+	m_pPseudoLightingShader->CreateShader(pd3dDevice, pd3dGraphicsRootSignature);
+	m_pPseudoLightingShader->CreateShaderVariables(pd3dDevice, pd3dCommandList);
+}
+
+//--------------------------------------
