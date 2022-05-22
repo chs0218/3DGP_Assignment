@@ -1,15 +1,7 @@
-﻿  Assignment01.cpp
-  Camera.cpp
-  GameFramework.cpp
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment01\GameFramework.cpp(337,70): warning C4244: '인수': 'WPARAM'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  GameObject.cpp
-  Mesh.cpp
-  Player.cpp
-  Scene.cpp
-  Shader.cpp
+﻿  Player.cpp
   코드를 생성하고 있습니다.
-  0 of 514 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+  5 of 514 functions ( 1.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    11 functions had inline decision re-evaluated but remain unchanged
   코드를 생성했습니다.
   Assignment01.vcxproj -> D:\Visual Studio\Project\3DGP_Assignment\Assignments\x64\Release\Assignment01.exe

@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "GameFramework.h"
 
+UCHAR pKeyBuffer[256];
+
 CGameFramework::CGameFramework()
 {
 	m_pdxgiFactory = NULL;
@@ -275,22 +277,17 @@ void CGameFramework::CreateDepthStencilView()
 
 void CGameFramework::BuildObjects()
 {
+
+
 	m_pd3dCommandList->Reset(m_pd3dCommandAllocator, NULL);
 	m_pScene = new CScene();
 	if (m_pScene) m_pScene->BuildObjects(m_pd3dDevice, m_pd3dCommandList);
-	CAirplanePlayer* pAirplanePlayer = new CAirplanePlayer(m_pd3dDevice, m_pd3dCommandList, m_pScene->GetGraphicsRootSignature());
-	m_pPlayer = pAirplanePlayer;
-	m_pCamera = m_pPlayer->GetCamera();
-
 	CMaterial::PrepareShaders(m_pd3dDevice, m_pd3dCommandList, m_pScene->GetGraphicsRootSignature());
 
-	CHierarchyObject* pObject = new CHierarchyObject();
-	CHierarchyObject* pGameObject = CHierarchyObject::LoadGeometryFromFile(m_pd3dDevice, m_pd3dCommandList, m_pScene->GetGraphicsRootSignature(), L"Model/Apache.txt");
-	pObject->SetChild(pGameObject);
-	pObject->SetPosition(-50.0f, 0.0f, 150.0f);
-	pObject->SetScale(1.5f, 1.5f, 1.5f);
-	pObject->Rotate(0.0f, 90.0f, 0.0f);
-	m_tmp = pObject;
+	CCarPlayer* pCCarPlayer = new CCarPlayer(m_pd3dDevice, m_pd3dCommandList, m_pScene->GetGraphicsRootSignature());
+	m_pPlayer = pCCarPlayer;
+	m_pPlayer->SetTrack(m_pScene->GetTrack());
+	m_pCamera = m_pPlayer->GetCamera();
 
 	m_pd3dCommandList->Close();
 	ID3D12CommandList* ppd3dCommandLists[] = { m_pd3dCommandList };
@@ -325,6 +322,8 @@ void CGameFramework::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM
 void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM
 	wParam, LPARAM lParam)
 {
+	DWORD dwDirection = 0;
+
 	switch (nMessageID)
 	{
 	case WM_KEYUP:
@@ -336,9 +335,6 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 		case VK_F3:
 		if (m_pPlayer) m_pCamera = m_pPlayer->ChangeCamera((wParam - VK_F1 + 1), m_GameTimer.GetTimeElapsed());
 		break;
-		case VK_ESCAPE:
-			::PostQuitMessage(0);
-			break;
 		case VK_RETURN:
 			break;
 		case VK_F8:
@@ -347,6 +343,30 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 		case VK_F9:
 			//“F9” 키가 눌려지면 윈도우 모드와 전체화면 모드의 전환을 처리한다.
 			ChangeSwapChainState();
+			break;
+		default:
+			break;
+		}
+		break;
+	case WM_KEYDOWN:
+		switch (wParam)
+		{
+		case VK_ESCAPE:
+			::PostQuitMessage(0);
+			break;
+		case VK_RIGHT:
+		case VK_LEFT:
+			if (::GetKeyboardState(pKeyBuffer))
+			{
+				if (pKeyBuffer[VK_LEFT] & 0xF0) dwDirection |= DIR_LEFT;
+				if (pKeyBuffer[VK_RIGHT] & 0xF0) dwDirection |= DIR_RIGHT;
+				m_pPlayer->SetDir(dwDirection);
+			}
+			break;
+			break;
+		case VK_RETURN:
+			break;
+		case VK_CONTROL:
 			break;
 		default:
 			break;
@@ -392,19 +412,6 @@ LRESULT CALLBACK CGameFramework::OnProcessingWindowMessage(HWND hWnd, UINT nMess
 
 void CGameFramework::ProcessInput()
 {
-	static UCHAR pKeyBuffer[256];
-	DWORD dwDirection = 0;
-	/*키보드의 상태 정보를 반환한다. 화살표 키(‘→’, ‘←’, ‘↑’, ‘↓’)를 누르면 플레이어를 오른쪽/왼쪽(로컬 x-축), 앞/
-	뒤(로컬 z-축)로 이동한다. ‘Page Up’과 ‘Page Down’ 키를 누르면 플레이어를 위/아래(로컬 y-축)로 이동한다.*/
-	if (::GetKeyboardState(pKeyBuffer))
-	{
-		if (pKeyBuffer[VK_UP] & 0xF0) dwDirection |= DIR_FORWARD;
-		if (pKeyBuffer[VK_DOWN] & 0xF0) dwDirection |= DIR_BACKWARD;
-		if (pKeyBuffer[VK_LEFT] & 0xF0) dwDirection |= DIR_LEFT;
-		if (pKeyBuffer[VK_RIGHT] & 0xF0) dwDirection |= DIR_RIGHT;
-		if (pKeyBuffer[VK_PRIOR] & 0xF0) dwDirection |= DIR_UP;
-		if (pKeyBuffer[VK_NEXT] & 0xF0) dwDirection |= DIR_DOWN;
-	}
 	float cxDelta = 0.0f, cyDelta = 0.0f;
 	POINT ptCursorPos;
 	/*마우스를 캡쳐했으면 마우스가 얼마만큼 이동하였는 가를 계산한다. 마우스 왼쪽 또는 오른쪽 버튼이 눌러질 때의
@@ -424,7 +431,7 @@ void CGameFramework::ProcessInput()
 		::SetCursorPos(m_ptOldCursorPos.x, m_ptOldCursorPos.y);
 	}
 	//마우스 또는 키 입력이 있으면 플레이어를 이동하거나(dwDirection) 회전한다(cxDelta 또는 cyDelta).
-	if ((dwDirection != 0) || (cxDelta != 0.0f) || (cyDelta != 0.0f))
+	if ((cxDelta != 0.0f) || (cyDelta != 0.0f))
 	{
 		if (cxDelta || cyDelta)
 		{
@@ -435,9 +442,6 @@ void CGameFramework::ProcessInput()
 			else
 				m_pPlayer->Rotate(cyDelta, cxDelta, 0.0f);
 		}
-		/*플레이어를 dwDirection 방향으로 이동한다(실제로는 속도 벡터를 변경한다). 이동 거리는 시간에 비례하도록 한다. 플레이어의 이동 속력은 (50/초)로 가정한다.*/
-		if(dwDirection) m_pPlayer->Move(dwDirection, 50.0f * m_GameTimer.GetTimeElapsed(), true);
-
 	}
 
 	//플레이어를 실제로 이동하고 카메라를 갱신한다. 중력과 마찰력의 영향을 속도 벡터에 적용한다.
@@ -446,6 +450,7 @@ void CGameFramework::ProcessInput()
 void CGameFramework::AnimateObjects()
 {
 	if (m_pScene) m_pScene->AnimateObjects(m_GameTimer.GetTimeElapsed());
+	if (m_pPlayer)m_pPlayer->Animate(m_GameTimer.GetTimeElapsed(), NULL);
 
 }
 
@@ -485,12 +490,6 @@ void CGameFramework::FrameAdvance()
 
 	AnimateObjects();
 
-	if (m_tmp)
-	{
-		m_tmp->Animate(m_GameTimer.GetTimeElapsed(), NULL);
-		m_tmp->UpdateTransform(NULL);
-	}
-
 	HRESULT hResult = m_pd3dCommandAllocator->Reset();
 	hResult = m_pd3dCommandList->Reset(m_pd3dCommandAllocator, NULL);
 	//명령 할당자와 명령 리스트를 리셋한다. 
@@ -527,8 +526,6 @@ void CGameFramework::FrameAdvance()
 	//원하는 값으로 깊이-스텐실(뷰)을 지운다.
 
 	if (m_pScene) m_pScene->Render(m_pd3dCommandList, m_pCamera);
-	if (m_tmp) m_tmp->Render(m_pd3dCommandList, m_pCamera);
-
 	//3인칭 카메라일 때 플레이어가 항상 보이도록 렌더링한다. 
 #ifdef _WITH_PLAYER_TOP
 	//렌더 타겟은 그대로 두고 깊이 버퍼를 1.0으로 지우고 플레이어를 렌더링하면 플레이어는 무조건 그려질 것이다.

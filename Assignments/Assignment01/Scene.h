@@ -20,6 +20,10 @@ public:
 	void AnimateObjects(float fTimeElapsed);
 	void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
 	void ReleaseUploadBuffers();
+	CGameObject** GetTrack() {
+		if (m_pShaders && m_nShaders > 0)
+			return m_pShaders[0].GetObjects();
+	};
 	//그래픽 루트 시그너쳐를 생성한다. 
 	ID3D12RootSignature *CreateGraphicsRootSignature(ID3D12Device *pd3dDevice);
 	ID3D12RootSignature* GetGraphicsRootSignature();

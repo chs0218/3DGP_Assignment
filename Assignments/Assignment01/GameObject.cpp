@@ -467,6 +467,17 @@ void CHierarchyObject::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamer
 	if (m_pChild) m_pChild->Render(pd3dCommandList, pCamera);
 }
 
+CHierarchyObject* CHierarchyObject::FindFrame(_TCHAR* pstrFrameName)
+{
+	CHierarchyObject* pFrameObject = NULL;
+	if (!_tcsncmp(m_pstrFrameName, pstrFrameName, _tcslen(pstrFrameName))) return(this);
+
+	if (m_pSibling) if (pFrameObject = m_pSibling->FindFrame(pstrFrameName)) return(pFrameObject);
+	if (m_pChild) if (pFrameObject = m_pChild->FindFrame(pstrFrameName)) return(pFrameObject);
+
+	return(NULL);
+}
+
 MATERIALSLOADINFO* CHierarchyObject::LoadMaterialsInfoFromFile(wifstream& InFile)
 {
 	TCHAR pstrToken[256] = { 0 };
@@ -526,6 +537,7 @@ MATERIALSLOADINFO* CHierarchyObject::LoadMaterialsInfoFromFile(wifstream& InFile
 	return(pMaterialsInfo);
 }
 
+
 //-------------------------------------
 CShader* CMaterial::m_pPseudoLightingShader = NULL;
 
@@ -557,3 +569,4 @@ void CMaterial::PrepareShaders(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLi
 }
 
 //--------------------------------------
+

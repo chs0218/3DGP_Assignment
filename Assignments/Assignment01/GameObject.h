@@ -98,9 +98,18 @@ public:
 	virtual void Animate(float fTimeElapsed);
 };
 
+class CTrackObject : public CGameObject
+{
+public:
+	CTrackObject() {};
+	virtual ~CTrackObject() {};
+public:
+	virtual void Animate(float fTimeElapsed) {};
+};
+
 struct MATERIALSLOADINFO
 {
-	int								m_nMaterials = 0;
+	int	m_nMaterials = 0;
 	MATERIALLOADINFO* m_pMaterials = NULL;
 
 };
@@ -148,6 +157,8 @@ public:
 	virtual ~CHierarchyObject();
 	void SetChild(CHierarchyObject* pChild);
 	void SetMaterial(int nMaterial, CMaterial* pMaterial);
+	CHierarchyObject* FindFrame(_TCHAR* pstrFrameName);
+
 	virtual void SetPosition(float x, float y, float z)
 	{
 		m_xmf4x4Transform._41 = x;
@@ -179,8 +190,7 @@ public:
 	}
 	UINT GetMeshType() { return((m_pMesh) ? m_pMesh->GetType() : 0); }
 public:
-
-	void Animate(float fTimeElapsed, XMFLOAT4X4* pxmf4x4Parent)
+	virtual void Animate(float fTimeElapsed, XMFLOAT4X4* pxmf4x4Parent)
 	{
 		if (m_pSibling) m_pSibling->Animate(fTimeElapsed, pxmf4x4Parent);
 		if (m_pChild) m_pChild->Animate(fTimeElapsed, &m_xmf4x4World);
