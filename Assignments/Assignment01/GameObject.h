@@ -98,6 +98,15 @@ public:
 	virtual void Animate(float fTimeElapsed);
 };
 
+class CTrackObject : public CGameObject
+{
+public:
+	CTrackObject() {};
+	virtual ~CTrackObject() {};
+public:
+	virtual void Animate(float fTimeElapsed) {};
+};
+
 struct MATERIALSLOADINFO
 {
 	int	m_nMaterials = 0;
@@ -195,41 +204,4 @@ public:
 	static CMeshLoadInfo* LoadMeshInfoFromFile(wifstream& InFile);
 	static CHierarchyObject* LoadFrameHierarchyFromFile(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, ID3D12RootSignature* pd3dGraphicsRootSignature, wifstream& InFile);
 	static CHierarchyObject* LoadGeometryFromFile(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, ID3D12RootSignature* pd3dGraphicsRootSignature, TCHAR* pstrFileName);
-};
-
-class CTrackObject : public CGameObject
-{
-public:
-	CGameObject* m_ppObjects;
-public:
-	CTrackObject() {};
-	virtual ~CTrackObject() {
-		if (m_ppObjects)
-			delete m_ppObjects;
-	};
-
-	void SetObstacle(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, ID3D12RootSignature* pd3dGraphicsRootSignature) {
-		CHierarchyObject* pObstacleObject = new CHierarchyObject();
-		CHierarchyObject* pGameObject = CHierarchyObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, pd3dGraphicsRootSignature, L"Model/Rock.txt");
-		pObstacleObject->SetChild(pGameObject);
-		pObstacleObject->SetPosition(-50.0f, 0.0f, 150.0f);
-		pObstacleObject->SetScale(1.5f, 1.5f, 1.5f);
-
-		m_ppObjects = pObstacleObject;
-	}
-public:
-	virtual void Animate(float fTimeElapsed) {};
-	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera)
-	{
-		CGameObject::Render(pd3dCommandList, pCamera);
-		if (m_ppObjects)
-			m_ppObjects->Render(pd3dCommandList, pCamera);
-	}
-	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera, UINT nInstances)
-	{
-		CGameObject::Render(pd3dCommandList, pCamera, nInstances);
-		if (m_ppObjects)
-			m_ppObjects->Render(pd3dCommandList, pCamera);
-
-	}
 };
