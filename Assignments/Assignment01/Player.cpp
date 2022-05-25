@@ -150,12 +150,18 @@ void CPlayer::Update(float fTimeElapsed)
 		if (dwDirection & DIR_BACKWARD) {}
 		if (dwDirection & DIR_RIGHT) {
 			if (xRail < 4)
+			{
 				xNextRail = xRail + 1;
+				Rotate(0.0f, +15.0f, 0.0f);
+			}
 			dwDirection = 0;
 		}
 		if (dwDirection & DIR_LEFT) {
 			if (xRail > 0)
+			{
 				xNextRail = xRail - 1;
+				Rotate(0.0f, -15.0f, 0.0f);
+			}
 			dwDirection = 0;
 		}
 		if (dwDirection & DIR_UP) {}
@@ -168,8 +174,11 @@ void CPlayer::Update(float fTimeElapsed)
 		tz -= 1.0f;
 		zRail = zNextRail;
 		zNextRail += 1;
-		if (zNextRail > 20)
-			zNextRail = 0;
+		if (zNextRail > 150)
+		{
+			zRail = 3;
+			zNextRail = 4;
+		}
 	}
 
 	if (xRail != xNextRail)
@@ -178,6 +187,11 @@ void CPlayer::Update(float fTimeElapsed)
 	if (tx > 1.0f)
 	{
 		tx = 0.0f;
+		if(xRail < xNextRail)
+			Rotate(0.0f, -15.0f, 0.0f);
+		else
+			Rotate(0.0f, +15.0f, 0.0f);
+
 		xRail = xNextRail;
 	}
 
@@ -371,7 +385,7 @@ CCamera* CCarPlayer::ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed)
 		SetMaxVelocityXZ(25.5f);
 		SetMaxVelocityY(40.0f);
 		m_pCamera = OnChangeCamera(THIRD_PERSON_CAMERA, nCurrentCameraMode);
-		m_pCamera->SetTimeLag(0.25f);
+		m_pCamera->SetTimeLag(0.0f);
 		m_pCamera->SetOffset(XMFLOAT3(0.0f, 55.0f, -100.0f));
 		m_pCamera->GenerateProjectionMatrix(1.01f, 5000.0f, ASPECT_RATIO, 60.0f);
 		m_pCamera->SetViewport(0, 0, FRAME_BUFFER_WIDTH, FRAME_BUFFER_HEIGHT, 0.0f, 1.0f);

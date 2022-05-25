@@ -33,8 +33,8 @@ protected:
 	DWORD dwDirection;
 	float speed = 3.0f;
 	float xRail = 2;
-	float zRail = 0;
-	float zNextRail = 1;
+	float zRail = 3;
+	float zNextRail = 4;
 	float xNextRail = 2;
 	float tx = 0.0f;
 	float tz = 0.0f;
