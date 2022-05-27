@@ -31,7 +31,7 @@ void CGameObject::SetMesh(CMesh* pMesh)
 void CGameObject::ReleaseUploadBuffers()
 {
 	//정점 버퍼를 위한 업로드 버퍼를 소멸시킨다. 
-	if (m_pMesh) m_pMesh->ReleaseUploadBuffers();
+	//if (m_pMesh) m_pMesh->ReleaseUploadBuffers();
 }
 
 void CGameObject::Animate(float fTimeElapsed)

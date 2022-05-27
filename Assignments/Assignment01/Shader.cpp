@@ -406,7 +406,7 @@ void CInstancingShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCom
 void CInstancingShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, ID3D12RootSignature* pd3dGraphicsRootSignature)
 {
 	CMaterial::PrepareShaders(pd3dDevice, pd3dCommandList, pd3dGraphicsRootSignature);
-	int xObjects = 2, yObjects = 0, zObjects = 200, i = 0;
+	int xObjects = 2, yObjects = 0, zObjects = 300, i = 0;
 	m_nObjects = (xObjects * 2 + 1) * (yObjects * 2 + 1) * (zObjects * 2 + 1);
 	m_ppObjects = new CGameObject * [m_nObjects];
 	float fxPitch = 30.0f;
@@ -416,7 +416,7 @@ void CInstancingShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCom
 	uniform_int_distribution<int> uid(-xObjects, xObjects);
 	int index = 0;
 	std::vector<int> indexes;
-	for (int z = -5; z <= 2 * zObjects - 45; z++)
+	for (int z = -5; z <= 2 * zObjects - 5; z++)
 	{
 		index = uid(dre);
 		indexes.push_back(index);
