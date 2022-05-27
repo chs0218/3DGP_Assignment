@@ -95,13 +95,24 @@ public:
 		* pd3dGraphicsRootSignature);
 	virtual void CreateShaderVariables(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
 		* pd3dCommandList);
+	virtual void AnimateObjects(float fTimeElapsed);
 	virtual void UpdateShaderVariables(ID3D12GraphicsCommandList* pd3dCommandList);
 	virtual void ReleaseShaderVariables();
 	virtual void BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
 		* pd3dCommandList);
+	virtual void BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
+		* pd3dCommandList, ID3D12RootSignature* pd3dGraphicsRootSignature);
 	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
+	void CheckCollision(BoundingOrientedBox m_OB)
+	{
+		for (auto obstacle : v_Obstacle)
+		{
+			obstacle->checkCollision(m_OB);
+		}
+	}
 protected:
 	//인스턴스 데이터를 포함하는 버퍼와 포인터이다. 
+	vector<CHierarchyObject*> v_Obstacle;
 	ID3D12Resource *m_pd3dcbGameObjects = NULL;
 	VS_VB_INSTANCE* m_pcbMappedGameObjects = NULL;
 };

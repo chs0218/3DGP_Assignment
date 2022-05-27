@@ -1,4 +1,8 @@
 #include "Shader.h"
+
+random_device rd;
+default_random_engine dre{ rd() };
+
 CShader::CShader() {}
 
 CShader::~CShader()
@@ -270,7 +274,6 @@ void CObjectsShader::AnimateObjects(float fTimeElapsed)
 		m_ppObjects[j]->Animate(fTimeElapsed);
 	}
 }
-
 void CObjectsShader::ReleaseUploadBuffers()
 {
 	if (m_ppObjects)
@@ -357,6 +360,12 @@ void CInstancingShader::UpdateShaderVariables(ID3D12GraphicsCommandList *pd3dCom
 	}
 }
 
+void CInstancingShader::AnimateObjects(float fTimeElapsed)
+{
+	CObjectsShader::AnimateObjects(fTimeElapsed);
+}
+
+
 void CInstancingShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList)
 {
 	int xObjects = 2, yObjects = 0, zObjects = 200, i = 0;
@@ -379,6 +388,49 @@ void CInstancingShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCom
 		}
 	}
 	//인스턴싱을 사용하여 렌더링하기 위하여 하나의 게임 객체만 메쉬를 가진다. 
+	CCubeMeshDiffused* pCubeMesh = new CCubeMeshDiffused(pd3dDevice, pd3dCommandList, 30.0f, 5.0f, 50.0f);
+	m_ppObjects[0]->SetMesh(pCubeMesh);
+	//인스턴싱을 위한 버퍼(Structured Buffer)를 생성한다. 
+	CreateShaderVariables(pd3dDevice, pd3dCommandList);
+}
+
+void CInstancingShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, ID3D12RootSignature* pd3dGraphicsRootSignature)
+{
+	CMaterial::PrepareShaders(pd3dDevice, pd3dCommandList, pd3dGraphicsRootSignature);
+	int xObjects = 2, yObjects = 0, zObjects = 200, i = 0;
+	m_nObjects = (xObjects * 2 + 1) * (yObjects * 2 + 1) * (zObjects * 2 + 1);
+	m_ppObjects = new CGameObject * [m_nObjects];
+	float fxPitch = 30.0f;
+	float fyPitch = 5.0f;
+	float fzPitch = 50.0f;
+	CTrackObject* pTrackObject = NULL;
+	uniform_int_distribution<int> uid(-xObjects, xObjects);
+	int index = 0;
+	for (int z = -5; z <= 2 * zObjects - 5; z++)
+	{
+		for (int y = -yObjects; y <= yObjects; y++)
+		{
+			index = uid(dre);
+			for (int x = -xObjects; x <= xObjects; x++)
+			{
+				pTrackObject = new CTrackObject();
+				pTrackObject->SetPosition(fxPitch * x, fyPitch * y, fzPitch * z);
+				if (x == index)
+				{
+					CHierarchyObject* pObject = new CHierarchyObject();
+					CHierarchyObject* pGameObject = CHierarchyObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, pd3dGraphicsRootSignature, L"Model/Rock.txt");
+					pObject->SetChild(pGameObject);
+					pObject->SetScale(20.0f, 20.0f, 20.0f);
+					pObject->SetPosition(pTrackObject->GetPosition().x, pTrackObject->GetPosition().y, pTrackObject->GetPosition().z);
+					pObject->Rotate(0.0f, 90.0f, 0.0f);
+					v_Obstacle.push_back(pObject);
+				}
+
+				m_ppObjects[i++] = pTrackObject;
+			}
+		}
+	}
+	//인스턴싱을 사용하여 렌더링하기 위하여 하나의 게임 객체만 메쉬를 가진다. 
 	CCubeMeshDiffused *pCubeMesh = new CCubeMeshDiffused(pd3dDevice, pd3dCommandList, 30.0f, 5.0f, 50.0f);
 	m_ppObjects[0]->SetMesh(pCubeMesh);
 	//인스턴싱을 위한 버퍼(Structured Buffer)를 생성한다. 
@@ -392,6 +444,10 @@ void CInstancingShader::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCame
 	UpdateShaderVariables(pd3dCommandList);
 	//하나의 정점 데이터를 사용하여 모든 게임 객체(인스턴스)들을 렌더링한다. 
 	m_ppObjects[0]->Render(pd3dCommandList, pCamera, m_nObjects);
+	for (auto obj : v_Obstacle)
+	{
+		obj->Render(pd3dCommandList, pCamera);
+	}
 }
 
 //------------------------------------------------------------------------------------------

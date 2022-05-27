@@ -68,6 +68,7 @@ protected:
 	int m_nBaseVertex = 0;
 	//인덱스 버퍼의 인덱스에 더해질 인덱스이다. 
 public:
+	BoundingOrientedBox m_xmOOBB = BoundingOrientedBox();
 	UINT GetType() { return(m_nType); }
 	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList);
 	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, UINT nInstances);

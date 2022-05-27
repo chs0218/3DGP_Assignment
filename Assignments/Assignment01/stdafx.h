@@ -19,6 +19,7 @@
 #include <memory.h>
 #include <tchar.h>
 #include <math.h>
+#include <random>
 
 #include <fstream>
 #include <vector>
@@ -52,6 +53,9 @@ extern UINT gnCbvSrvDescriptorIncrementSize;
 
 #define RANDOM_COLOR XMFLOAT4(rand() / float(RAND_MAX), rand() / float(RAND_MAX), rand() / float(RAND_MAX), rand() / float(RAND_MAX))
 #define EPSILON	1.0e-10f
+
+
+
 
 inline bool IsZero(float fValue) { return((fabsf(fValue) < EPSILON)); }
 inline bool IsEqual(float fA, float fB) { return(::IsZero(fA - fB)); }

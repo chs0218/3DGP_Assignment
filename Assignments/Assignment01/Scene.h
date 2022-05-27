@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "Shader.h"
 #include "Camera.h"
+#include "Player.h"
 
 class CScene
 {
@@ -20,6 +21,10 @@ public:
 	void AnimateObjects(float fTimeElapsed);
 	void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
 	void ReleaseUploadBuffers();
+
+	void SetPlayer(CPlayer* pPlayer) { m_pPlayer = pPlayer; }
+	void CheckPlayerByObstacleCollisions(CHierarchyObject* target);
+
 	CGameObject** GetTrack() {
 		if (m_pShaders && m_nShaders > 0)
 			return m_pShaders[0].GetObjects();
@@ -31,6 +36,7 @@ protected:
 	//씬은 게임 객체들의 집합이다. 게임 객체는 셰이더를 포함한다.
 	//배치(Batch) 처리를 하기 위하여 씬을 셰이더들의 리스트로 표현한다. 
 	CInstancingShader* m_pShaders = NULL;
+	CPlayer* m_pPlayer = NULL;
 	int m_nShaders = 0;
 	ID3D12RootSignature* m_pd3dGraphicsRootSignature = NULL;
 };

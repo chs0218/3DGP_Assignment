@@ -295,7 +295,7 @@ CCarPlayer::CCarPlayer(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3d
 	m_pCamera = ChangeCamera(THIRD_PERSON_CAMERA, 0.0f);
 
 	CHierarchyObject* pGameObject = CHierarchyObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, pd3dGraphicsRootSignature, L"Model/RallyCar.txt");
-	pGameObject->Rotate(7.5f, 0.0f, 0.0f);
+	pGameObject->Rotate(2.5f, 0.0f, 0.0f);
 	pGameObject->SetScale(10.0f, 10.0f, 10.0f);
 	pGameObject->SetPosition(0.0f, 2.5f, 0.0f);
 

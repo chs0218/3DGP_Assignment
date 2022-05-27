@@ -277,8 +277,6 @@ void CGameFramework::CreateDepthStencilView()
 
 void CGameFramework::BuildObjects()
 {
-
-
 	m_pd3dCommandList->Reset(m_pd3dCommandAllocator, NULL);
 	m_pScene = new CScene();
 	if (m_pScene) m_pScene->BuildObjects(m_pd3dDevice, m_pd3dCommandList);
@@ -288,6 +286,7 @@ void CGameFramework::BuildObjects()
 	m_pPlayer = pCCarPlayer;
 	m_pPlayer->SetTrack(m_pScene->GetTrack());
 	m_pCamera = m_pPlayer->GetCamera();
+	m_pScene->SetPlayer(pCCarPlayer);
 
 	m_pd3dCommandList->Close();
 	ID3D12CommandList* ppd3dCommandLists[] = { m_pd3dCommandList };
@@ -449,9 +448,8 @@ void CGameFramework::ProcessInput()
 }
 void CGameFramework::AnimateObjects()
 {
-	if (m_pScene) m_pScene->AnimateObjects(m_GameTimer.GetTimeElapsed());
 	if (m_pPlayer)m_pPlayer->Animate(m_GameTimer.GetTimeElapsed(), NULL);
-
+	if (m_pScene) m_pScene->AnimateObjects(m_GameTimer.GetTimeElapsed());
 }
 
 void CGameFramework::WaitForGpuComplete()
@@ -526,15 +524,17 @@ void CGameFramework::FrameAdvance()
 	//원하는 값으로 깊이-스텐실(뷰)을 지운다.
 
 	if (m_pScene) m_pScene->Render(m_pd3dCommandList, m_pCamera);
+	
 	//3인칭 카메라일 때 플레이어가 항상 보이도록 렌더링한다. 
 #ifdef _WITH_PLAYER_TOP
 	//렌더 타겟은 그대로 두고 깊이 버퍼를 1.0으로 지우고 플레이어를 렌더링하면 플레이어는 무조건 그려질 것이다.
 	m_pd3dCommandList->ClearDepthStencilView(d3dDsvCPUDescriptorHandle, 
 	D3D12_CLEAR_FLAG_DEPTH | D3D12_CLEAR_FLAG_STENCIL, 1.0f, 0, 0, NULL);
 #endif
+	
 	//3인칭 카메라일 때 플레이어를 렌더링한다. 
 	if (m_pPlayer) m_pPlayer->Render(m_pd3dCommandList, m_pCamera);
-
+	
 
 
 	d3dResourceBarrier.Transition.StateBefore = D3D12_RESOURCE_STATE_RENDER_TARGET;

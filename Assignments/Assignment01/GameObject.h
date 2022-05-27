@@ -43,6 +43,7 @@ public:
 private:
 	int m_nReferences = 0;
 public:
+	BoundingOrientedBox			m_xmOOBB = BoundingOrientedBox();
 	void AddRef() { m_nReferences++; }
 	void Release() { if (--m_nReferences <= 0) delete this; }
 	void Rotate(XMFLOAT3* pxmf3Axis, float fAngle);
@@ -70,15 +71,33 @@ public:
 	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera, UINT nInstances);
 protected:
 	XMFLOAT4X4 m_xmf4x4World;
-	CMesh* m_pMesh = NULL;
 	CShader* m_pShader = NULL;
 public:
+	CMesh* m_pMesh = NULL;
+	bool Show = true;
 	void ReleaseUploadBuffers();
 	virtual void SetMesh(CMesh* pMesh);
 	virtual void SetShader(CShader* pShader);
 	virtual void Animate(float fTimeElapsed);
 	virtual void OnPrepareRender();
 	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
+	void UpdateBoundingBox()
+	{
+		if (m_pMesh)
+		{
+			m_pMesh->m_xmOOBB.Transform(m_xmOOBB, XMLoadFloat4x4(&m_xmf4x4World));
+			XMStoreFloat4(&m_xmOOBB.Orientation, XMQuaternionNormalize(XMLoadFloat4(&m_xmOOBB.Orientation)));
+		}
+	}
+
+	virtual void checkCollision(BoundingOrientedBox m_OB)
+	{
+		if (m_pMesh)
+		{
+			if (m_xmOOBB.Intersects(m_OB))
+				Show = false;
+		}
+	}
 };
 
 class CRotatingObject : public CGameObject
@@ -151,7 +170,6 @@ public:
 	CHierarchyObject* m_pSibling = NULL;
 	int	m_nMaterials = 0;
 	CMaterial** m_ppMaterials = NULL;
-
 public:
 	CHierarchyObject();
 	virtual ~CHierarchyObject();
@@ -171,19 +189,18 @@ public:
 	{
 		XMMATRIX mtxRotate = XMMatrixRotationRollPitchYaw(XMConvertToRadians(fPitch), XMConvertToRadians(fYaw), XMConvertToRadians(fRoll));
 		m_xmf4x4Transform = Matrix4x4::Multiply(mtxRotate, m_xmf4x4Transform);
-
 		UpdateTransform(NULL);
 	}
 	void SetScale(float x, float y, float z)
 	{
 		XMMATRIX mtxScale = XMMatrixScaling(x, y, z);
 		m_xmf4x4Transform = Matrix4x4::Multiply(mtxScale, m_xmf4x4Transform);
-
 		UpdateTransform(NULL);
 	}
 	void UpdateTransform(XMFLOAT4X4* pxmf4x4Parent)
 	{
 		m_xmf4x4World = (pxmf4x4Parent) ? Matrix4x4::Multiply(m_xmf4x4Transform, *pxmf4x4Parent) : m_xmf4x4Transform;
+		UpdateBoundingBox();
 
 		if (m_pSibling) m_pSibling->UpdateTransform(pxmf4x4Parent);
 		if (m_pChild) m_pChild->UpdateTransform(&m_xmf4x4World);
@@ -204,4 +221,15 @@ public:
 	static CMeshLoadInfo* LoadMeshInfoFromFile(wifstream& InFile);
 	static CHierarchyObject* LoadFrameHierarchyFromFile(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, ID3D12RootSignature* pd3dGraphicsRootSignature, wifstream& InFile);
 	static CHierarchyObject* LoadGeometryFromFile(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, ID3D12RootSignature* pd3dGraphicsRootSignature, TCHAR* pstrFileName);
+	virtual void checkCollision(BoundingOrientedBox m_OB)
+	{
+		if (m_pMesh)
+		{
+			if (m_xmOOBB.Intersects(m_OB))
+				Show = false;
+		}
+
+		if (m_pChild) m_pChild->checkCollision(m_OB);
+		if (m_pSibling) m_pSibling->checkCollision(m_OB);
+	}
 };

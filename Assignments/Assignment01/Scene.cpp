@@ -14,7 +14,7 @@ void CScene::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* p
 	m_nShaders = 1;
 	m_pShaders = new CInstancingShader;
 	m_pShaders[0].CreateShader(pd3dDevice, m_pd3dGraphicsRootSignature);
-	m_pShaders[0].BuildObjects(pd3dDevice, pd3dCommandList);
+	m_pShaders[0].BuildObjects(pd3dDevice, pd3dCommandList, m_pd3dGraphicsRootSignature);
 
 }
 
@@ -101,6 +101,7 @@ void CScene::AnimateObjects(float fTimeElapsed)
 	{
 		m_pShaders[i].AnimateObjects(fTimeElapsed);
 	}
+	CheckPlayerByObstacleCollisions(m_pPlayer);
 }
 
 
@@ -113,4 +114,15 @@ void CScene::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera
 	{
 		m_pShaders[i].Render(pd3dCommandList, pCamera);
 	}
+}
+
+//---------------------------------------------------------------------------------------
+void CScene::CheckPlayerByObstacleCollisions(CHierarchyObject* target)
+{
+	if (target->m_pMesh)
+		m_pShaders[0].CheckCollision(target->m_xmOOBB);
+	if (target->m_pChild)
+		CheckPlayerByObstacleCollisions(target->m_pChild);
+	if (target->m_pSibling)
+		CheckPlayerByObstacleCollisions(target->m_pSibling);
 }
