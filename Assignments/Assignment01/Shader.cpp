@@ -299,6 +299,11 @@ CInstancingShader::CInstancingShader()
 }
 CInstancingShader::~CInstancingShader()
 {
+	for (int i = 0; i < v_Obstacle.size(); ++i)
+	{
+		v_Obstacle[i]->Release();
+		delete v_Obstacle[i];
+	}
 }
 
 D3D12_INPUT_LAYOUT_DESC CInstancingShader::CreateInputLayout()
@@ -363,6 +368,10 @@ void CInstancingShader::UpdateShaderVariables(ID3D12GraphicsCommandList *pd3dCom
 void CInstancingShader::AnimateObjects(float fTimeElapsed)
 {
 	CObjectsShader::AnimateObjects(fTimeElapsed);
+	for (int i = 0; i < v_Obstacle.size(); ++i)
+	{
+		v_Obstacle[i]->Update(fTimeElapsed);
+	}
 }
 
 
@@ -406,35 +415,43 @@ void CInstancingShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCom
 	CTrackObject* pTrackObject = NULL;
 	uniform_int_distribution<int> uid(-xObjects, xObjects);
 	int index = 0;
-	for (int z = -5; z <= 2 * zObjects - 5; z++)
+	std::vector<int> indexes;
+	for (int z = -5; z <= 2 * zObjects - 45; z++)
 	{
+		index = uid(dre);
+		indexes.push_back(index);
 		for (int y = -yObjects; y <= yObjects; y++)
 		{
-			index = uid(dre);
+
 			for (int x = -xObjects; x <= xObjects; x++)
 			{
 				pTrackObject = new CTrackObject();
 				pTrackObject->SetPosition(fxPitch * x, fyPitch * y, fzPitch * z);
 				if (x == index)
 				{
-					CHierarchyObject* pObject = new CHierarchyObject();
+					ObstacleObject* tmp = new ObstacleObject;
+					tmp->p_Obs = new CHierarchyObject();
 					CHierarchyObject* pGameObject = CHierarchyObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, pd3dGraphicsRootSignature, L"Model/Rock.txt");
-					pObject->SetChild(pGameObject);
-					pObject->SetScale(20.0f, 20.0f, 20.0f);
-					pObject->SetPosition(pTrackObject->GetPosition().x, pTrackObject->GetPosition().y, pTrackObject->GetPosition().z);
-					pObject->Rotate(0.0f, 90.0f, 0.0f);
-					v_Obstacle.push_back(pObject);
+					tmp->p_Obs->SetChild(pGameObject);
+					tmp->p_Obs->SetScale(20.0f, 20.0f, 20.0f);
+					tmp->p_Obs->SetPosition(pTrackObject->GetPosition().x, pTrackObject->GetPosition().y, pTrackObject->GetPosition().z);
+					tmp->p_Obs->Rotate(0.0f, 90.0f, 0.0f);
+					v_Obstacle.push_back(tmp);
 				}
 
 				m_ppObjects[i++] = pTrackObject;
 			}
 		}
 	}
+
 	//인스턴싱을 사용하여 렌더링하기 위하여 하나의 게임 객체만 메쉬를 가진다. 
 	CCubeMeshDiffused *pCubeMesh = new CCubeMeshDiffused(pd3dDevice, pd3dCommandList, 30.0f, 5.0f, 50.0f);
 	m_ppObjects[0]->SetMesh(pCubeMesh);
 	//인스턴싱을 위한 버퍼(Structured Buffer)를 생성한다. 
 	CreateShaderVariables(pd3dDevice, pd3dCommandList);
+
+	for (auto i : v_Obstacle)
+		i->SetExplosion(pd3dDevice, pd3dCommandList);
 }
 
 void CInstancingShader::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera)
@@ -444,10 +461,12 @@ void CInstancingShader::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCame
 	UpdateShaderVariables(pd3dCommandList);
 	//하나의 정점 데이터를 사용하여 모든 게임 객체(인스턴스)들을 렌더링한다. 
 	m_ppObjects[0]->Render(pd3dCommandList, pCamera, m_nObjects);
+
 	for (auto obj : v_Obstacle)
-	{
-		obj->Render(pd3dCommandList, pCamera);
-	}
+		obj->Render1(pd3dCommandList, pCamera);
+
+	for (auto obj : v_Obstacle)
+		obj->Render2(pd3dCommandList, pCamera);
 }
 
 //------------------------------------------------------------------------------------------

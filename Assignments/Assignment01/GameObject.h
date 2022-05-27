@@ -11,6 +11,7 @@ class CShader;
 #define MATERIAL_EMISSION_MAP		0x10
 #define MATERIAL_DETAIL_ALBEDO_MAP	0x20
 #define MATERIAL_DETAIL_NORMAL_MAP	0x40
+#define EXPLOSION_DEBRISES 10
 
 struct MATERIALLOADINFO
 {
@@ -62,10 +63,16 @@ public:
 	//게임 객체의 위치를 설정한다. 
 	virtual void SetPosition(float x, float y, float z);
 	virtual void SetPosition(XMFLOAT3 xmf3Position);
+	void SetMovingDirection(XMFLOAT3& xmf3MovingDirection) { m_xmf3MovingDirection = Vector3::Normalize(xmf3MovingDirection); }
+	void SetMovingSpeed(float fSpeed) { m_fMovingSpeed = fSpeed; }
 	//게임 객체를 로컬 x-축, y-축, z-축 방향으로 이동한다.
 	virtual void MoveStrafe(float fDistance = 1.0f);
 	virtual void MoveUp(float fDistance = 1.0f);
 	virtual void MoveForward(float fDistance = 1.0f);
+	void Move()
+	{
+		SetPosition(m_xmf4x4World._41 + m_xmf3MovingDirection.x * m_fMovingSpeed, m_xmf4x4World._42 + m_xmf3MovingDirection.y * m_fMovingSpeed, m_xmf4x4World._43 + m_xmf3MovingDirection.z * m_fMovingSpeed);
+	}
 	//게임 객체를 회전(x-축, y-축, z-축)한다. 
 	virtual void Rotate(float fPitch = 10.0f, float fYaw = 10.0f, float fRoll = 10.0f);
 	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera, UINT nInstances);
@@ -74,6 +81,8 @@ protected:
 	CShader* m_pShader = NULL;
 public:
 	CMesh* m_pMesh = NULL;
+	XMFLOAT3 m_xmf3MovingDirection = XMFLOAT3(0.0f, 0.0f, 1.0f);
+	float m_fMovingSpeed = 0.0f;
 	bool Show = true;
 	void ReleaseUploadBuffers();
 	virtual void SetMesh(CMesh* pMesh);
@@ -90,13 +99,14 @@ public:
 		}
 	}
 
-	virtual void checkCollision(BoundingOrientedBox m_OB)
+	virtual bool checkCollision(BoundingOrientedBox m_OB)
 	{
 		if (m_pMesh)
 		{
 			if (m_xmOOBB.Intersects(m_OB))
-				Show = false;
+				return true;
 		}
+		return false;
 	}
 };
 
@@ -108,6 +118,7 @@ public:
 private:
 	XMFLOAT3 m_xmf3RotationAxis;
 	float m_fRotationSpeed;
+	
 public:
 	void SetRotationSpeed(float fRotationSpeed) { m_fRotationSpeed = fRotationSpeed; }
 	void SetRotationAxis(XMFLOAT3 xmf3RotationAxis) {
@@ -221,15 +232,80 @@ public:
 	static CMeshLoadInfo* LoadMeshInfoFromFile(wifstream& InFile);
 	static CHierarchyObject* LoadFrameHierarchyFromFile(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, ID3D12RootSignature* pd3dGraphicsRootSignature, wifstream& InFile);
 	static CHierarchyObject* LoadGeometryFromFile(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, ID3D12RootSignature* pd3dGraphicsRootSignature, TCHAR* pstrFileName);
-	virtual void checkCollision(BoundingOrientedBox m_OB)
+	virtual bool checkCollision(BoundingOrientedBox m_OB)
 	{
 		if (m_pMesh)
 		{
 			if (m_xmOOBB.Intersects(m_OB))
-				Show = false;
+				return true;
 		}
 
-		if (m_pChild) m_pChild->checkCollision(m_OB);
-		if (m_pSibling) m_pSibling->checkCollision(m_OB);
+		if (m_pChild && m_pChild->checkCollision(m_OB))
+			return true;
+		if (m_pSibling && m_pSibling->checkCollision(m_OB))
+			return true;
+
+		return false;
+	}
+};
+
+
+//인스턴스 정보(게임 객체의 월드 변환 행렬과 객체의 색상)를 위한 구조체이다. 
+struct VS_VB_INSTANCE
+{
+	XMFLOAT4X4 m_xmf4x4Transform;
+	XMFLOAT4 m_xmcColor;
+};
+
+class ObstacleObject
+{
+public:
+	ObstacleObject() {};
+	~ObstacleObject() {};
+	CHierarchyObject* p_Obs;
+	vector<CGameObject*> p_Explosions;
+	ID3D12Resource* m_myGameObjects = NULL;
+	VS_VB_INSTANCE* m_myMappedGameObjects = NULL;
+	float duration = 0.0f;
+	bool IsExPlosing = false;
+	void Release() {};
+	void Update(float fTimeElapsed) {
+		if (IsExPlosing)
+		{
+			duration += fTimeElapsed;
+			if (duration > 1.0f)
+			{
+				IsExPlosing = false;
+			}
+			else
+			{
+				for (int j = 0; j < p_Explosions.size(); j++)
+				{
+					p_Explosions[j]->Animate(fTimeElapsed);
+					p_Explosions[j]->Move();
+				}
+			}
+		}
+	}
+	void SetExplosion(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList);
+	void Render1(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera)
+	{
+		if (IsExPlosing)
+		{
+			pd3dCommandList->SetGraphicsRootShaderResourceView(2, m_myGameObjects->GetGPUVirtualAddress());
+			for (int j = 0; j < p_Explosions.size(); j++)
+			{
+				m_myMappedGameObjects[j].m_xmcColor = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
+				XMStoreFloat4x4(&m_myMappedGameObjects[j].m_xmf4x4Transform,
+					XMMatrixTranspose(XMLoadFloat4x4(&p_Explosions[j]->Getxmf4x4World())));
+			}
+			p_Explosions[0]->Render(pd3dCommandList, pCamera, p_Explosions.size());
+		}
+	}
+
+	void Render2(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera)
+	{
+		if (!IsExPlosing)
+			p_Obs->Render(pd3dCommandList, pCamera);
 	}
 };

@@ -2,12 +2,7 @@
 #include "GameObject.h"
 #include "Camera.h"
 
-//인스턴스 정보(게임 객체의 월드 변환 행렬과 객체의 색상)를 위한 구조체이다. 
-struct VS_VB_INSTANCE
-{
-	XMFLOAT4X4 m_xmf4x4Transform;
-	XMFLOAT4 m_xmcColor;
-};
+
 //게임 객체의 정보를 셰이더에게 넘겨주기 위한 구조체(상수 버퍼)이다.
 struct CB_GAMEOBJECT_INFO
 {
@@ -107,12 +102,13 @@ public:
 	{
 		for (auto obstacle : v_Obstacle)
 		{
-			obstacle->checkCollision(m_OB);
+			if (obstacle->p_Obs->checkCollision(m_OB))
+				obstacle->IsExPlosing = true;
 		}
 	}
 protected:
 	//인스턴스 데이터를 포함하는 버퍼와 포인터이다. 
-	vector<CHierarchyObject*> v_Obstacle;
+	vector<ObstacleObject*> v_Obstacle;
 	ID3D12Resource *m_pd3dcbGameObjects = NULL;
 	VS_VB_INSTANCE* m_pcbMappedGameObjects = NULL;
 };

@@ -573,3 +573,48 @@ void CMaterial::PrepareShaders(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLi
 
 //--------------------------------------
 
+random_device rd_Obj;
+default_random_engine dre_Obj{ rd_Obj() };
+
+inline float RandomF(float min, float max)
+{
+	uniform_int_distribution<int> uid;
+	return(min + ((float)uid(dre_Obj) / (float)INT_MAX) * (max - min));
+}
+
+XMVECTOR RandomUnitVectorOnSphere()
+{
+	XMVECTOR xmvOne = XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f);
+	XMVECTOR xmvZero = XMVectorZero();
+
+	while (true)
+	{
+		XMVECTOR v = XMVectorSet(RandomF(-1.0f, 1.0f), RandomF(-1.0f, 1.0f), RandomF(-1.0f, 1.0f), 0.0f);
+		if (!XMVector3Greater(XMVector3LengthSq(v), xmvOne)) return(XMVector3Normalize(v));
+	}
+}
+
+
+void ObstacleObject::SetExplosion(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList)
+{
+	for (int i = 0; i < 160; ++i)
+	{
+		CRotatingObject* explosions = new CRotatingObject;
+		explosions->SetPosition(p_Obs->GetPosition().x, p_Obs->GetPosition().y + 10.0f, p_Obs->GetPosition().z);
+		explosions->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
+		explosions->SetRotationSpeed(100.0f);
+		explosions->SetMovingSpeed(0.5f);
+		XMFLOAT3 randomDir;
+		XMStoreFloat3(&randomDir, RandomUnitVectorOnSphere());
+		explosions->SetMovingDirection(randomDir);
+		p_Explosions.push_back(explosions);
+	}
+
+	CCubeMeshDiffused* pCubeMesh = new CCubeMeshDiffused(pd3dDevice, pd3dCommandList, 2.0f, 2.0f, 2.0f);
+	p_Explosions[0]->SetMesh(pCubeMesh);
+
+	//인스턴스 정보를 저장할 정점 버퍼를 업로드 힙 유형으로 생성한다. 
+	m_myGameObjects = ::CreateBufferResource(pd3dDevice, pd3dCommandList, NULL, sizeof(VS_VB_INSTANCE) * p_Explosions.size(), D3D12_HEAP_TYPE_UPLOAD, D3D12_RESOURCE_STATE_GENERIC_READ, NULL);
+	//정점 버퍼(업로드 힙)에 대한 포인터를 저장한다. 
+	m_myGameObjects->Map(0, NULL, (void**)&m_myMappedGameObjects);
+}
