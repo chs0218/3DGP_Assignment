@@ -97,11 +97,13 @@ bool CScene::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wPar
 
 void CScene::AnimateObjects(float fTimeElapsed)
 {
-	for (int i = 0; i < m_nShaders; i++)
-	{
-		m_pShaders[i].AnimateObjects(fTimeElapsed);
-	}
+	m_pShaders[0].AnimateObjects(fTimeElapsed);
 	CheckPlayerByObstacleCollisions(m_pPlayer);
+	if (m_pPlayer->NeedUpdate)
+	{
+		m_pShaders[0].UpdateTrack();
+		m_pPlayer->NeedUpdate = false;
+	}
 }
 
 

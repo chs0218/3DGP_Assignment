@@ -269,14 +269,27 @@ public:
 	float duration = 0.0f;
 	bool IsExPlosing = false;
 	void Release() {};
+	void UpdatePosition() {
+		p_Obs->SetPosition(p_Obs->GetPosition().x, p_Obs->GetPosition().y, p_Obs->GetPosition().z + 15000.0f);
+		for (int i = 0; i < p_Explosions.size(); ++i)
+		{
+			p_Explosions[i]->SetPosition(p_Obs->GetPosition());
+		}
+	}
 	void Update(float fTimeElapsed) {
 		if (IsExPlosing)
 		{
 			duration += fTimeElapsed;
-			if (duration > 1.0f)
+			if (duration > 2.0f)
 			{
 				IsExPlosing = false;
+				duration = 0.0f;
+				for (int i = 0; i < p_Explosions.size(); ++i)
+				{
+					p_Explosions[i]->SetPosition(p_Obs->GetPosition());
+				}
 			}
+
 			else
 			{
 				for (int j = 0; j < p_Explosions.size(); j++)

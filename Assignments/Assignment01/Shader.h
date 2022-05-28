@@ -106,9 +106,31 @@ public:
 				obstacle->IsExPlosing = true;
 		}
 	}
+	void UpdateTrack()
+	{
+		for (int i = 0; i < 500; ++i)
+		{
+			
+			XMFLOAT3 originPos = m_ppObjects[UpdateIndex]->GetPosition();
+			m_ppObjects[UpdateIndex]->SetPosition(originPos.x, originPos.y, originPos.z + 15000.0f);
+			UpdateIndex += 1;
+			if (UpdateIndex >= 1500)
+				UpdateIndex = 0;
+		}
+
+		for (int i = 0; i < 100; ++i)
+		{
+			v_Obstacle[UpdateObsIndex]->UpdatePosition();
+			UpdateObsIndex += 1;
+			if (UpdateObsIndex >= 300)
+				UpdateObsIndex = 0;
+		}
+	}
 protected:
 	//인스턴스 데이터를 포함하는 버퍼와 포인터이다. 
 	vector<ObstacleObject*> v_Obstacle;
+	int UpdateIndex = 0;
+	int UpdateObsIndex = 0;
 	ID3D12Resource *m_pd3dcbGameObjects = NULL;
 	VS_VB_INSTANCE* m_pcbMappedGameObjects = NULL;
 };

@@ -353,6 +353,12 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 		case VK_ESCAPE:
 			::PostQuitMessage(0);
 			break;
+		case VK_UP:
+			m_pPlayer->SpeedUp();
+			break;
+		case VK_DOWN:
+			m_pPlayer->SpeedDown();
+			break;
 		case VK_RIGHT:
 		case VK_LEFT:
 			if (::GetKeyboardState(pKeyBuffer))
@@ -413,37 +419,22 @@ void CGameFramework::ProcessInput()
 {
 	float cxDelta = 0.0f, cyDelta = 0.0f;
 	POINT ptCursorPos;
-	/*마우스를 캡쳐했으면 마우스가 얼마만큼 이동하였는 가를 계산한다. 마우스 왼쪽 또는 오른쪽 버튼이 눌러질 때의
-	메시지(WM_LBUTTONDOWN, WM_RBUTTONDOWN)를 처리할 때 마우스를 캡쳐하였다. 그러므로 마우스가 캡쳐된
-	것은 마우스 버튼이 눌려진 상태를 의미한다. 마우스 버튼이 눌려진 상태에서 마우스를 좌우 또는 상하로 움직이면 플
-	레이어를 x-축 또는 y-축으로 회전한다.*/
 	if (::GetCapture() == m_hWnd)
 	{
-		//마우스 커서를 화면에서 없앤다(보이지 않게 한다).
 		::SetCursor(NULL);
-		//현재 마우스 커서의 위치를 가져온다. 
 		::GetCursorPos(&ptCursorPos);
-		//마우스 버튼이 눌린 상태에서 마우스가 움직인 양을 구한다. 
 		cxDelta = (float)(ptCursorPos.x - m_ptOldCursorPos.x) / 3.0f;
 		cyDelta = (float)(ptCursorPos.y - m_ptOldCursorPos.y) / 3.0f;
-		//마우스 커서의 위치를 마우스가 눌려졌던 위치로 설정한다. 
 		::SetCursorPos(m_ptOldCursorPos.x, m_ptOldCursorPos.y);
 	}
-	//마우스 또는 키 입력이 있으면 플레이어를 이동하거나(dwDirection) 회전한다(cxDelta 또는 cyDelta).
+
 	if ((cxDelta != 0.0f) || (cyDelta != 0.0f))
 	{
 		if (cxDelta || cyDelta)
 		{
-			/*cxDelta는 y-축의 회전을 나타내고 cyDelta는 x-축의 회전을 나타낸다. 오른쪽 마우스 버튼이 눌려진 경우
-			cxDelta는 z-축의 회전을 나타낸다.*/
-			if (pKeyBuffer[VK_RBUTTON] & 0xF0)
-				m_pPlayer->Rotate(cyDelta, 0.0f, -cxDelta);
-			else
-				m_pPlayer->Rotate(cyDelta, cxDelta, 0.0f);
+
 		}
 	}
-
-	//플레이어를 실제로 이동하고 카메라를 갱신한다. 중력과 마찰력의 영향을 속도 벡터에 적용한다.
 	m_pPlayer->Update(m_GameTimer.GetTimeElapsed());
 }
 void CGameFramework::AnimateObjects()
@@ -459,13 +450,11 @@ void CGameFramework::WaitForGpuComplete()
 
 	UINT64 nFenceValue = ++m_nFenceValues[m_nSwapChainBufferIndex];
 	HRESULT hResult = m_pd3dCommandQueue->Signal(m_pd3dFence, nFenceValue);
-	//GPU가 펜스의 값을 설정하는 명령을 명령 큐에 추가한다. 
 
 	if (m_pd3dFence->GetCompletedValue() < nFenceValue)
 	{
 		hResult = m_pd3dFence->SetEventOnCompletion(nFenceValue, m_hFenceEvent);
 		::WaitForSingleObject(m_hFenceEvent, INFINITE);
-		//펜스의 현재 값이 설정한 값보다 작으면 펜스의 현재 값이 설정한 값이 될 때까지 기다린다. 
 	}
 }
 
@@ -482,7 +471,6 @@ void CGameFramework::MoveToNextFrame()
 }
 void CGameFramework::FrameAdvance()
 {
-	// 타이머의 시간이 갱신되도록 하고 프레임 레이트르 계산한다.
 	m_GameTimer.Tick(0.0f);
 
 	ProcessInput();
@@ -491,7 +479,6 @@ void CGameFramework::FrameAdvance()
 
 	HRESULT hResult = m_pd3dCommandAllocator->Reset();
 	hResult = m_pd3dCommandList->Reset(m_pd3dCommandAllocator, NULL);
-	//명령 할당자와 명령 리스트를 리셋한다. 
 
 	D3D12_RESOURCE_BARRIER d3dResourceBarrier;
 	::ZeroMemory(&d3dResourceBarrier, sizeof(D3D12_RESOURCE_BARRIER));

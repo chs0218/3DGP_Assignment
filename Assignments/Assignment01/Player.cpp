@@ -174,12 +174,16 @@ void CPlayer::Update(float fTimeElapsed)
 		tz -= 1.0f;
 		zRail = zNextRail;
 		zNextRail += 1;
-		if (zNextRail > 150)
-		{
-			zRail = 3;
-			zNextRail = 4;
-		}
+		UpdateCount += 1;
+		if (zNextRail == 300)
+			zNextRail = 0;
 	}
+	if (UpdateCount == 100)
+	{
+		NeedUpdate = true;
+		UpdateCount = 0;
+	}
+
 
 	if (xRail != xNextRail)
 		tx += speed * fTimeElapsed;
@@ -191,7 +195,7 @@ void CPlayer::Update(float fTimeElapsed)
 			Rotate(0.0f, -15.0f, 0.0f);
 		else
 			Rotate(0.0f, +15.0f, 0.0f);
-
+		m_xmf3Position.x = m_Track[xNextRail]->GetPosition().x;
 		xRail = xNextRail;
 	}
 

@@ -31,16 +31,18 @@ protected:
 	LPVOID						m_pPlayerUpdatedContext;
 	LPVOID						m_pCameraUpdatedContext;
 	DWORD dwDirection;
-	float speed = 3.0f;
-	float xRail = 2;
-	float zRail = 3;
-	float zNextRail = 4;
-	float xNextRail = 2;
+	float speed = 8.0f;
+	int xRail = 2;
+	int zRail = 3;
+	int zNextRail = 4;
+	int xNextRail = 2;
 	float tx = 0.0f;
 	float tz = 0.0f;
 	CCamera* m_pCamera = NULL;
 	CGameObject** m_Track = NULL;
 public:
+	int UpdateCount = 0;
+	bool NeedUpdate = false;
 	CPlayer();
 	virtual ~CPlayer();
 
@@ -93,6 +95,18 @@ public:
 	virtual CCamera* ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed) { return(NULL); }
 	virtual void OnPrepareRender();
 	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera = NULL);
+
+	void SpeedUp()
+	{
+		if (speed < 15.0f)
+			speed += 1.0f;
+	}
+
+	void SpeedDown()
+	{
+		if (speed > 3.0f)
+			speed -= 1.0f;
+	}
 };
 
 class CCarPlayer : public CPlayer
@@ -109,7 +123,6 @@ public:
 private:
 	virtual void OnInitialize();
 	virtual void Animate(float fTimeElapsed, XMFLOAT4X4* pxmf4x4Parent = NULL);
-
 public:
 	virtual CCamera* ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed);
 	virtual void OnPrepareRender();
