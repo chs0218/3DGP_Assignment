@@ -1,93 +1,96 @@
-
-cbuffer cbCameraInfo : register(b0)
+//플레이어 객체의 데이터를 위한 상수 버퍼
+cbuffer cbPlayerInfo : register(b0)
 {
-	matrix		gmtxView : packoffset(c0);
-	matrix		gmtxProjection : packoffset(c4);
-	float3		gvCameraPosition : packoffset(c8);
+	matrix gmtxPlayerWorld : packoffset(c0);
 };
-
-cbuffer cbGameObjectInfo : register(b1)
+//카메라 객체의 데이터를 위한 상수 버퍼(스펙큘러 조명 계산을 위하여 카메라의 위치 벡터를 추가)
+cbuffer cbCameraInfo : register(b1)
 {
-	matrix		gmtxGameObject : packoffset(c0);
+	matrix gmtxView : packoffset(c0);
+	matrix gmtxProjection : packoffset(c4);
+	float3 gvCameraPosition : packoffset(c8);
 };
-
-cbuffer cbConstantsInfo : register(b4)
+//게임 객체의 데이터를 위한 상수 버퍼(게임 객체에 대한 재질 번호를 추가)
+cbuffer cbGameObjectInfo : register(b2)
 {
-	int			gnMaterial : packoffset(c0.x);
-	float4		gcAlbedoColor : packoffset(c1);
-	float4		gcEmissionColor : packoffset(c2);
+	matrix gmtxGameObject : packoffset(c0);
+	uint gnMaterial : packoffset(c4);
 };
 
 #include "Light.hlsl"
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-//#define _WITH_VERTEX_LIGHTING
 
-struct VS_INPUT
+//정점 셰이더의 입력을 위한 구조체를 선언한다. 
+struct VS_DIFFUSED_INPUT
+{
+	float3 position : POSITION;
+	float4 color : COLOR;
+};
+//정점 셰이더의 출력(픽셀 셰이더의 입력)을 위한 구조체를 선언한다. 
+struct VS_DIFFUSED_OUTPUT
+{
+	float4 position : SV_POSITION;
+	float4 color : COLOR;
+};
+
+VS_DIFFUSED_OUTPUT VSPlayer(VS_DIFFUSED_INPUT input)
+{
+	VS_DIFFUSED_OUTPUT output;
+	output.position = mul(mul(mul(float4(input.position, 1.0f), gmtxPlayerWorld), gmtxView), gmtxProjection);
+	output.color = input.color;
+	return(output);
+}
+
+float4 PSPlayer(VS_DIFFUSED_OUTPUT input) : SV_TARGET
+{
+	return(input.color);
+}
+
+//정점 조명을 사용
+#define _WITH_VERTEX_LIGHTING
+//정점 쉐이더의 입력 정점 구조
+struct VS_LIGHTING_INPUT
 {
 	float3 position : POSITION;
 	float3 normal : NORMAL;
 };
-
-struct VS_OUTPUT
+//정점 쉐이더의 출력 정점 구조
+struct VS_LIGHTING_OUTPUT
 {
-	float4 positionH : SV_POSITION;
+	float4 position : SV_POSITION;
 	float3 positionW : POSITION;
-	float3 normalW : NORMAL;
 #ifdef _WITH_VERTEX_LIGHTING
 	float4 color : COLOR;
+#else
+	float3 normalW : NORMAL;
 #endif
 };
 
-VS_OUTPUT VSLighting(VS_INPUT input)
+//정점 쉐이더 함수
+VS_LIGHTING_OUTPUT VSLighting(VS_LIGHTING_INPUT input)
 {
-	VS_OUTPUT output;
-
-	output.positionW = mul(float4(input.position, 1.0f), gmtxGameObject).xyz;
-	output.positionH = mul(mul(float4(output.positionW, 1.0f), gmtxView), gmtxProjection);
+	VS_LIGHTING_OUTPUT output;
+	output.positionW = (float3)mul(float4(input.position, 1.0f), gmtxGameObject);
+	output.position = mul(mul(float4(output.positionW, 1.0f), gmtxView), gmtxProjection);
 	float3 normalW = mul(input.normal, (float3x3)gmtxGameObject);
 #ifdef _WITH_VERTEX_LIGHTING
 	output.color = Lighting(output.positionW, normalize(normalW));
-	output.color = float4(0.5f * normalize(gvCameraPosition - output.positionW) + 0.5f, 1.0f);
 #else
 	output.normalW = normalW;
 #endif
-
 	return(output);
 }
 
-float4 PSLighting(VS_OUTPUT input) : SV_TARGET
+//픽셀 쉐이더 함수
+float4 PSLighting(VS_LIGHTING_OUTPUT input) : SV_TARGET
 {
 #ifdef _WITH_VERTEX_LIGHTING
-//	return(float4(input.positionW, 1.0f));
-	return(input.color);
+return(input.color);
 #else
-	float3 normalW = normalize(input.normalW);
-	float4 cIllumination = Lighting(input.positionW, normalW);
-	return(cIllumination * gcAlbedoColor + gcEmissionColor);
+float3 normalW = normalize(input.normalW);
+float4 color = Lighting(input.positionW, normalW);
+return(color);
 #endif
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-static float3 gDirectionalLight = float3(0.0f, -1.0f, 1.0f);
-static float4 gLightColor = float4(0.0135f, 0.035f, 0.357f, 1.0f);
-
-float4 PSPlayer(VS_OUTPUT input) : SV_TARGET
-{
-	float4 color;
-#ifdef _WITH_VERTEX_LIGHTING
-	color = input.color;
-	return(color);
-#else
-	float3 normalW = normalize(input.normalW);
-	float4 cIllumination = Lighting(input.positionW, normalW);
-	cIllumination = saturate(float4(0.12f, 0.12f, 0.12f, 1.0f) + gLightColor * abs(dot(normalize(input.normalW), normalize(-gDirectionalLight))));
-	return(cIllumination);
-#endif
-//	return(cIllumination + gLightColor + gcEmissionColor * 0.15f);
-//	return(color * cIllumination * gcAlbedoColor + gcEmissionColor);
 }
 
 
