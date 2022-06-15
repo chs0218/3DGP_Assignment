@@ -368,12 +368,24 @@ D3D12_SHADER_BYTECODE CTerrainShader::CreatePixelShader(ID3DBlob** ppd3dShaderBl
 }
 void CTerrainShader::CreateShader(ID3D12Device* pd3dDevice, ID3D12RootSignature* pd3dGraphicsRootSignature)
 {
-	m_nPipelineStates = 1;
-	m_ppd3dPipelineStates = new ID3D12PipelineState * [m_nPipelineStates];
 	CShader::CreateShader(pd3dDevice, pd3dGraphicsRootSignature);
 }
+
 void CTerrainShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList)
 {
+	XMFLOAT3 xmf3Scale(8.0f, 2.0f, 8.0f);
+	XMFLOAT4 xmf4Color(0.0f, 0.2f, 0.0f, 0.0f);
+#ifdef _WITH_TERRAIN_PARTITION
+	/*하나의 격자 메쉬의 크기는 가로x세로(17x17)이다. 지형 전체는 가로 방향으로 16개, 세로 방향으로 16의 격자 메
+	쉬를 가진다. 지형을 구성하는 격자 메쉬의 개수는 총 256(16x16)개가 된다.*/
+	m_pTerrain = new CHeightMapTerrain(pd3dDevice, pd3dCommandList,
+		m_pd3dGraphicsRootSignature, _T("HeightMap.raw"), 257, 257, 17,
+		17, xmf3Scale, xmf4Color);
+#else
+	//지형을 하나의 격자 메쉬(257x257)로 생성한다. 
+	m_pTerrain = new CHeightMapTerrain(pd3dDevice, pd3dCommandList, _T("HeightMap.raw"), 257, 257, 257, 257, xmf3Scale, xmf4Color);
+#endif
+	m_pTerrain->SetPosition(0.0f, 0.0f, 0.0f);
 	CreateShaderVariables(pd3dDevice, pd3dCommandList);
 }
 
@@ -381,20 +393,41 @@ void CTerrainShader::CreateShaderVariables(ID3D12Device* pd3dDevice, ID3D12Graph
 {
 	UINT ncbElementBytes = ((sizeof(CB_GAMEOBJECT_INFO) + 255) & ~255); //256의 배수
 	m_pd3dcbTerrainObjects = ::CreateBufferResource(pd3dDevice, pd3dCommandList, NULL, ncbElementBytes, D3D12_HEAP_TYPE_UPLOAD, D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER, NULL);
-
 	m_pd3dcbTerrainObjects->Map(0, NULL, (void**)&m_pcbMappedTerrainObjects);
 }
 
-void CTerrainShader::UpdateShaderVariables(ID3D12GraphicsCommandList* pd3dCommandList, XMFLOAT4X4 m_xmf4x4World)
+void CTerrainShader::UpdateShaderVariables(ID3D12GraphicsCommandList* pd3dCommandList)
 {
-	UINT ncbElementBytes = ((sizeof(CB_GAMEOBJECT_INFO) + 255) & ~255);
-	CB_GAMEOBJECT_INFO* pbMappedcbGameObject = (CB_GAMEOBJECT_INFO*)((UINT8*)m_pcbMappedTerrainObjects);
-	XMStoreFloat4x4(&pbMappedcbGameObject->m_xmf4x4World, XMMatrixTranspose(XMLoadFloat4x4(&m_xmf4x4World)));
+	XMFLOAT4X4 xmf4x4World;
+	XMStoreFloat4x4(&xmf4x4World, XMMatrixTranspose(XMLoadFloat4x4(&(m_pTerrain->m_xmf4x4World))));
+	::memcpy(&m_pcbMappedTerrainObjects->m_xmf4x4World, &xmf4x4World, sizeof(XMFLOAT4X4));
 }
 
-void CTerrainShader::OnPrepareRender(ID3D12GraphicsCommandList* pd3dCommandList, XMFLOAT4X4 m_xmf4x4World)
+void CTerrainShader::OnPrepareRender(ID3D12GraphicsCommandList* pd3dCommandList)
 {
 	if (m_pd3dPipelineState) pd3dCommandList->SetPipelineState(m_pd3dPipelineState);
+	UpdateShaderVariables(pd3dCommandList);
+}
 
-	UpdateShaderVariables(pd3dCommandList, m_xmf4x4World);
+void CTerrainShader::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera)
+{
+	CShader::Render(pd3dCommandList, pCamera);
+	D3D12_GPU_VIRTUAL_ADDRESS d3dGpuVirtualAddress = m_pd3dcbTerrainObjects->GetGPUVirtualAddress();
+	pd3dCommandList->SetGraphicsRootConstantBufferView(1, d3dGpuVirtualAddress);
+	if (m_pTerrain->m_ppMeshes)
+	{
+		for (int i = 0; i < m_pTerrain->m_nMeshes; ++i)
+		{
+			if (m_pTerrain->m_ppMeshes[i]) m_pTerrain->m_ppMeshes[i]->Render(pd3dCommandList);
+		}
+	}
+}
+
+void CTerrainShader::ReleaseShaderVariables()
+{
+	if (m_pd3dcbTerrainObjects)
+	{
+		m_pd3dcbTerrainObjects->Unmap(0, NULL);
+		m_pd3dcbTerrainObjects->Release();
+	}
 }

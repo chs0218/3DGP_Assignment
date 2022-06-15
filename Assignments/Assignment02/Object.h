@@ -183,7 +183,9 @@ public:
 	void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
 	void SetMesh(int nIndex, CMesh* pMesh);
 	void SetShader(CShader* pShader);
-protected:
+	void SetPosition(float x, float y, float z);
+	void SetPosition(XMFLOAT3 xmf3Position);
+public:
 	XMFLOAT4X4 m_xmf4x4World;
 	CShader* m_pShader = NULL;
 	//게임 객체는 여러 개의 메쉬를 포함하는 경우 게임 객체가 가지는 메쉬들에 대한 포인터와 그 개수이다. 
@@ -197,9 +199,8 @@ class CHeightMapTerrain : public MyGameObject
 {
 public:
 	CHeightMapTerrain(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
-		* pd3dCommandList, ID3D12RootSignature* pd3dGraphicsRootSignature, LPCTSTR pFileName, int
-		nWidth, int nLength, int nBlockWidth, int nBlockLength, XMFLOAT3 xmf3Scale, XMFLOAT4
-		xmf4Color);
+		* pd3dCommandList, LPCTSTR pFileName, int nWidth, int nLength, int nBlockWidth, 
+		int nBlockLength, XMFLOAT3 xmf3Scale, XMFLOAT4 xmf4Color);
 	virtual ~CHeightMapTerrain();
 private:
 	//지형의 높이 맵으로 사용할 이미지이다. 
