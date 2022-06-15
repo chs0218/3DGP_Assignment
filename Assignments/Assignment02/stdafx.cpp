@@ -4,11 +4,14 @@
 
 #include "stdafx.h"
 
-UINT gnCbvSrvDescriptorIncrementSize = 32;
+// TODO: 필요한 추가 헤더는
+// 이 파일이 아닌 STDAFX.H에서 참조합니다.
 
-ID3D12Resource* CreateBufferResource(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, void* pData, UINT nBytes, D3D12_HEAP_TYPE d3dHeapType, D3D12_RESOURCE_STATES d3dResourceStates, ID3D12Resource** ppd3dUploadBuffer)
+//UINT gnCbvSrvDescriptorIncrementSize;
+
+ID3D12Resource *CreateBufferResource(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *pd3dCommandList, void *pData, UINT nBytes, D3D12_HEAP_TYPE d3dHeapType, D3D12_RESOURCE_STATES d3dResourceStates, ID3D12Resource **ppd3dUploadBuffer)
 {
-	ID3D12Resource* pd3dBuffer = NULL;
+	ID3D12Resource *pd3dBuffer = NULL;
 
 	D3D12_HEAP_PROPERTIES d3dHeapPropertiesDesc;
 	::ZeroMemory(&d3dHeapPropertiesDesc, sizeof(D3D12_HEAP_PROPERTIES));
@@ -36,7 +39,7 @@ ID3D12Resource* CreateBufferResource(ID3D12Device* pd3dDevice, ID3D12GraphicsCom
 	if (d3dHeapType == D3D12_HEAP_TYPE_UPLOAD) d3dResourceInitialStates = D3D12_RESOURCE_STATE_GENERIC_READ;
 	else if (d3dHeapType == D3D12_HEAP_TYPE_READBACK) d3dResourceInitialStates = D3D12_RESOURCE_STATE_COPY_DEST;
 
-	HRESULT hResult = pd3dDevice->CreateCommittedResource(&d3dHeapPropertiesDesc, D3D12_HEAP_FLAG_NONE, &d3dResourceDesc, d3dResourceInitialStates, NULL, __uuidof(ID3D12Resource), (void**)&pd3dBuffer);
+	HRESULT hResult = pd3dDevice->CreateCommittedResource(&d3dHeapPropertiesDesc, D3D12_HEAP_FLAG_NONE, &d3dResourceDesc, d3dResourceInitialStates, NULL, __uuidof(ID3D12Resource), (void **)&pd3dBuffer);
 
 	if (pData)
 	{
@@ -47,11 +50,11 @@ ID3D12Resource* CreateBufferResource(ID3D12Device* pd3dDevice, ID3D12GraphicsCom
 			if (ppd3dUploadBuffer)
 			{
 				d3dHeapPropertiesDesc.Type = D3D12_HEAP_TYPE_UPLOAD;
-				pd3dDevice->CreateCommittedResource(&d3dHeapPropertiesDesc, D3D12_HEAP_FLAG_NONE, &d3dResourceDesc, D3D12_RESOURCE_STATE_GENERIC_READ, NULL, __uuidof(ID3D12Resource), (void**)ppd3dUploadBuffer);
+				pd3dDevice->CreateCommittedResource(&d3dHeapPropertiesDesc, D3D12_HEAP_FLAG_NONE, &d3dResourceDesc, D3D12_RESOURCE_STATE_GENERIC_READ, NULL, __uuidof(ID3D12Resource), (void **)ppd3dUploadBuffer);
 
 				D3D12_RANGE d3dReadRange = { 0, 0 };
-				UINT8* pBufferDataBegin = NULL;
-				(*ppd3dUploadBuffer)->Map(0, &d3dReadRange, (void**)&pBufferDataBegin);
+				UINT8 *pBufferDataBegin = NULL;
+				(*ppd3dUploadBuffer)->Map(0, &d3dReadRange, (void **)&pBufferDataBegin);
 				memcpy(pBufferDataBegin, pData, nBytes);
 				(*ppd3dUploadBuffer)->Unmap(0, NULL);
 
@@ -72,8 +75,8 @@ ID3D12Resource* CreateBufferResource(ID3D12Device* pd3dDevice, ID3D12GraphicsCom
 		case D3D12_HEAP_TYPE_UPLOAD:
 		{
 			D3D12_RANGE d3dReadRange = { 0, 0 };
-			UINT8* pBufferDataBegin = NULL;
-			pd3dBuffer->Map(0, &d3dReadRange, (void**)&pBufferDataBegin);
+			UINT8 *pBufferDataBegin = NULL;
+			pd3dBuffer->Map(0, &d3dReadRange, (void **)&pBufferDataBegin);
 			memcpy(pBufferDataBegin, pData, nBytes);
 			pd3dBuffer->Unmap(0, NULL);
 			break;
@@ -85,3 +88,81 @@ ID3D12Resource* CreateBufferResource(ID3D12Device* pd3dDevice, ID3D12GraphicsCom
 	return(pd3dBuffer);
 }
 
+CGameObject **LoadGameObjectsFromFile(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *pd3dCommandList, char *pstrFileName, int *pnGameObjects)
+{
+	FILE *pFile = NULL;
+	::fopen_s(&pFile, pstrFileName, "rb");
+	::rewind(pFile);
+
+	char pstrToken[64] = { '\0' };
+	char pstrGameObjectName[64] = { '\0' };
+	char pstrFilePath[64] = { '\0' };
+
+	BYTE nStrLength = 0, nObjectNameLength = 0;
+	UINT nReads = 0, nMaterials = 0;
+	size_t nConverted = 0;
+
+	nReads = (UINT)::fread(&nStrLength, sizeof(BYTE), 1, pFile);
+	nReads = (UINT)::fread(pstrToken, sizeof(char), nStrLength, pFile); //"<GameObjects>:"
+	nReads = (UINT)::fread(pnGameObjects, sizeof(int), 1, pFile);
+
+	CGameObject **ppGameObjects = new CGameObject*[*pnGameObjects];
+
+	CGameObject *pGameObject = NULL, *pObjectFound = NULL;
+	for (int i = 0; i < *pnGameObjects; i++)
+	{
+		nReads = (UINT)::fread(&nStrLength, sizeof(BYTE), 1, pFile);
+		nReads = (UINT)::fread(pstrToken, sizeof(char), nStrLength, pFile); //"<GameObject>:"
+		nReads = (UINT)::fread(&nObjectNameLength, sizeof(BYTE), 1, pFile);
+		nReads = (UINT)::fread(pstrGameObjectName, sizeof(char), nObjectNameLength, pFile);
+		pstrGameObjectName[nObjectNameLength] = '\0';
+
+		nReads = (UINT)::fread(&nStrLength, sizeof(BYTE), 1, pFile);
+		nReads = (UINT)::fread(pstrToken, sizeof(char), nStrLength, pFile); //"<Materials>:"
+		nReads = (UINT)::fread(&nMaterials, sizeof(int), 1, pFile);
+
+		pGameObject = new CGameObject(nMaterials);
+		strcpy_s(pGameObject->m_pstrName, 64, pstrGameObjectName);
+
+		CGameObject *pObjectFound = NULL;
+		for (int j = 0; j < i; j++)
+		{
+			if (!strcmp(pstrGameObjectName, ppGameObjects[j]->m_pstrName))
+			{
+				pObjectFound = ppGameObjects[j];
+				pGameObject->SetMesh(ppGameObjects[j]->m_pMesh);
+				for (UINT k = 0; k < nMaterials; k++) pGameObject->SetMaterial(k, ppGameObjects[j]->m_ppMaterials[k]);
+				break;
+			}
+		}
+
+		XMFLOAT4 xmf4AlbedoColor = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), xmf4EmissionColor = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+		for (UINT k = 0; k < nMaterials; k++)
+		{
+			if (!pObjectFound) pGameObject->SetMaterial(k, rand() % MAX_SCENE_MATERIALS);
+
+			nReads = (UINT)::fread(&xmf4AlbedoColor, sizeof(float), 4, pFile);
+			if (!pObjectFound) pGameObject->SetAlbedoColor(k, xmf4AlbedoColor);
+
+			nReads = (UINT)::fread(&xmf4EmissionColor, sizeof(float), 4, pFile);
+			if (!pObjectFound) pGameObject->SetEmissionColor(k, xmf4EmissionColor);
+		}
+
+		nReads = (UINT)::fread(&pGameObject->m_xmf4x4World, sizeof(float), 16, pFile);
+
+		if (!pObjectFound)
+		{
+			strcpy_s(pstrFilePath, 64, "Models/");
+			strcpy_s(pstrFilePath + 7, 64 - 7, pstrGameObjectName);
+			strcpy_s(pstrFilePath + 7 + nObjectNameLength, 64 - 7 - nObjectNameLength, ".bin");
+			CMesh *pMesh = new CMesh(pd3dDevice, pd3dCommandList, pstrFilePath);
+			pGameObject->SetMesh(pMesh);
+		}
+
+		ppGameObjects[i] = pGameObject;
+	}
+
+	::fclose(pFile);
+
+	return(ppGameObjects);
+}
