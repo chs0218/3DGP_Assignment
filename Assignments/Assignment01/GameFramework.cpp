@@ -280,8 +280,8 @@ void CGameFramework::BuildObjects()
 	m_pd3dCommandList->Reset(m_pd3dCommandAllocator, NULL);
 	m_pScene = new CScene();
 	if (m_pScene) m_pScene->BuildObjects(m_pd3dDevice, m_pd3dCommandList);
-	CMaterial::PrepareShaders(m_pd3dDevice, m_pd3dCommandList, m_pScene->GetGraphicsRootSignature());
 
+	CMaterial::PrepareShaders(m_pd3dDevice, m_pd3dCommandList, m_pScene->GetGraphicsRootSignature());
 	CCarPlayer* pCCarPlayer = new CCarPlayer(m_pd3dDevice, m_pd3dCommandList, m_pScene->GetGraphicsRootSignature());
 	m_pPlayer = pCCarPlayer;
 	m_pPlayer->SetTrack(m_pScene->GetTrack());
@@ -330,7 +330,7 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 		{
 		/*‘F1’ 키를 누르면 1인칭 카메라, ‘F2’ 키를 누르면 스페이스-쉽 카메라로 변경한다, ‘F3’ 키를 누르면 3인칭 카메라로 변경한다.*/ 
 		case VK_F1:
-		case VK_F2:
+		/*case VK_F2:*/
 		case VK_F3:
 		if (m_pPlayer) m_pCamera = m_pPlayer->ChangeCamera((wParam - VK_F1 + 1), m_GameTimer.GetTimeElapsed());
 		break;
@@ -368,6 +368,9 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 				m_pPlayer->SetDir(dwDirection);
 			}
 			break;
+		case 'Z':
+		case 'z':
+			m_pPlayer->Rotate(0.0f, 90.0f, 0.0f);
 			break;
 		case VK_RETURN:
 			break;

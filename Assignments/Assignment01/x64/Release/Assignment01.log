@@ -1,17 +1,8 @@
-﻿  Assignment01.cpp
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment01\GameObject.h(315,1): warning C4267: '인수': 'size_t'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Camera.cpp
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment01\GameObject.h(315,1): warning C4267: '인수': 'size_t'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  GameFramework.cpp
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment01\GameObject.h(315,1): warning C4267: '인수': 'size_t'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment01\GameFramework.cpp(335,70): warning C4244: '인수': 'WPARAM'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Player.cpp
-D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment01\GameObject.h(315,1): warning C4267: '인수': 'size_t'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Scene.cpp
+﻿  Shader.cpp
 D:\Visual Studio\Project\3DGP_Assignment\Assignments\Assignment01\GameObject.h(315,1): warning C4267: '인수': 'size_t'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   코드를 생성하고 있습니다.
-  2 of 740 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+  1 of 740 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    3 functions had inline decision re-evaluated but remain unchanged
+    2 functions had inline decision re-evaluated but remain unchanged
   코드를 생성했습니다.
   Assignment01.vcxproj -> D:\Visual Studio\Project\3DGP_Assignment\Assignments\x64\Release\Assignment01.exe
