@@ -220,9 +220,8 @@ void CTerrainObject::SetMesh(int nIndex, CMesh* pMesh)
 
 void CTerrainObject::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera)
 {
-	OnPrepareRender();
-	UpdateShaderVariables(pd3dCommandList);
-	if (m_pShader) m_pShader->Render(pd3dCommandList, pCamera);
+	m_pShader->Render(pd3dCommandList, pCamera);
+	m_pShader->UpdateShaderVariable(pd3dCommandList, &m_xmf4x4World);
 	//게임 객체가 포함하는 모든 메쉬를 렌더링한다. 
 	if (m_ppMeshes)
 	{
@@ -231,27 +230,14 @@ void CTerrainObject::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera*
 			if (m_ppMeshes[i]) m_ppMeshes[i]->Render(pd3dCommandList);
 		}
 	}
-
-	/*if (m_pMaterial)
-	{
-		if (m_pMaterial->m_pShader)
-		{
-			m_pMaterial->m_pShader->Render(pd3dCommandList, pCamera);
-			m_pMaterial->m_pShader->UpdateShaderVariable(pd3dCommandList, &m_xmf4x4World);
-		}
-	}
-	if (m_pMesh) m_pMesh->Render(pd3dCommandList);*/
 }
 
-void CTerrainObject::ReleaseUploadBuffers()
+void CTerrainObject::SetShader(CShader* pShader)
 {
-	if (m_ppMeshes)
-	{
-		for (int i = 0; i < m_nMeshes; i++)
-		{
-			if (m_ppMeshes[i]) m_ppMeshes[i]->ReleaseUploadBuffers();
-		}
-	}
+
+	if (m_pShader) m_pShader->Release();
+	m_pShader = pShader;
+	if (m_pShader) m_pShader->AddRef();
 }
 
 //==========================================================================================
@@ -291,9 +277,11 @@ CHeightMapTerrain::CHeightMapTerrain(ID3D12Device* pd3dDevice, ID3D12GraphicsCom
 			SetMesh(x + (z * cxBlocks), pHeightMapGridMesh);
 		}
 	}
+	SetPosition(100.0f, 100.0f, 100.0f);
 	//지형을 렌더링하기 위한 셰이더를 생성한다. 
 	CTerrainShader* pShader = new CTerrainShader();
 	pShader->CreateShader(pd3dDevice, pd3dGraphicsRootSignature);
+	pShader->CreateShaderVariables(pd3dDevice, pd3dCommandList);
 	SetShader(pShader);
 }
 CHeightMapTerrain::~CHeightMapTerrain(void)

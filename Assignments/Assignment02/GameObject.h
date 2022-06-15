@@ -107,7 +107,7 @@ public:
 	CTerrainObject(int nMeshes = 1);
 	~CTerrainObject();
 	void SetMesh(int nIndex, CMesh* pMesh);
-	virtual void ReleaseUploadBuffers();
+	virtual void SetShader(CShader* pShader);
 	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
 };
 

@@ -92,3 +92,5 @@ float4 color = Lighting(input.positionW, normalW);
 return(color);
 #endif
 }
+
+
