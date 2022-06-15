@@ -70,6 +70,7 @@ public:
     void Render(ID3D12GraphicsCommandList *pd3dCommandList, CCamera *pCamera=NULL);
 
 	void ReleaseUploadBuffers();
+	CHeightMapTerrain* GetTerrain() { return(m_pTerrain); }
 
 	CPlayer						*m_pPlayer = NULL;
 
@@ -88,4 +89,6 @@ protected:
 
 	ID3D12Resource				*m_pd3dcbMaterials = NULL;
 	MATERIAL					*m_pcbMappedMaterials = NULL;
+
+	CHeightMapTerrain* m_pTerrain = NULL;
 };

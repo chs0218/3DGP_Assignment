@@ -100,3 +100,23 @@ protected:
 	CB_GAMEOBJECT_INFO				*m_pcbMappedGameObjects = NULL;
 };
 
+class CTerrainShader : public CShader
+{
+protected:
+	ID3D12PipelineState** m_ppd3dPipelineStates = NULL;
+	int m_nPipelineStates = 0;
+	ID3D12Resource* m_pd3dcbTerrainObjects = NULL;
+	CB_GAMEOBJECT_INFO* m_pcbMappedTerrainObjects = NULL;
+public:
+	CTerrainShader();
+	virtual ~CTerrainShader();
+	virtual D3D12_INPUT_LAYOUT_DESC CreateInputLayout();
+	virtual D3D12_SHADER_BYTECODE CreateVertexShader(ID3DBlob** ppd3dShaderBlob);
+	virtual D3D12_SHADER_BYTECODE CreatePixelShader(ID3DBlob** ppd3dShaderBlob);
+	virtual void BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList);
+	virtual void CreateShader(ID3D12Device* pd3dDevice, ID3D12RootSignature
+		* pd3dGraphicsRootSignature);
+	virtual void CreateShaderVariables(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList);
+	virtual void UpdateShaderVariables(ID3D12GraphicsCommandList* pd3dCommandList, XMFLOAT4X4 m_xmf4x4World);
+	virtual void OnPrepareRender(ID3D12GraphicsCommandList* pd3dCommandList, XMFLOAT4X4 m_xmf4x4World);
+};
