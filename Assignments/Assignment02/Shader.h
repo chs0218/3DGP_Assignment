@@ -122,4 +122,5 @@ public:
 	virtual void OnPrepareRender(ID3D12GraphicsCommandList* pd3dCommandList);
 	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
 	virtual	void ReleaseShaderVariables();
+	CHeightMapTerrain* GetTerrain() { return(m_pTerrain); }
 };

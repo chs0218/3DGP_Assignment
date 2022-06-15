@@ -104,6 +104,7 @@ void CScene::BuildObjects(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *p
 	CTerrainShader* pTerrainShader = new CTerrainShader();
 	pTerrainShader->CreateShader(pd3dDevice, m_pd3dGraphicsRootSignature);
 	pTerrainShader->BuildObjects(pd3dDevice, pd3dCommandList);
+	m_pTerrain = pTerrainShader->GetTerrain();
 	m_ppShaders[1] = pTerrainShader;
 
 	BuildLightsAndMaterials();

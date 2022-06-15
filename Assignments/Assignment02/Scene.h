@@ -68,11 +68,10 @@ public:
 	bool ProcessInput(UCHAR *pKeysBuffer);
     void AnimateObjects(float fTimeElapsed);
     void Render(ID3D12GraphicsCommandList *pd3dCommandList, CCamera *pCamera=NULL);
-
+	CHeightMapTerrain* GetTerrain() { return(m_pTerrain); }
 	void ReleaseUploadBuffers();
 
-	CPlayer						*m_pPlayer = NULL;
-
+	CPlayer	*m_pPlayer = NULL;
 protected:
 	ID3D12RootSignature			*m_pd3dGraphicsRootSignature = NULL;
 
@@ -89,4 +88,5 @@ protected:
 	ID3D12Resource				*m_pd3dcbMaterials = NULL;
 	MATERIAL					*m_pcbMappedMaterials = NULL;
 
+	CHeightMapTerrain* m_pTerrain = NULL;
 };
