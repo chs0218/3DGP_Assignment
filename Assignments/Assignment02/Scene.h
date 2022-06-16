@@ -62,9 +62,10 @@ public:
     void Render(ID3D12GraphicsCommandList *pd3dCommandList, CCamera *pCamera=NULL);
 
 	void ReleaseUploadBuffers();
+	CHeightMapTerrain* GetTerrain() { return(m_pTerrain); }
 
 	CPlayer						*m_pPlayer = NULL;
-
+	CHeightMapTerrain* m_pTerrain = NULL;
 public:
 	ID3D12RootSignature			*m_pd3dGraphicsRootSignature = NULL;
 
