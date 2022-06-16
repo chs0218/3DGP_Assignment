@@ -68,7 +68,7 @@ public:
 	bool ProcessInput(UCHAR *pKeysBuffer);
     void AnimateObjects(float fTimeElapsed);
     void Render(ID3D12GraphicsCommandList *pd3dCommandList, CCamera *pCamera=NULL);
-	CHeightMapTerrain* GetTerrain() { return(m_pTerrain); }
+	CHeightMapTerrain* GetTerrain() { return(pTerrain); }
 	void ReleaseUploadBuffers();
 
 	CPlayer	*m_pPlayer = NULL;
@@ -77,7 +77,6 @@ protected:
 
 	CShader						**m_ppShaders = NULL;
 	int							m_nShaders = 0;
-
 	LIGHTS						*m_pLights = NULL;
 
 	ID3D12Resource				*m_pd3dcbLights = NULL;
@@ -88,5 +87,5 @@ protected:
 	ID3D12Resource				*m_pd3dcbMaterials = NULL;
 	MATERIAL					*m_pcbMappedMaterials = NULL;
 
-	CHeightMapTerrain* m_pTerrain = NULL;
+	CHeightMapTerrain* pTerrain = NULL;
 };

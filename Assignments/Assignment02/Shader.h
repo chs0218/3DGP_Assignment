@@ -107,7 +107,6 @@ protected:
 	int m_nPipelineStates = 0;
 	ID3D12Resource* m_pd3dcbTerrainObjects = NULL;
 	CB_GAMEOBJECT_INFO* m_pcbMappedTerrainObjects = NULL;
-	CHeightMapTerrain* m_pTerrain = NULL;
 public:
 	CTerrainShader();
 	virtual ~CTerrainShader();
@@ -123,4 +122,5 @@ public:
 	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
 	virtual	void ReleaseShaderVariables();
 	CHeightMapTerrain* GetTerrain() { return(m_pTerrain); };
+	CHeightMapTerrain* m_pTerrain = NULL;
 };

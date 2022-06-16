@@ -88,20 +88,21 @@ void CScene::BuildObjects(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *p
 {
 	m_pd3dGraphicsRootSignature = CreateGraphicsRootSignature(pd3dDevice);
 
-	m_nShaders = 2;
+	m_nShaders = 1;
 	m_ppShaders = new CShader*[m_nShaders];
 
-	CObjectsShader *pObjectShader = new CObjectsShader();
+	/*CObjectsShader *pObjectShader = new CObjectsShader();
 	pObjectShader->CreateShader(pd3dDevice, m_pd3dGraphicsRootSignature);
 	pObjectShader->BuildObjects(pd3dDevice, pd3dCommandList, "Models/Scene.bin");
-	m_ppShaders[0] = pObjectShader;
+	m_ppShaders[0] = pObjectShader;*/
 	
 	CTerrainShader* pTerrainShader = new CTerrainShader();
 	pTerrainShader->CreateShader(pd3dDevice, m_pd3dGraphicsRootSignature);
 	pTerrainShader->BuildObjects(pd3dDevice, pd3dCommandList);
-	m_pTerrain = pTerrainShader->GetTerrain();
-	m_ppShaders[1] = pTerrainShader;
+	m_ppShaders[0] = pTerrainShader;
 
+
+	pTerrain = pTerrainShader->GetTerrain();
 	BuildLightsAndMaterials();
 
 	CreateShaderVariables(pd3dDevice, pd3dCommandList);

@@ -232,14 +232,17 @@ CAirplanePlayer::CAirplanePlayer(ID3D12Device *pd3dDevice, ID3D12GraphicsCommand
 {
 	LoadGameObjectFromFile(pd3dDevice, pd3dCommandList, "Models/FlyerPlayershipObject.bin");
 
+	CHeightMapTerrain* pTerrain = (CHeightMapTerrain*)pContext;
+	float fHeight = pTerrain->GetHeight(pTerrain->GetWidth() * 0.5f, pTerrain->GetLength() * 0.5f);
+	SetPosition(XMFLOAT3(pTerrain->GetWidth() * 0.5f, fHeight + 50.0f, pTerrain->GetLength() * 0.5f));
+	SetPlayerUpdatedContext(pTerrain);
+	SetCameraUpdatedContext(pTerrain);
+
 	CPlayerShader *pShader = new CPlayerShader();
 	pShader->CreateShader(pd3dDevice, pd3dGraphicsRootSignature);
 	pShader->CreateShaderVariables(pd3dDevice, pd3dCommandList);
 
 	m_pCamera = ChangeCamera(THIRD_PERSON_CAMERA, 0.0f);
-
-	SetPosition(XMFLOAT3(0.0f, 0.0f, 0.0f));
-
 	CreateShaderVariables(pd3dDevice, pd3dCommandList);
 
 	SetShader(pShader);
