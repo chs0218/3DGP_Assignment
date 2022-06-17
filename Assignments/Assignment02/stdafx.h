@@ -15,6 +15,8 @@
 #include <memory.h>
 #include <tchar.h>
 #include <math.h>
+#include <random>
+#include <algorithm>
 
 #include <string>
 #include <wrl.h>

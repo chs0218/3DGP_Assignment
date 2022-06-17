@@ -5,6 +5,9 @@
 #include "stdafx.h"
 #include "Scene.h"
 
+std::random_device rd{};
+std::default_random_engine dre{ rd() };
+
 CScene::CScene()
 {
 }
@@ -13,7 +16,7 @@ CScene::~CScene()
 {
 }
 
-void CScene::BuildDefaultLightsAndMaterials()
+void CScene::BuildDefaultLightsAndMaterials(float x, float y, float z)
 {
 	m_nLights = 4;
 	m_pLights = new LIGHT[m_nLights];
@@ -27,7 +30,7 @@ void CScene::BuildDefaultLightsAndMaterials()
 	m_pLights[0].m_xmf4Ambient = XMFLOAT4(0.1f, 0.0f, 0.0f, 1.0f);
 	m_pLights[0].m_xmf4Diffuse = XMFLOAT4(0.8f, 0.0f, 0.0f, 1.0f);
 	m_pLights[0].m_xmf4Specular = XMFLOAT4(0.5f, 0.5f, 0.5f, 0.0f);
-	m_pLights[0].m_xmf3Position = XMFLOAT3(30.0f, 30.0f, 30.0f);
+	m_pLights[0].m_xmf3Position = XMFLOAT3(30.0f + x, 30.0f + y, 30.0f + z);
 	m_pLights[0].m_xmf3Direction = XMFLOAT3(0.0f, 0.0f, 0.0f);
 	m_pLights[0].m_xmf3Attenuation = XMFLOAT3(1.0f, 0.001f, 0.0001f);
 	m_pLights[1].m_bEnable = true;
@@ -36,7 +39,7 @@ void CScene::BuildDefaultLightsAndMaterials()
 	m_pLights[1].m_xmf4Ambient = XMFLOAT4(0.1f, 0.1f, 0.1f, 1.0f);
 	m_pLights[1].m_xmf4Diffuse = XMFLOAT4(0.4f, 0.4f, 0.4f, 1.0f);
 	m_pLights[1].m_xmf4Specular = XMFLOAT4(0.3f, 0.3f, 0.3f, 0.0f);
-	m_pLights[1].m_xmf3Position = XMFLOAT3(-50.0f, 20.0f, -5.0f);
+	m_pLights[1].m_xmf3Position = XMFLOAT3(-50.0f + x, 20.0f + y, -5.0f + z);
 	m_pLights[1].m_xmf3Direction = XMFLOAT3(0.0f, 0.0f, 1.0f);
 	m_pLights[1].m_xmf3Attenuation = XMFLOAT3(1.0f, 0.01f, 0.0001f);
 	m_pLights[1].m_fFalloff = 8.0f;
@@ -54,7 +57,7 @@ void CScene::BuildDefaultLightsAndMaterials()
 	m_pLights[3].m_xmf4Ambient = XMFLOAT4(0.3f, 0.3f, 0.3f, 1.0f);
 	m_pLights[3].m_xmf4Diffuse = XMFLOAT4(0.3f, 0.7f, 0.0f, 1.0f);
 	m_pLights[3].m_xmf4Specular = XMFLOAT4(0.3f, 0.3f, 0.3f, 0.0f);
-	m_pLights[3].m_xmf3Position = XMFLOAT3(50.0f, 30.0f, 30.0f);
+	m_pLights[3].m_xmf3Position = XMFLOAT3(50.0f + x, 30.0f + y, 30.0f + z);
 	m_pLights[3].m_xmf3Direction = XMFLOAT3(0.0f, 1.0f, 1.0f);
 	m_pLights[3].m_xmf3Attenuation = XMFLOAT3(1.0f, 0.01f, 0.0001f);
 	m_pLights[3].m_fFalloff = 8.0f;
@@ -68,63 +71,6 @@ void CScene::BuildObjects(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *p
 
 	CMaterial::PrepareShaders(pd3dDevice, pd3dCommandList, m_pd3dGraphicsRootSignature);
 
-	BuildDefaultLightsAndMaterials();
-
-	m_nGameObjects = 5;
-	m_ppGameObjects = new CGameObject*[m_nGameObjects];
-
-	CGameObject *pApacheModel = CGameObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, m_pd3dGraphicsRootSignature, "Model/Apache.bin");
-	CApacheObject* pApacheObject = NULL;
-
-	pApacheObject = new CApacheObject();
-	pApacheObject->SetChild(pApacheModel, true);
-	pApacheObject->OnInitialize();
-	pApacheObject->SetPosition(+130.0f, 0.0f, 160.0f);
-	pApacheObject->SetScale(1.5f, 1.5f, 1.5f);
-	pApacheObject->Rotate(0.0f, 90.0f, 0.0f);
-	m_ppGameObjects[0] = pApacheObject;
-
-	pApacheObject = new CApacheObject();
-	pApacheObject->SetChild(pApacheModel, true);
-	pApacheObject->OnInitialize();
-	pApacheObject->SetPosition(-75.0f, 0.0f, 80.0f);
-	pApacheObject->SetScale(1.5f, 1.5f, 1.5f);
-	pApacheObject->Rotate(0.0f, -90.0f, 0.0f);
-	m_ppGameObjects[1] = pApacheObject;
-
-	CGameObject *pGunshipModel = CGameObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, m_pd3dGraphicsRootSignature, "Model/Gunship.bin");
-	CGunshipObject* pGunshipObject = NULL;
-
-	pGunshipObject = new CGunshipObject();
-	pGunshipObject->SetChild(pGunshipModel, true);
-	pGunshipObject->OnInitialize();
-	pGunshipObject->SetPosition(135.0f, 40.0f, 220.0f);
-	pGunshipObject->SetScale(8.5f, 8.5f, 8.5f);
-	pGunshipObject->Rotate(0.0f, -90.0f, 0.0f);
-	m_ppGameObjects[2] = pGunshipObject;
-
-	CGameObject *pSuperCobraModel = CGameObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, m_pd3dGraphicsRootSignature, "Model/SuperCobra.bin");
-	CSuperCobraObject* pSuperCobraObject = NULL;
-
-	pSuperCobraObject = new CSuperCobraObject();
-	pSuperCobraObject->SetChild(pSuperCobraModel, true);
-	pSuperCobraObject->OnInitialize();
-	pSuperCobraObject->SetPosition(95.0f, 50.0f, 50.0f);
-	pSuperCobraObject->SetScale(4.5f, 4.5f, 4.5f);
-	pSuperCobraObject->Rotate(0.0f, -90.0f, 0.0f);
-	m_ppGameObjects[3] = pSuperCobraObject;
-
-	CGameObject *pMi24Model = CGameObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, m_pd3dGraphicsRootSignature, "Model/Mi24.bin");
-	CMi24Object* pMi24Object = NULL;
-
-	pMi24Object = new CMi24Object();
-	pMi24Object->SetChild(pMi24Model, true);
-	pMi24Object->OnInitialize();
-	pMi24Object->SetPosition(-95.0f, 50.0f, 50.0f);
-	pMi24Object->SetScale(4.5f, 4.5f, 4.5f);
-	pMi24Object->Rotate(0.0f, -90.0f, 0.0f);
-	m_ppGameObjects[4] = pMi24Object;
-
 	//지형을 확대할 스케일 벡터이다. x-축과 z-축은 8배, y-축은 2배 확대한다. 
 	XMFLOAT3 xmf3Scale(8.0f, 2.0f, 8.0f);
 	XMFLOAT4 xmf4Color(0.0f, 0.2f, 0.0f, 0.0f);
@@ -133,9 +79,91 @@ void CScene::BuildObjects(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *p
 		m_pd3dGraphicsRootSignature, _T("../Assets/Image/Terrain/HeightMap.raw"), 257, 257, 17,
 		17, xmf3Scale, xmf4Color);
 #else
-//지형을 하나의 격자 메쉬(257x257)로 생성한다. 
-	m_pTerrain = new CHeightMapTerrain(pd3dDevice, pd3dCommandList, m_pd3dGraphicsRootSignature, _T("HeightMap.raw"), 257, 257, 257, 257, xmf3Scale, xmf4Color);
+	//지형을 하나의 격자 메쉬(257x257)로 생성한다. 
+	m_pTerrain = new CHeightMapTerrain(pd3dDevice, pd3dCommandList, m_pd3dGraphicsRootSignature, _T("HeightMap2.raw"), 257, 257, 257, 257, xmf3Scale, xmf4Color);
 #endif
+
+	BuildDefaultLightsAndMaterials(m_pTerrain->GetWidth() * 0.5f, m_pTerrain->GetHeight(m_pTerrain->GetWidth() * 0.5f, m_pTerrain->GetLength() * 0.5f) + 200.0f, m_pTerrain->GetLength() * 0.5f);
+
+	m_nGameObjects = 5;
+	m_ppGameObjects = new CGameObject*[m_nGameObjects];
+
+	CGameObject *pApacheModel = CGameObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, m_pd3dGraphicsRootSignature, "Model/Apache.bin");
+	CApacheObject* pApacheObject = NULL;
+
+	std::uniform_int_distribution<int> uidX(0, m_pTerrain->GetWidth());
+	std::uniform_int_distribution<int> uidZ(0, m_pTerrain->GetLength());
+
+	m_pTerrain->GetHeight(m_pTerrain->GetWidth() * 0.5f, m_pTerrain->GetLength() * 0.5f);
+
+	float randX = (float)uidX(dre);
+	float randZ = (float)uidZ(dre);
+	float randY = m_pTerrain->GetHeight(randX, randZ) + 50.0f;
+
+	pApacheObject = new CApacheObject();
+	pApacheObject->SetChild(pApacheModel, true);
+	pApacheObject->OnInitialize();
+	pApacheObject->SetPosition(randX, randY, randZ);
+	pApacheObject->SetScale(0.5f, 0.5f, 0.5f);
+	pApacheObject->Rotate(0.0f, 90.0f, 0.0f);
+	m_ppGameObjects[0] = pApacheObject;
+
+	randX = (float)uidX(dre);
+	randZ = (float)uidZ(dre);
+	randY = m_pTerrain->GetHeight(randX, randZ) + 50.0f;
+
+	pApacheObject = new CApacheObject();
+	pApacheObject->SetChild(pApacheModel, true);
+	pApacheObject->OnInitialize();
+	pApacheObject->SetPosition(randX, randY, randZ);
+	pApacheObject->SetScale(1.5f, 1.5f, 1.5f);
+	pApacheObject->Rotate(0.0f, -90.0f, 0.0f);
+	m_ppGameObjects[1] = pApacheObject;
+
+	CGameObject *pGunshipModel = CGameObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, m_pd3dGraphicsRootSignature, "Model/Gunship.bin");
+	CGunshipObject* pGunshipObject = NULL;
+
+	randX = (float)uidX(dre);
+	randZ = (float)uidZ(dre);
+	randY = m_pTerrain->GetHeight(randX, randZ) + 50.0f;
+
+	pGunshipObject = new CGunshipObject();
+	pGunshipObject->SetChild(pGunshipModel, true);
+	pGunshipObject->OnInitialize();
+	pGunshipObject->SetPosition(randX, randY, randZ);
+	pGunshipObject->SetScale(3.0f, 3.0f, 3.0f);
+	pGunshipObject->Rotate(0.0f, -90.0f, 0.0f);
+	m_ppGameObjects[2] = pGunshipObject;
+
+	CGameObject *pSuperCobraModel = CGameObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, m_pd3dGraphicsRootSignature, "Model/SuperCobra.bin");
+	CSuperCobraObject* pSuperCobraObject = NULL;
+
+	randX = (float)uidX(dre);
+	randZ = (float)uidZ(dre);
+	randY = m_pTerrain->GetHeight(randX, randZ) + 50.0f;
+
+	pSuperCobraObject = new CSuperCobraObject();
+	pSuperCobraObject->SetChild(pSuperCobraModel, true);
+	pSuperCobraObject->OnInitialize();
+	pSuperCobraObject->SetPosition(randX, randY, randZ);
+	pSuperCobraObject->SetScale(4.0f, 4.0f, 4.0f);
+	pSuperCobraObject->Rotate(0.0f, -90.0f, 0.0f);
+	m_ppGameObjects[3] = pSuperCobraObject;
+
+	CGameObject *pMi24Model = CGameObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, m_pd3dGraphicsRootSignature, "Model/Mi24.bin");
+	CMi24Object* pMi24Object = NULL;
+
+	randX = (float)uidX(dre);
+	randZ = (float)uidZ(dre);
+	randY = m_pTerrain->GetHeight(randX, randZ) + 50.0f;
+
+	pMi24Object = new CMi24Object();
+	pMi24Object->SetChild(pMi24Model, true);
+	pMi24Object->OnInitialize();
+	pMi24Object->SetPosition(randX, randY, randZ);
+	pMi24Object->SetScale(3.5f, 3.5f, 3.5f);
+	pMi24Object->Rotate(0.0f, -90.0f, 0.0f);
+	m_ppGameObjects[4] = pMi24Object;
 
 	CreateShaderVariables(pd3dDevice, pd3dCommandList);
 }
