@@ -175,6 +175,13 @@ namespace Vector3
 	{
 		return(TransformCoord(xmf3Vector, XMLoadFloat4x4(&xmmtx4x4Matrix)));
 	}
+	 
+	inline bool IsZero(XMFLOAT3& xmf3Vector)
+	{
+		if (::IsZero(xmf3Vector.x) && ::IsZero(xmf3Vector.y) && ::IsZero(xmf3Vector.z))
+			return(true);
+		return(false);
+	}
 }
 
 namespace Vector4
@@ -183,6 +190,13 @@ namespace Vector4
 	{
 		XMFLOAT4 xmf4Result;
 		XMStoreFloat4(&xmf4Result, XMLoadFloat4(&xmf4Vector1) + XMLoadFloat4(&xmf4Vector2));
+		return(xmf4Result);
+	}
+
+	inline XMFLOAT4 Multiply(float fScalar, XMFLOAT4& xmf4Vector)
+	{
+		XMFLOAT4 xmf4Result;
+		XMStoreFloat4(&xmf4Result, fScalar * XMLoadFloat4(&xmf4Vector));
 		return(xmf4Result);
 	}
 }
