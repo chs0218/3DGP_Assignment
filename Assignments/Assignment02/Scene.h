@@ -13,6 +13,8 @@
 #define SPOT_LIGHT			2
 #define DIRECTIONAL_LIGHT	3
 
+#define MAX_ENEMY			10
+
 struct LIGHT
 {
 	XMFLOAT4				m_xmf4Ambient;
@@ -63,16 +65,14 @@ public:
 
 	void ReleaseUploadBuffers();
 	
-	void BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList);
+	void BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, std::vector<CGameObject*>::iterator index);
+	void SpawnEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList);
 	CHeightMapTerrain* GetTerrain() { return(m_pTerrain); }
 
 	CPlayer						*m_pPlayer = NULL;
 	CHeightMapTerrain* m_pTerrain = NULL;
 public:
 	ID3D12RootSignature			*m_pd3dGraphicsRootSignature = NULL;
-
-	CGameObject					**m_ppGameObjects = NULL;
-	int							m_nGameObjects = 0;
 
 	LIGHT						*m_pLights = NULL;
 	int							m_nLights = 0;
@@ -83,5 +83,6 @@ public:
 	LIGHTS						*m_pcbMappedLights = NULL;
 
 	float						m_fElapsedTime = 0.0f;
+	std::vector<CGameObject*> v_GameObjects;
 	std::vector<char*> Models{ "Model/Gunship.bin", "Model/SuperCobra.bin", "Model/Mi24.bin", "Model/Apache.bin" };
 };

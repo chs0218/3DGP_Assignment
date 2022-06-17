@@ -109,15 +109,12 @@ class CGameObject
 {
 private:
 	int								m_nReferences = 0;
-
 public:
 	void AddRef();
 	void Release();
-
 public:
 	CGameObject();
     virtual ~CGameObject();
-
 public:
 	char							m_pstrFrameName[64];
 
@@ -132,6 +129,7 @@ public:
 	CGameObject 					*m_pParent = NULL;
 	CGameObject 					*m_pChild = NULL;
 	CGameObject 					*m_pSibling = NULL;
+	bool							isEnable = false;
 
 	void SetMesh(CMesh *pMesh);
 	void SetShader(CShader *pShader);

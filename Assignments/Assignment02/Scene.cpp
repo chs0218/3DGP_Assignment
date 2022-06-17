@@ -64,70 +64,103 @@ void CScene::BuildDefaultLightsAndMaterials(float x, float y, float z)
 	m_pLights[3].m_fPhi = (float)cos(XMConvertToRadians(90.0f));
 	m_pLights[3].m_fTheta = (float)cos(XMConvertToRadians(30.0f));
 }
-void CScene::BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList)
+
+void CScene::SpawnEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList)
+{
+	std::vector<CGameObject*>::iterator index = std::find_if(v_GameObjects.begin(), v_GameObjects.end(), [](const CGameObject* target) { return target->isEnable; });
+	if (v_GameObjects.size() < MAX_ENEMY)
+		BuildRandomEnemy(pd3dDevice, pd3dCommandList, index);
+}
+
+void CScene::BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, std::vector<CGameObject*>::iterator index)
 {
 	uniform_int_distribution<int> uidEnemy(0, Models.size() - 1);
 	std::uniform_int_distribution<int> uidX(0, m_pTerrain->GetWidth());
 	std::uniform_int_distribution<int> uidZ(0, m_pTerrain->GetLength());
 	
-	for (int i = 0; i < 5; ++i)
+	int Seed = uidEnemy(dre);
+	float randX = (float)uidX(dre);
+	float randZ = (float)uidZ(dre);
+	float randY = m_pTerrain->GetHeight(randX, randZ) + 50.0f;
+	CGameObject* pModel = CGameObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, m_pd3dGraphicsRootSignature, Models[Seed]);
+	switch (Seed)
 	{
-		int Seed = uidEnemy(dre);
-		float randX = (float)uidX(dre);
-		float randZ = (float)uidZ(dre);
-		float randY = m_pTerrain->GetHeight(randX, randZ) + 50.0f;
-		CGameObject* pModel = CGameObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, m_pd3dGraphicsRootSignature, Models[Seed]);
-		switch (Seed)
+	case 0:
+	{
+		if (index != v_GameObjects.end())
 		{
-		case 0:
-			{
-				CGunshipObject* pGunshipObject = NULL;
-				pGunshipObject = new CGunshipObject();
-				pGunshipObject->SetChild(pModel, true);
-				pGunshipObject->OnInitialize();
-				pGunshipObject->SetPosition(randX, randY, randZ);
-				pGunshipObject->SetScale(3.0f, 3.0f, 3.0f);
-				pGunshipObject->Rotate(0.0f, -90.0f, 0.0f);
-				m_ppGameObjects[i] = pGunshipObject;
-			}
-			break;
-		case 1:
-			{
-				CSuperCobraObject* pSuperCobraObject = NULL;
-				pSuperCobraObject = new CSuperCobraObject();
-				pSuperCobraObject->SetChild(pModel, true);
-				pSuperCobraObject->OnInitialize();
-				pSuperCobraObject->SetPosition(randX, randY, randZ);
-				pSuperCobraObject->SetScale(4.0f, 4.0f, 4.0f);
-				pSuperCobraObject->Rotate(0.0f, -90.0f, 0.0f);
-				m_ppGameObjects[i] = pSuperCobraObject;
-			}
-			break;
-		case 2:
-			{
-				CMi24Object* pMi24Object = NULL;
-				pMi24Object = new CMi24Object();
-				pMi24Object->SetChild(pModel, true);
-				pMi24Object->OnInitialize();
-				pMi24Object->SetPosition(randX, randY, randZ);
-				pMi24Object->SetScale(3.5f, 3.5f, 3.5f);
-				pMi24Object->Rotate(0.0f, -90.0f, 0.0f);
-				m_ppGameObjects[i] = pMi24Object;
-			}
-			break;
-		case 3:
-			{
-				CApacheObject* pApacheObject = NULL;
-				pApacheObject = new CApacheObject();
-				pApacheObject->SetChild(pModel, true);
-				pApacheObject->OnInitialize();
-				pApacheObject->SetPosition(randX, randY, randZ);
-				pApacheObject->SetScale(0.5f, 0.5f, 0.5f);
-				pApacheObject->Rotate(0.0f, 90.0f, 0.0f);
-				m_ppGameObjects[i] = pApacheObject;
-			}
-			break;
+
 		}
+		else
+		{
+			CGunshipObject* pGunshipObject = NULL;
+			pGunshipObject = new CGunshipObject();
+			pGunshipObject->SetChild(pModel, true);
+			pGunshipObject->OnInitialize();
+			pGunshipObject->SetPosition(randX, randY, randZ);
+			pGunshipObject->SetScale(3.0f, 3.0f, 3.0f);
+			pGunshipObject->Rotate(0.0f, -90.0f, 0.0f);
+			v_GameObjects.push_back(pGunshipObject);
+		}
+	}
+	break;
+	case 1:
+	{
+		if (index != v_GameObjects.end())
+		{
+
+		}
+		else
+		{
+			CSuperCobraObject* pSuperCobraObject = NULL;
+			pSuperCobraObject = new CSuperCobraObject();
+			pSuperCobraObject->SetChild(pModel, true);
+			pSuperCobraObject->OnInitialize();
+			pSuperCobraObject->SetPosition(randX, randY, randZ);
+			pSuperCobraObject->SetScale(4.0f, 4.0f, 4.0f);
+			pSuperCobraObject->Rotate(0.0f, -90.0f, 0.0f);
+			v_GameObjects.push_back(pSuperCobraObject);
+		}
+	}
+	break;
+	case 2:
+	{
+		if (index != v_GameObjects.end())
+		{
+
+		}
+		else
+		{
+			CMi24Object* pMi24Object = NULL;
+			pMi24Object = new CMi24Object();
+			pMi24Object->SetChild(pModel, true);
+			pMi24Object->OnInitialize();
+			pMi24Object->SetPosition(randX, randY, randZ);
+			pMi24Object->SetScale(3.5f, 3.5f, 3.5f);
+			pMi24Object->Rotate(0.0f, -90.0f, 0.0f);
+			v_GameObjects.push_back(pMi24Object);
+		}
+	}
+	break;
+	case 3:
+	{
+		if (index != v_GameObjects.end())
+		{
+
+		}
+		else
+		{
+			CApacheObject* pApacheObject = NULL;
+			pApacheObject = new CApacheObject();
+			pApacheObject->SetChild(pModel, true);
+			pApacheObject->OnInitialize();
+			pApacheObject->SetPosition(randX, randY, randZ);
+			pApacheObject->SetScale(0.5f, 0.5f, 0.5f);
+			pApacheObject->Rotate(0.0f, 90.0f, 0.0f);
+			v_GameObjects.push_back(pApacheObject);
+		}
+	}
+	break;
 	}
 }
 
@@ -150,10 +183,10 @@ void CScene::BuildObjects(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *p
 #endif
 
 	BuildDefaultLightsAndMaterials(m_pTerrain->GetWidth() * 0.5f, m_pTerrain->GetHeight(m_pTerrain->GetWidth() * 0.5f, m_pTerrain->GetLength() * 0.5f) + 200.0f, m_pTerrain->GetLength() * 0.5f);
-
-	m_nGameObjects = 5;
-	m_ppGameObjects = new CGameObject*[m_nGameObjects];
-	BuildRandomEnemy(pd3dDevice, pd3dCommandList);
+	for (int i = 0; i < 20; ++i)
+	{
+		SpawnEnemy(pd3dDevice, pd3dCommandList);
+	}
 	CreateShaderVariables(pd3dDevice, pd3dCommandList);
 }
 
@@ -161,11 +194,8 @@ void CScene::ReleaseObjects()
 {
 	if (m_pd3dGraphicsRootSignature) m_pd3dGraphicsRootSignature->Release();
 
-	if (m_ppGameObjects)
-	{
-		for (int i = 0; i < m_nGameObjects; i++) if (m_ppGameObjects[i]) m_ppGameObjects[i]->Release();
-		delete[] m_ppGameObjects;
-	}
+	for (int i = 0; i < v_GameObjects.size(); ++i)
+		v_GameObjects[i]->Release();
 
 	ReleaseShaderVariables();
 
@@ -240,7 +270,8 @@ void CScene::ReleaseShaderVariables()
 
 void CScene::ReleaseUploadBuffers()
 {
-	for (int i = 0; i < m_nGameObjects; i++) m_ppGameObjects[i]->ReleaseUploadBuffers();
+	for (int i = 0; i < v_GameObjects.size(); ++i)
+		v_GameObjects[i]->ReleaseUploadBuffers();
 	if (m_pTerrain) m_pTerrain->ReleaseUploadBuffers();
 }
 
@@ -256,12 +287,12 @@ bool CScene::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wPar
 	case WM_KEYDOWN:
 		switch (wParam)
 		{
-		case 'W': m_ppGameObjects[0]->MoveForward(+1.0f); break;
-		case 'S': m_ppGameObjects[0]->MoveForward(-1.0f); break;
-		case 'A': m_ppGameObjects[0]->MoveStrafe(-1.0f); break;
-		case 'D': m_ppGameObjects[0]->MoveStrafe(+1.0f); break;
-		case 'Q': m_ppGameObjects[0]->MoveUp(+1.0f); break;
-		case 'R': m_ppGameObjects[0]->MoveUp(-1.0f); break;
+		case 'W': v_GameObjects[0]->MoveForward(+1.0f); break;
+		case 'S': v_GameObjects[0]->MoveForward(-1.0f); break;
+		case 'A': v_GameObjects[0]->MoveStrafe(-1.0f); break;
+		case 'D': v_GameObjects[0]->MoveStrafe(+1.0f); break;
+		case 'Q': v_GameObjects[0]->MoveUp(+1.0f); break;
+		case 'R': v_GameObjects[0]->MoveUp(-1.0f); break;
 		default:
 			break;
 		}
@@ -280,8 +311,8 @@ bool CScene::ProcessInput(UCHAR *pKeysBuffer)
 void CScene::AnimateObjects(float fTimeElapsed)
 {
 	m_fElapsedTime = fTimeElapsed;
-
-	for (int i = 0; i < m_nGameObjects; i++) m_ppGameObjects[i]->Animate(fTimeElapsed, NULL);
+	for (int i = 0; i < v_GameObjects.size(); ++i)
+		v_GameObjects[i]->Animate(fTimeElapsed, NULL);
 
 	if (m_pLights)
 	{
@@ -304,15 +335,11 @@ void CScene::Render(ID3D12GraphicsCommandList *pd3dCommandList, CCamera *pCamera
 
 	if (m_pTerrain) m_pTerrain->Render(pd3dCommandList, pCamera);
 
-	for (int i = 0; i < m_nGameObjects; i++)
+	for (int i = 0; i < v_GameObjects.size(); ++i)
 	{
-		if (m_ppGameObjects[i])
-		{
-			m_ppGameObjects[i]->Animate(m_fElapsedTime, NULL);
-			m_ppGameObjects[i]->UpdateTransform(NULL);
-			m_ppGameObjects[i]->Render(pd3dCommandList, pCamera);
-		}
+		v_GameObjects[i]->Animate(m_fElapsedTime, NULL);
+		v_GameObjects[i]->UpdateTransform(NULL);
+		v_GameObjects[i]->Render(pd3dCommandList, pCamera);
 	}
-
 }
 

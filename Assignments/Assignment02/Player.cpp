@@ -232,15 +232,34 @@ void CPlayer::Render(ID3D12GraphicsCommandList *pd3dCommandList, CCamera *pCamer
 	if (nCameraMode == THIRD_PERSON_CAMERA) CGameObject::Render(pd3dCommandList, pCamera);
 }
 
+//==========================================================================================================
+CBullet::CBullet(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, ID3D12RootSignature* pd3dGraphicsRootSignature, void* pContext)
+{
+	isEnable = true;
+	CGameObject* pGameObject = CGameObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, pd3dGraphicsRootSignature, "Model/Rock2.bin");
+
+	CHeightMapTerrain* pTerrain = (CHeightMapTerrain*)pContext;
+	SetUpdatedContext(pTerrain);
+
+	pGameObject->SetScale(15.0f, 15.0f, 15.0f);
+	SetChild(pGameObject, true);
+
+	CreateShaderVariables(pd3dDevice, pd3dCommandList);
+}
+CBullet::~CBullet()
+{
+
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CAirplanePlayer
-
 CAirplanePlayer::CAirplanePlayer(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *pd3dCommandList, ID3D12RootSignature *pd3dGraphicsRootSignature, void* pContext)
 {
 	m_pCamera = ChangeCamera(THIRD_PERSON_CAMERA, 0.0f);
+	isEnable = true;
 
 //	CGameObject *pGameObject = CGameObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, pd3dGraphicsRootSignature, "Model/Apache.bin");
-	CGameObject *pGameObject = CGameObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, pd3dGraphicsRootSignature, "Model/Gunship.bin");
+	CGameObject *pGameObject = CGameObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, pd3dGraphicsRootSignature, "Model/GunShip.bin");
 
 
 	CHeightMapTerrain* pTerrain = (CHeightMapTerrain*)pContext;
@@ -251,10 +270,9 @@ CAirplanePlayer::CAirplanePlayer(ID3D12Device *pd3dDevice, ID3D12GraphicsCommand
 
 	pGameObject->Rotate(15.0f, 0.0f, 0.0f);
 	pGameObject->SetScale(3.0f, 3.0f, 3.0f);
-
 	SetChild(pGameObject, true);
 	OnInitialize();
-
+	PrepareShooting(pd3dDevice, pd3dCommandList, pd3dGraphicsRootSignature, pTerrain);
 	CreateShaderVariables(pd3dDevice, pd3dCommandList);
 }
 
@@ -387,5 +405,27 @@ void CAirplanePlayer::OnCameraUpdateCallback(float fTimeElapsed)
 			CThirdPersonCamera* p3rdPersonCamera = (CThirdPersonCamera*)m_pCamera;
 			p3rdPersonCamera->SetLookAt(GetPosition());
 		}
+	}
+}
+
+void CAirplanePlayer::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera)
+{
+	CPlayer::Render(pd3dCommandList, pCamera);
+	for (int i = 0; i < myBullets.size(); ++i)
+	{
+		if (myBullets[i]->isEnable)
+		{
+			myBullets[i]->Render(pd3dCommandList, pCamera);
+		}
+	}
+}
+
+void CAirplanePlayer::PrepareShooting(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, ID3D12RootSignature* pd3dGraphicsRootSignature, void* pContext)
+{
+	for (int i = 0; i < 10; ++i)
+	{
+		CBullet* pBullet = new CBullet(pd3dDevice, pd3dCommandList, pd3dGraphicsRootSignature, pContext);
+		pBullet->SetPosition(m_xmf3Position);
+		myBullets.push_back(pBullet);
 	}
 }

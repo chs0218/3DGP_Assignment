@@ -81,6 +81,16 @@ public:
 	virtual void Render(ID3D12GraphicsCommandList *pd3dCommandList, CCamera *pCamera = NULL);
 };
 
+class CBullet : public CGameObject
+{
+private:
+	LPVOID						m_pUpdatedContext;
+public:
+	CBullet(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, ID3D12RootSignature* pd3dGraphicsRootSignature, void* pContext = NULL);
+	virtual ~CBullet();
+	void SetUpdatedContext(LPVOID pContext) { m_pUpdatedContext = pContext; }
+};
+
 class CAirplanePlayer : public CPlayer
 {
 public:
@@ -90,15 +100,18 @@ public:
 	CGameObject*				m_pMainRotorFrame = NULL;
 	CGameObject*				m_pTailRotorFrame = NULL;
 
+	std::vector<CBullet*> myBullets;
 private:
 	virtual void OnInitialize();
 	virtual void Animate(float fTimeElapsed, XMFLOAT4X4 *pxmf4x4Parent = NULL);
+	void PrepareShooting(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, ID3D12RootSignature* pd3dGraphicsRootSignature, void* pContext = NULL);
 
 public:
 	virtual CCamera *ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed);
 	virtual void OnPrepareRender();
 	virtual void OnPlayerUpdateCallback(float fTimeElapsed);
 	virtual void OnCameraUpdateCallback(float fTimeElapsed);
+	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera = NULL);
 };
 
 
