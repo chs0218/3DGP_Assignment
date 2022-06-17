@@ -28,6 +28,10 @@ CMeshFromFile::CMeshFromFile(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList
 	m_nVertices = pMeshInfo->m_nVertices;
 	m_nType = pMeshInfo->m_nType;
 
+	m_xmOOBB.Center = pMeshInfo->m_xmf3AABBCenter;
+	m_xmOOBB.Extents = pMeshInfo->m_xmf3AABBExtents;
+	m_xmOOBB.Orientation = XMFLOAT4{ 0.0f, 0.0f, 0.0f, 1.0f };
+
 	m_pd3dPositionBuffer = ::CreateBufferResource(pd3dDevice, pd3dCommandList, pMeshInfo->m_pxmf3Positions, sizeof(XMFLOAT3) * m_nVertices, D3D12_HEAP_TYPE_DEFAULT, D3D12_RESOURCE_STATE_VERTEX_AND_CONSTANT_BUFFER, &m_pd3dPositionUploadBuffer);
 
 	m_d3dPositionBufferView.BufferLocation = m_pd3dPositionBuffer->GetGPUVirtualAddress();

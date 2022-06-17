@@ -14,6 +14,7 @@
 #define DIRECTIONAL_LIGHT	3
 
 #define MAX_ENEMY			10
+#define ADDITIONAL_SIZE		3
 
 struct LIGHT
 {
@@ -67,6 +68,7 @@ public:
 	
 	void BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, std::vector<CGameObject*>::iterator index);
 	void SpawnEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList);
+	void CheckCollide(CGameObject* target);
 	CHeightMapTerrain* GetTerrain() { return(m_pTerrain); }
 
 	CPlayer						*m_pPlayer = NULL;

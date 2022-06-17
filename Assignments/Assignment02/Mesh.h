@@ -47,8 +47,8 @@ protected:
 	UINT							m_nOffset = 0;
 
 	UINT							m_nType = 0;
-
 public:
+	BoundingOrientedBox m_xmOOBB = BoundingOrientedBox();
 	UINT GetType() { return(m_nType); }
 	virtual void Render(ID3D12GraphicsCommandList *pd3dCommandList) { }
 	virtual void Render(ID3D12GraphicsCommandList *pd3dCommandList, int nSubSet) { }

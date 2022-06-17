@@ -97,7 +97,7 @@ void CScene::BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLis
 			pGunshipObject->SetChild(pModel, true);
 			pGunshipObject->OnInitialize();
 			pGunshipObject->SetPosition(randX, randY, randZ);
-			pGunshipObject->SetScale(3.0f, 3.0f, 3.0f);
+			pGunshipObject->SetScale(3.0f + ADDITIONAL_SIZE, 3.0f + ADDITIONAL_SIZE, 3.0f + ADDITIONAL_SIZE);
 			pGunshipObject->Rotate(0.0f, -90.0f, 0.0f);
 			pGunshipObject->isEnable = true;
 			v_GameObjects.push_back(pGunshipObject);
@@ -117,7 +117,7 @@ void CScene::BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLis
 			pSuperCobraObject->SetChild(pModel, true);
 			pSuperCobraObject->OnInitialize();
 			pSuperCobraObject->SetPosition(randX, randY, randZ);
-			pSuperCobraObject->SetScale(4.0f, 4.0f, 4.0f);
+			pSuperCobraObject->SetScale(4.0f + ADDITIONAL_SIZE, 4.0f + ADDITIONAL_SIZE, 4.0f + ADDITIONAL_SIZE);
 			pSuperCobraObject->Rotate(0.0f, -90.0f, 0.0f);
 			pSuperCobraObject->isEnable = true;
 			v_GameObjects.push_back(pSuperCobraObject);
@@ -137,7 +137,7 @@ void CScene::BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLis
 			pMi24Object->SetChild(pModel, true);
 			pMi24Object->OnInitialize();
 			pMi24Object->SetPosition(randX, randY, randZ);
-			pMi24Object->SetScale(3.5f, 3.5f, 3.5f);
+			pMi24Object->SetScale(3.5f + ADDITIONAL_SIZE, 3.5f + ADDITIONAL_SIZE, 3.5f + ADDITIONAL_SIZE);
 			pMi24Object->Rotate(0.0f, -90.0f, 0.0f);
 			pMi24Object->isEnable = true;
 			v_GameObjects.push_back(pMi24Object);
@@ -157,7 +157,7 @@ void CScene::BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLis
 			pApacheObject->SetChild(pModel, true);
 			pApacheObject->OnInitialize();
 			pApacheObject->SetPosition(randX, randY, randZ);
-			pApacheObject->SetScale(0.5f, 0.5f, 0.5f);
+			pApacheObject->SetScale(0.5f + ADDITIONAL_SIZE, 0.5f + ADDITIONAL_SIZE, 0.5f + ADDITIONAL_SIZE);
 			pApacheObject->Rotate(0.0f, 90.0f, 0.0f);
 			pApacheObject->isEnable = true;
 			v_GameObjects.push_back(pApacheObject);
@@ -338,9 +338,20 @@ void CScene::Render(ID3D12GraphicsCommandList *pd3dCommandList, CCamera *pCamera
 
 	for (int i = 0; i < v_GameObjects.size(); ++i)
 	{
-		v_GameObjects[i]->Animate(m_fElapsedTime, NULL);
-		v_GameObjects[i]->UpdateTransform(NULL);
-		v_GameObjects[i]->Render(pd3dCommandList, pCamera);
+		if (v_GameObjects[i]->isEnable)
+		{
+			v_GameObjects[i]->Animate(m_fElapsedTime, NULL);
+			v_GameObjects[i]->UpdateTransform(NULL);
+			v_GameObjects[i]->Render(pd3dCommandList, pCamera);
+		}
 	}
 }
 
+void CScene::CheckCollide(CGameObject* target)
+{
+	for (int i = 0; i < v_GameObjects.size(); ++i)
+	{
+		if (v_GameObjects[i]->isEnable && v_GameObjects[i]->checkObjectCollision(target))
+			v_GameObjects[i]->isEnable = false;
+	}
+}

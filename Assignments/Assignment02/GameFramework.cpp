@@ -512,6 +512,7 @@ void CGameFramework::FrameAdvance()
 	ProcessInput();
 
     AnimateObjects();
+	m_pScene->CheckCollide(m_pPlayer);
 
 	HRESULT hResult = m_pd3dCommandAllocator->Reset();
 	hResult = m_pd3dCommandList->Reset(m_pd3dCommandAllocator, NULL);

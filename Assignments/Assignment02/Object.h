@@ -130,6 +130,7 @@ public:
 	CGameObject 					*m_pChild = NULL;
 	CGameObject 					*m_pSibling = NULL;
 	bool							isEnable = false;
+	BoundingOrientedBox				m_xmOOBB = BoundingOrientedBox();
 
 	void SetMesh(CMesh *pMesh);
 	void SetShader(CShader *pShader);
@@ -177,7 +178,40 @@ public:
 	CGameObject *FindFrame(char *pstrFrameName);
 
 	UINT GetMeshType() { return((m_pMesh) ? m_pMesh->GetType() : 0); }
+	virtual void UpdateBoundingBox()
+	{
+		if (m_pMesh)
+		{
+			m_pMesh->m_xmOOBB.Transform(m_xmOOBB, XMLoadFloat4x4(&m_xmf4x4World));
+			XMStoreFloat4(&m_xmOOBB.Orientation, XMQuaternionNormalize(XMLoadFloat4(&m_xmOOBB.Orientation)));
+		}
+	}
 
+	virtual bool checkObjectCollision(CGameObject* target)
+	{
+		if (target->m_pMesh && checkCollision(target->m_xmOOBB))
+			return true;
+		if (target->m_pChild && checkObjectCollision(target->m_pChild))
+			return true;
+		if (target->m_pSibling && checkObjectCollision(target->m_pSibling))
+			return true;
+		return false;
+	}
+	virtual bool checkCollision(BoundingOrientedBox m_OB)
+	{
+		if (m_pMesh)
+		{
+			if (m_xmOOBB.Intersects(m_OB))
+				return true;
+		}
+
+		if (m_pChild && m_pChild->checkCollision(m_OB))
+			return true;
+		if (m_pSibling && m_pSibling->checkCollision(m_OB))
+			return true;
+
+		return false;
+	}
 public:
 	static MATERIALSLOADINFO *LoadMaterialsInfoFromFile(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *pd3dCommandList, FILE *pInFile);
 	static CMeshLoadInfo *LoadMeshInfoFromFile(FILE *pInFile);
