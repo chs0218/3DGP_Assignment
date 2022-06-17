@@ -64,6 +64,72 @@ void CScene::BuildDefaultLightsAndMaterials(float x, float y, float z)
 	m_pLights[3].m_fPhi = (float)cos(XMConvertToRadians(90.0f));
 	m_pLights[3].m_fTheta = (float)cos(XMConvertToRadians(30.0f));
 }
+void CScene::BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList)
+{
+	uniform_int_distribution<int> uidEnemy(0, Models.size() - 1);
+	std::uniform_int_distribution<int> uidX(0, m_pTerrain->GetWidth());
+	std::uniform_int_distribution<int> uidZ(0, m_pTerrain->GetLength());
+	
+	for (int i = 0; i < 5; ++i)
+	{
+		int Seed = uidEnemy(dre);
+		float randX = (float)uidX(dre);
+		float randZ = (float)uidZ(dre);
+		float randY = m_pTerrain->GetHeight(randX, randZ) + 50.0f;
+		CGameObject* pModel = CGameObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, m_pd3dGraphicsRootSignature, Models[Seed]);
+		switch (Seed)
+		{
+		case 0:
+			{
+				CGunshipObject* pGunshipObject = NULL;
+				pGunshipObject = new CGunshipObject();
+				pGunshipObject->SetChild(pModel, true);
+				pGunshipObject->OnInitialize();
+				pGunshipObject->SetPosition(randX, randY, randZ);
+				pGunshipObject->SetScale(3.0f, 3.0f, 3.0f);
+				pGunshipObject->Rotate(0.0f, -90.0f, 0.0f);
+				m_ppGameObjects[i] = pGunshipObject;
+			}
+			break;
+		case 1:
+			{
+				CSuperCobraObject* pSuperCobraObject = NULL;
+				pSuperCobraObject = new CSuperCobraObject();
+				pSuperCobraObject->SetChild(pModel, true);
+				pSuperCobraObject->OnInitialize();
+				pSuperCobraObject->SetPosition(randX, randY, randZ);
+				pSuperCobraObject->SetScale(4.0f, 4.0f, 4.0f);
+				pSuperCobraObject->Rotate(0.0f, -90.0f, 0.0f);
+				m_ppGameObjects[i] = pSuperCobraObject;
+			}
+			break;
+		case 2:
+			{
+				CMi24Object* pMi24Object = NULL;
+				pMi24Object = new CMi24Object();
+				pMi24Object->SetChild(pModel, true);
+				pMi24Object->OnInitialize();
+				pMi24Object->SetPosition(randX, randY, randZ);
+				pMi24Object->SetScale(3.5f, 3.5f, 3.5f);
+				pMi24Object->Rotate(0.0f, -90.0f, 0.0f);
+				m_ppGameObjects[i] = pMi24Object;
+			}
+			break;
+		case 3:
+			{
+				CApacheObject* pApacheObject = NULL;
+				pApacheObject = new CApacheObject();
+				pApacheObject->SetChild(pModel, true);
+				pApacheObject->OnInitialize();
+				pApacheObject->SetPosition(randX, randY, randZ);
+				pApacheObject->SetScale(0.5f, 0.5f, 0.5f);
+				pApacheObject->Rotate(0.0f, 90.0f, 0.0f);
+				m_ppGameObjects[i] = pApacheObject;
+			}
+			break;
+		}
+	}
+}
 
 void CScene::BuildObjects(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *pd3dCommandList)
 {
@@ -87,84 +153,7 @@ void CScene::BuildObjects(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *p
 
 	m_nGameObjects = 5;
 	m_ppGameObjects = new CGameObject*[m_nGameObjects];
-
-	CGameObject *pApacheModel = CGameObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, m_pd3dGraphicsRootSignature, "Model/Apache.bin");
-	CApacheObject* pApacheObject = NULL;
-
-	std::uniform_int_distribution<int> uidX(0, m_pTerrain->GetWidth());
-	std::uniform_int_distribution<int> uidZ(0, m_pTerrain->GetLength());
-
-	m_pTerrain->GetHeight(m_pTerrain->GetWidth() * 0.5f, m_pTerrain->GetLength() * 0.5f);
-
-	float randX = (float)uidX(dre);
-	float randZ = (float)uidZ(dre);
-	float randY = m_pTerrain->GetHeight(randX, randZ) + 50.0f;
-
-	pApacheObject = new CApacheObject();
-	pApacheObject->SetChild(pApacheModel, true);
-	pApacheObject->OnInitialize();
-	pApacheObject->SetPosition(randX, randY, randZ);
-	pApacheObject->SetScale(0.5f, 0.5f, 0.5f);
-	pApacheObject->Rotate(0.0f, 90.0f, 0.0f);
-	m_ppGameObjects[0] = pApacheObject;
-
-	randX = (float)uidX(dre);
-	randZ = (float)uidZ(dre);
-	randY = m_pTerrain->GetHeight(randX, randZ) + 50.0f;
-
-	pApacheObject = new CApacheObject();
-	pApacheObject->SetChild(pApacheModel, true);
-	pApacheObject->OnInitialize();
-	pApacheObject->SetPosition(randX, randY, randZ);
-	pApacheObject->SetScale(1.5f, 1.5f, 1.5f);
-	pApacheObject->Rotate(0.0f, -90.0f, 0.0f);
-	m_ppGameObjects[1] = pApacheObject;
-
-	CGameObject *pGunshipModel = CGameObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, m_pd3dGraphicsRootSignature, "Model/Gunship.bin");
-	CGunshipObject* pGunshipObject = NULL;
-
-	randX = (float)uidX(dre);
-	randZ = (float)uidZ(dre);
-	randY = m_pTerrain->GetHeight(randX, randZ) + 50.0f;
-
-	pGunshipObject = new CGunshipObject();
-	pGunshipObject->SetChild(pGunshipModel, true);
-	pGunshipObject->OnInitialize();
-	pGunshipObject->SetPosition(randX, randY, randZ);
-	pGunshipObject->SetScale(3.0f, 3.0f, 3.0f);
-	pGunshipObject->Rotate(0.0f, -90.0f, 0.0f);
-	m_ppGameObjects[2] = pGunshipObject;
-
-	CGameObject *pSuperCobraModel = CGameObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, m_pd3dGraphicsRootSignature, "Model/SuperCobra.bin");
-	CSuperCobraObject* pSuperCobraObject = NULL;
-
-	randX = (float)uidX(dre);
-	randZ = (float)uidZ(dre);
-	randY = m_pTerrain->GetHeight(randX, randZ) + 50.0f;
-
-	pSuperCobraObject = new CSuperCobraObject();
-	pSuperCobraObject->SetChild(pSuperCobraModel, true);
-	pSuperCobraObject->OnInitialize();
-	pSuperCobraObject->SetPosition(randX, randY, randZ);
-	pSuperCobraObject->SetScale(4.0f, 4.0f, 4.0f);
-	pSuperCobraObject->Rotate(0.0f, -90.0f, 0.0f);
-	m_ppGameObjects[3] = pSuperCobraObject;
-
-	CGameObject *pMi24Model = CGameObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, m_pd3dGraphicsRootSignature, "Model/Mi24.bin");
-	CMi24Object* pMi24Object = NULL;
-
-	randX = (float)uidX(dre);
-	randZ = (float)uidZ(dre);
-	randY = m_pTerrain->GetHeight(randX, randZ) + 50.0f;
-
-	pMi24Object = new CMi24Object();
-	pMi24Object->SetChild(pMi24Model, true);
-	pMi24Object->OnInitialize();
-	pMi24Object->SetPosition(randX, randY, randZ);
-	pMi24Object->SetScale(3.5f, 3.5f, 3.5f);
-	pMi24Object->Rotate(0.0f, -90.0f, 0.0f);
-	m_ppGameObjects[4] = pMi24Object;
-
+	BuildRandomEnemy(pd3dDevice, pd3dCommandList);
 	CreateShaderVariables(pd3dDevice, pd3dCommandList);
 }
 

@@ -17,6 +17,7 @@
 #include <math.h>
 #include <random>
 #include <algorithm>
+#include <vector>
 
 #include <string>
 #include <wrl.h>

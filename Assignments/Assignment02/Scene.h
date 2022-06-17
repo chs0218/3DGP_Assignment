@@ -62,6 +62,8 @@ public:
     void Render(ID3D12GraphicsCommandList *pd3dCommandList, CCamera *pCamera=NULL);
 
 	void ReleaseUploadBuffers();
+	
+	void BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList);
 	CHeightMapTerrain* GetTerrain() { return(m_pTerrain); }
 
 	CPlayer						*m_pPlayer = NULL;
@@ -81,7 +83,5 @@ public:
 	LIGHTS						*m_pcbMappedLights = NULL;
 
 	float						m_fElapsedTime = 0.0f;
-
-
-
+	std::vector<char*> Models{ "Model/Gunship.bin", "Model/SuperCobra.bin", "Model/Mi24.bin", "Model/Apache.bin" };
 };
