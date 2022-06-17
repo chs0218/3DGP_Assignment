@@ -32,3 +32,6 @@ Assignments/.vs/Assignments/v16/ipch/AutoPCH/d0050c3ebdf81fb/SCENE.ipch
 *.log
 *.ipdb
 *.db
+*.db
+*.ipch
+*.ipch

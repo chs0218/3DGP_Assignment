@@ -65,6 +65,7 @@ CGameObject::CGameObject()
 {
 	m_xmf4x4Transform = Matrix4x4::Identity();
 	m_xmf4x4World = Matrix4x4::Identity();
+	isEnable = false;
 }
 
 CGameObject::~CGameObject()

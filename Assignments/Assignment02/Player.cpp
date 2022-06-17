@@ -235,20 +235,38 @@ void CPlayer::Render(ID3D12GraphicsCommandList *pd3dCommandList, CCamera *pCamer
 //==========================================================================================================
 CBullet::CBullet(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, ID3D12RootSignature* pd3dGraphicsRootSignature, void* pContext)
 {
-	isEnable = true;
 	CGameObject* pGameObject = CGameObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, pd3dGraphicsRootSignature, "Model/Rock2.bin");
 
 	CHeightMapTerrain* pTerrain = (CHeightMapTerrain*)pContext;
 	SetUpdatedContext(pTerrain);
-
 	pGameObject->SetScale(15.0f, 15.0f, 15.0f);
+	f_movingSpeed = 300.0f;
+
 	SetChild(pGameObject, true);
 
+	isEnable = false;
 	CreateShaderVariables(pd3dDevice, pd3dCommandList);
 }
 CBullet::~CBullet()
 {
 
+}
+void CBullet::Animate(float fTimeElapsed)
+{
+	if (f_movingDistance > 1000.0f)
+	{
+		f_movingDistance = 0;
+		isEnable = false;
+	}
+	else
+	{
+		float fDistance = f_movingSpeed * fTimeElapsed;
+		f_movingDistance += fDistance;
+		XMFLOAT3 xmf3Movement = Vector3::ScalarProduct(xmf_movingDirection, fDistance, false);
+		XMFLOAT3 xmf3Position = GetPosition();
+		xmf3Position = Vector3::Add(xmf3Position, xmf3Movement);
+		SetPosition(xmf3Position);
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -303,6 +321,11 @@ void CAirplanePlayer::Animate(float fTimeElapsed, XMFLOAT4X4 *pxmf4x4Parent)
 	}
 
 	CPlayer::Animate(fTimeElapsed, pxmf4x4Parent);
+	for (int i = 0; i < myBullets.size(); ++i)
+	{
+		if(myBullets[i]->isEnable)
+			myBullets[i]->Animate(fTimeElapsed);
+	}
 }
 
 void CAirplanePlayer::OnPrepareRender()
@@ -414,18 +437,28 @@ void CAirplanePlayer::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera
 	for (int i = 0; i < myBullets.size(); ++i)
 	{
 		if (myBullets[i]->isEnable)
-		{
 			myBullets[i]->Render(pd3dCommandList, pCamera);
-		}
 	}
 }
 
 void CAirplanePlayer::PrepareShooting(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, ID3D12RootSignature* pd3dGraphicsRootSignature, void* pContext)
 {
-	for (int i = 0; i < 10; ++i)
+	for (int i = 0; i < 25; ++i)
 	{
 		CBullet* pBullet = new CBullet(pd3dDevice, pd3dCommandList, pd3dGraphicsRootSignature, pContext);
-		pBullet->SetPosition(m_xmf3Position);
+		pBullet->SetPosition(GetPosition());
+		pBullet->SetDirection(GetLookVector());
 		myBullets.push_back(pBullet);
+	}
+}
+
+void CAirplanePlayer::fireBullet()
+{
+	std::vector<CBullet*>::iterator p = std::find_if(myBullets.begin(), myBullets.end(), [](const CBullet* bullet) {return !bullet->isEnable; });
+	if (p != myBullets.end())
+	{
+		(*p)->isEnable = true;
+		(*p)->SetPosition(GetPosition());
+		(*p)->SetDirection(GetLookVector());
 	}
 }

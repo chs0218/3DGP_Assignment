@@ -67,9 +67,8 @@ void CScene::BuildDefaultLightsAndMaterials(float x, float y, float z)
 
 void CScene::SpawnEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList)
 {
-	std::vector<CGameObject*>::iterator index = std::find_if(v_GameObjects.begin(), v_GameObjects.end(), [](const CGameObject* target) { return target->isEnable; });
-	if (v_GameObjects.size() < MAX_ENEMY)
-		BuildRandomEnemy(pd3dDevice, pd3dCommandList, index);
+	std::vector<CGameObject*>::iterator index = std::find_if(v_GameObjects.begin(), v_GameObjects.end(), [](const CGameObject* target) { return !target->isEnable; });
+	BuildRandomEnemy(pd3dDevice, pd3dCommandList, index);
 }
 
 void CScene::BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, std::vector<CGameObject*>::iterator index)
@@ -100,6 +99,7 @@ void CScene::BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLis
 			pGunshipObject->SetPosition(randX, randY, randZ);
 			pGunshipObject->SetScale(3.0f, 3.0f, 3.0f);
 			pGunshipObject->Rotate(0.0f, -90.0f, 0.0f);
+			pGunshipObject->isEnable = true;
 			v_GameObjects.push_back(pGunshipObject);
 		}
 	}
@@ -119,6 +119,7 @@ void CScene::BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLis
 			pSuperCobraObject->SetPosition(randX, randY, randZ);
 			pSuperCobraObject->SetScale(4.0f, 4.0f, 4.0f);
 			pSuperCobraObject->Rotate(0.0f, -90.0f, 0.0f);
+			pSuperCobraObject->isEnable = true;
 			v_GameObjects.push_back(pSuperCobraObject);
 		}
 	}
@@ -138,6 +139,7 @@ void CScene::BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLis
 			pMi24Object->SetPosition(randX, randY, randZ);
 			pMi24Object->SetScale(3.5f, 3.5f, 3.5f);
 			pMi24Object->Rotate(0.0f, -90.0f, 0.0f);
+			pMi24Object->isEnable = true;
 			v_GameObjects.push_back(pMi24Object);
 		}
 	}
@@ -157,6 +159,7 @@ void CScene::BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLis
 			pApacheObject->SetPosition(randX, randY, randZ);
 			pApacheObject->SetScale(0.5f, 0.5f, 0.5f);
 			pApacheObject->Rotate(0.0f, 90.0f, 0.0f);
+			pApacheObject->isEnable = true;
 			v_GameObjects.push_back(pApacheObject);
 		}
 	}
@@ -183,10 +186,8 @@ void CScene::BuildObjects(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *p
 #endif
 
 	BuildDefaultLightsAndMaterials(m_pTerrain->GetWidth() * 0.5f, m_pTerrain->GetHeight(m_pTerrain->GetWidth() * 0.5f, m_pTerrain->GetLength() * 0.5f) + 200.0f, m_pTerrain->GetLength() * 0.5f);
-	for (int i = 0; i < 20; ++i)
-	{
+	for (int i = 0; i < 10; ++i)
 		SpawnEnemy(pd3dDevice, pd3dCommandList);
-	}
 	CreateShaderVariables(pd3dDevice, pd3dCommandList);
 }
 
