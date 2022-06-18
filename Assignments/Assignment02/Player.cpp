@@ -289,7 +289,7 @@ CAirplanePlayer::CAirplanePlayer(ID3D12Device *pd3dDevice, ID3D12GraphicsCommand
 	SetPlayerUpdatedContext(pTerrain);
 	SetCameraUpdatedContext(pTerrain);
 
-	pGameObject->Rotate(15.0f, 0.0f, 0.0f);
+	pGameObject->Rotate(0.0f, 0.0f, 0.0f);
 	pGameObject->SetScale(3.0f, 3.0f, 3.0f);
 	SetChild(pGameObject, true);
 	OnInitialize();

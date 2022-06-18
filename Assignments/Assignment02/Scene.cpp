@@ -100,8 +100,6 @@ void CScene::BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLis
 		pGunshipObject->SetChild(pModel, true);
 		pGunshipObject->OnInitialize();
 		pGunshipObject->SetPosition(randX, randY, randZ);
-		pGunshipObject->SetScale(3.0f + ADDITIONAL_SIZE, 3.0f + ADDITIONAL_SIZE, 3.0f + ADDITIONAL_SIZE);
-		pGunshipObject->Rotate(0.0f, -90.0f, 0.0f);
 		pGunshipObject->isEnable = false;
 		v_GameObjects.push_back(pGunshipObject);
 	}
@@ -113,8 +111,6 @@ void CScene::BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLis
 		pSuperCobraObject->SetChild(pModel, true);
 		pSuperCobraObject->OnInitialize();
 		pSuperCobraObject->SetPosition(randX, randY, randZ);
-		pSuperCobraObject->SetScale(4.0f + ADDITIONAL_SIZE, 4.0f + ADDITIONAL_SIZE, 4.0f + ADDITIONAL_SIZE);
-		pSuperCobraObject->Rotate(0.0f, -90.0f, 0.0f);
 		pSuperCobraObject->isEnable = false;
 		v_GameObjects.push_back(pSuperCobraObject);
 	}
@@ -126,8 +122,6 @@ void CScene::BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLis
 		pMi24Object->SetChild(pModel, true);
 		pMi24Object->OnInitialize();
 		pMi24Object->SetPosition(randX, randY, randZ);
-		pMi24Object->SetScale(3.5f + ADDITIONAL_SIZE, 3.5f + ADDITIONAL_SIZE, 3.5f + ADDITIONAL_SIZE);
-		pMi24Object->Rotate(0.0f, -90.0f, 0.0f);
 		pMi24Object->isEnable = false;
 		v_GameObjects.push_back(pMi24Object);
 	}
@@ -139,8 +133,6 @@ void CScene::BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLis
 		pApacheObject->SetChild(pModel, true);
 		pApacheObject->OnInitialize();
 		pApacheObject->SetPosition(randX, randY, randZ);
-		pApacheObject->SetScale(-1.5f + ADDITIONAL_SIZE, -1.5f + ADDITIONAL_SIZE, -1.5f + ADDITIONAL_SIZE);
-		pApacheObject->Rotate(0.0f, 90.0f, 0.0f);
 		pApacheObject->isEnable = false;
 		v_GameObjects.push_back(pApacheObject);
 	}
@@ -302,7 +294,7 @@ void CScene::AnimateObjects(float fTimeElapsed)
 {
 	m_fElapsedTime = fTimeElapsed;
 	RespawnTime += fTimeElapsed;
-	if (RespawnTime > 3.0f)
+	if (RespawnTime > 0.5f)
 	{
 		RespawnTime = 0.0f;
 		SpawnEnemy();
@@ -346,7 +338,7 @@ void CScene::CheckCollide(CGameObject* target)
 {
 	for (int i = 0; i < v_GameObjects.size(); ++i)
 	{
-		if (v_GameObjects[i]->isEnable && v_GameObjects[i]->checkObjectCollision(target))
+		if (target->isEnable && v_GameObjects[i]->isEnable && v_GameObjects[i]->checkObjectCollision(target))
 		{
 			v_GameObjects[i]->isEnable = false;
 			((CBullet*)target)->Reset();

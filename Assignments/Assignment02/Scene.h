@@ -13,8 +13,7 @@
 #define SPOT_LIGHT			2
 #define DIRECTIONAL_LIGHT	3
 
-#define MAX_ENEMY			10
-#define ADDITIONAL_SIZE		3
+#define MAX_ENEMY			5
 
 struct LIGHT
 {

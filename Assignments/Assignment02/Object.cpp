@@ -696,9 +696,29 @@ CHellicopterObject::~CHellicopterObject()
 void CHellicopterObject::OnInitialize()
 {
 }
+
+void CHellicopterObject::Move(const XMFLOAT3& xmf3Shift)
+{
+	XMFLOAT3 m_xmf3Position = GetPosition();
+	m_xmf3Position = Vector3::Add(m_xmf3Position, xmf3Shift);
+	SetPosition(m_xmf3Position);
+}
+
 void CHellicopterObject::Update(CGameObject* m_pPlayer, float fTimeElapsed)
 {
-	SetPosition(m_pPlayer->GetPosition());
+	XMFLOAT3 direction = Vector3::Subtract(m_pPlayer->GetPosition(), GetPosition());
+	direction = Vector3::Normalize(direction);
+
+	XMFLOAT4X4 xmf4x4View = Matrix4x4::LookAtLH(GetPosition(), m_pPlayer->GetPosition(), GetUp());
+	m_xmf4x4Transform._11 = xmf4x4View._11; m_xmf4x4Transform._12 = xmf4x4View._21; m_xmf4x4Transform._13 = xmf4x4View._31;
+	m_xmf4x4Transform._21 = xmf4x4View._12; m_xmf4x4Transform._22 = xmf4x4View._22; m_xmf4x4Transform._23 = xmf4x4View._32;
+	m_xmf4x4Transform._31 = xmf4x4View._13; m_xmf4x4Transform._32 = xmf4x4View._23; m_xmf4x4Transform._33 = xmf4x4View._33;
+
+	SetScale(ScaleSize, ScaleSize, ScaleSize);
+
+	m_xmf3Velocity = Vector3::ScalarProduct(direction, velocity * fTimeElapsed);
+	Move(m_xmf3Velocity);
+
 	if (m_pUpdatedContext) OnUpdateCallback(fTimeElapsed);
 }
 
@@ -738,6 +758,8 @@ CApacheObject::CApacheObject(void* pContext)
 {
 	CHeightMapTerrain* pTerrain = (CHeightMapTerrain*)pContext;
 	SetUpdatedContext(pTerrain);
+	velocity = 200.0f;
+	ScaleSize = -1.5 + ADDITIONAL_SIZE;
 }
 
 CApacheObject::~CApacheObject()
@@ -772,6 +794,8 @@ CSuperCobraObject::CSuperCobraObject(void* pContext)
 {
 	CHeightMapTerrain* pTerrain = (CHeightMapTerrain*)pContext;
 	SetUpdatedContext(pTerrain);
+	velocity = 200.0f;
+	ScaleSize = 4.0 + ADDITIONAL_SIZE;
 }
 
 CSuperCobraObject::~CSuperCobraObject()
@@ -790,6 +814,8 @@ CGunshipObject::CGunshipObject(void* pContext)
 {
 	CHeightMapTerrain* pTerrain = (CHeightMapTerrain*)pContext;
 	SetUpdatedContext(pTerrain);
+	velocity = 200.0f;
+	ScaleSize = 3.0 + ADDITIONAL_SIZE;
 }
 
 CGunshipObject::~CGunshipObject()
@@ -808,6 +834,8 @@ CMi24Object::CMi24Object(void* pContext)
 {
 	CHeightMapTerrain* pTerrain = (CHeightMapTerrain*)pContext;
 	SetUpdatedContext(pTerrain);
+	velocity = 200.0f;
+	ScaleSize = 3.5 + ADDITIONAL_SIZE;
 }
 
 CMi24Object::~CMi24Object()
