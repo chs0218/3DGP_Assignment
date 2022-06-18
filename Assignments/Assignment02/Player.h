@@ -92,6 +92,7 @@ public:
 	CBullet(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, ID3D12RootSignature* pd3dGraphicsRootSignature, void* pContext = NULL);
 	virtual ~CBullet();
 	void Animate(float fTimeElapsed);
+	void Reset();
 	void SetDirection(XMFLOAT3 direction) { xmf_movingDirection = direction; }
 	void SetUpdatedContext(LPVOID pContext) { m_pUpdatedContext = pContext; }
 };

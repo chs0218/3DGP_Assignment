@@ -313,6 +313,12 @@ void CGameObject::Rotate(XMFLOAT4 *pxmf4Quaternion)
 	UpdateTransform(NULL);
 }
 
+void CGameObject::Respawn(XMFLOAT3 position)
+{
+	SetPosition(position);
+	isEnable = true;
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 int ReadIntegerFromFile(FILE* pInFile)
@@ -679,7 +685,7 @@ void CRevolvingObject::Animate(float fTimeElapsed, XMFLOAT4X4 *pxmf4x4Parent)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-CHellicopterObject::CHellicopterObject()
+CHellicopterObject::CHellicopterObject(void* pContext)
 {
 }
 
@@ -689,6 +695,11 @@ CHellicopterObject::~CHellicopterObject()
 
 void CHellicopterObject::OnInitialize()
 {
+}
+void CHellicopterObject::Update(CGameObject* m_pPlayer, float fTimeElapsed)
+{
+	SetPosition(m_pPlayer->GetPosition());
+	if (m_pUpdatedContext) OnUpdateCallback(fTimeElapsed);
 }
 
 void CHellicopterObject::Animate(float fTimeElapsed, XMFLOAT4X4 *pxmf4x4Parent)
@@ -707,10 +718,26 @@ void CHellicopterObject::Animate(float fTimeElapsed, XMFLOAT4X4 *pxmf4x4Parent)
 	CGameObject::Animate(fTimeElapsed, pxmf4x4Parent);
 }
 
+void CHellicopterObject::OnUpdateCallback(float fTimeElapsed)
+{
+	XMFLOAT3 xmf3Position = GetPosition();
+	CHeightMapTerrain* pTerrain = (CHeightMapTerrain*)m_pUpdatedContext;
+	float fHeight = pTerrain->GetHeight(xmf3Position.x, xmf3Position.z) + 6.0f;
+	if (xmf3Position.y < fHeight)
+	{
+		XMFLOAT3 xmf3Velocity = GetVelocity();
+		xmf3Velocity.y = 0.0f;
+		SetVelocity(xmf3Velocity);
+		xmf3Position.y = fHeight;
+		SetPosition(xmf3Position);
+	}
+}
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-CApacheObject::CApacheObject()
+CApacheObject::CApacheObject(void* pContext)
 {
+	CHeightMapTerrain* pTerrain = (CHeightMapTerrain*)pContext;
+	SetUpdatedContext(pTerrain);
 }
 
 CApacheObject::~CApacheObject()
@@ -741,8 +768,10 @@ void CApacheObject::Animate(float fTimeElapsed, XMFLOAT4X4 *pxmf4x4Parent)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-CSuperCobraObject::CSuperCobraObject()
+CSuperCobraObject::CSuperCobraObject(void* pContext)
 {
+	CHeightMapTerrain* pTerrain = (CHeightMapTerrain*)pContext;
+	SetUpdatedContext(pTerrain);
 }
 
 CSuperCobraObject::~CSuperCobraObject()
@@ -757,8 +786,10 @@ void CSuperCobraObject::OnInitialize()
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-CGunshipObject::CGunshipObject()
+CGunshipObject::CGunshipObject(void* pContext)
 {
+	CHeightMapTerrain* pTerrain = (CHeightMapTerrain*)pContext;
+	SetUpdatedContext(pTerrain);
 }
 
 CGunshipObject::~CGunshipObject()
@@ -773,8 +804,10 @@ void CGunshipObject::OnInitialize()
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-CMi24Object::CMi24Object()
+CMi24Object::CMi24Object(void* pContext)
 {
+	CHeightMapTerrain* pTerrain = (CHeightMapTerrain*)pContext;
+	SetUpdatedContext(pTerrain);
 }
 
 CMi24Object::~CMi24Object()

@@ -155,6 +155,7 @@ public:
 	virtual void UpdateShaderVariable(ID3D12GraphicsCommandList *pd3dCommandList, CMaterial *pMaterial);
 
 	virtual void ReleaseUploadBuffers();
+	virtual void Respawn(XMFLOAT3 position);
 
 	XMFLOAT3 GetPosition();
 	XMFLOAT3 GetLook();
@@ -249,7 +250,6 @@ public:
 private:
 	XMFLOAT3					m_xmf3RevolutionAxis;
 	float						m_fRevolutionSpeed;
-
 public:
 	void SetRevolutionSpeed(float fRevolutionSpeed) { m_fRevolutionSpeed = fRevolutionSpeed; }
 	void SetRevolutionAxis(XMFLOAT3 xmf3RevolutionAxis) { m_xmf3RevolutionAxis = xmf3RevolutionAxis; }
@@ -260,24 +260,30 @@ public:
 class CHellicopterObject : public CGameObject
 {
 public:
-	CHellicopterObject();
+	CHellicopterObject(void* pContext = NULL);
 	virtual ~CHellicopterObject();
-
 protected:
 	CGameObject					*m_pMainRotorFrame = NULL;
 	CGameObject					*m_pTailRotorFrame = NULL;
-
+	XMFLOAT3					m_xmf3Velocity;
+	XMFLOAT3					m_xmf3Direction;
+protected:
+	LPVOID						m_pUpdatedContext;
 public:
+	void SetVelocity(const XMFLOAT3& xmf3Velocity) { m_xmf3Velocity = xmf3Velocity; }
+	const XMFLOAT3& GetVelocity() const { return(m_xmf3Velocity); }
 	virtual void OnInitialize();
+	virtual void Update(CGameObject* m_pPlayer, float fTimeElapsed);
+	virtual void SetUpdatedContext(LPVOID pContext) { m_pUpdatedContext = pContext; }
 	virtual void Animate(float fTimeElapsed, XMFLOAT4X4 *pxmf4x4Parent = NULL);
+	virtual void OnUpdateCallback(float fTimeElapsed);
 };
 
 class CApacheObject : public CHellicopterObject
 {
 public:
-	CApacheObject();
+	CApacheObject(void* pContext = NULL);
 	virtual ~CApacheObject();
-
 public:
 	virtual void OnInitialize();
 	virtual void Animate(float fTimeElapsed, XMFLOAT4X4 *pxmf4x4Parent = NULL);
@@ -286,9 +292,8 @@ public:
 class CGunshipObject : public CHellicopterObject
 {
 public:
-	CGunshipObject();
+	CGunshipObject(void* pContext = NULL);
 	virtual ~CGunshipObject();
-
 public:
 	virtual void OnInitialize();
 };
@@ -296,9 +301,8 @@ public:
 class CSuperCobraObject : public CHellicopterObject
 {
 public:
-	CSuperCobraObject();
+	CSuperCobraObject(void* pContext = NULL);
 	virtual ~CSuperCobraObject();
-
 public:
 	virtual void OnInitialize();
 };
@@ -306,9 +310,8 @@ public:
 class CMi24Object : public CHellicopterObject
 {
 public:
-	CMi24Object();
+	CMi24Object(void* pContext = NULL);
 	virtual ~CMi24Object();
-
 public:
 	virtual void OnInitialize();
 };

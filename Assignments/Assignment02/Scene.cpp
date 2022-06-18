@@ -65,13 +65,22 @@ void CScene::BuildDefaultLightsAndMaterials(float x, float y, float z)
 	m_pLights[3].m_fTheta = (float)cos(XMConvertToRadians(30.0f));
 }
 
-void CScene::SpawnEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList)
+void CScene::SpawnEnemy()
 {
 	std::vector<CGameObject*>::iterator index = std::find_if(v_GameObjects.begin(), v_GameObjects.end(), [](const CGameObject* target) { return !target->isEnable; });
-	BuildRandomEnemy(pd3dDevice, pd3dCommandList, index);
+	if (index != v_GameObjects.end())
+	{
+		std::uniform_int_distribution<int> uidX(m_pTerrain->GetWidth() - 500, m_pTerrain->GetWidth() - 1);
+		std::uniform_int_distribution<int> uidZ(m_pTerrain->GetLength() - 500, m_pTerrain->GetLength() - 1);
+
+		float randX = (float)uidX(dre);
+		float randZ = (float)uidZ(dre);
+		float randY = m_pTerrain->GetHeight(randX, randZ) + 50.0f;
+		(*index)->Respawn(XMFLOAT3{ randX, randY, randZ });
+	}
 }
 
-void CScene::BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, std::vector<CGameObject*>::iterator index)
+void CScene::BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList)
 {
 	uniform_int_distribution<int> uidEnemy(0, Models.size() - 1);
 	std::uniform_int_distribution<int> uidX(0, m_pTerrain->GetWidth());
@@ -86,84 +95,65 @@ void CScene::BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLis
 	{
 	case 0:
 	{
-		if (index != v_GameObjects.end())
-		{
-
-		}
-		else
-		{
-			CGunshipObject* pGunshipObject = NULL;
-			pGunshipObject = new CGunshipObject();
-			pGunshipObject->SetChild(pModel, true);
-			pGunshipObject->OnInitialize();
-			pGunshipObject->SetPosition(randX, randY, randZ);
-			pGunshipObject->SetScale(3.0f + ADDITIONAL_SIZE, 3.0f + ADDITIONAL_SIZE, 3.0f + ADDITIONAL_SIZE);
-			pGunshipObject->Rotate(0.0f, -90.0f, 0.0f);
-			pGunshipObject->isEnable = true;
-			v_GameObjects.push_back(pGunshipObject);
-		}
+		CGunshipObject* pGunshipObject = NULL;
+		pGunshipObject = new CGunshipObject(m_pTerrain);
+		pGunshipObject->SetChild(pModel, true);
+		pGunshipObject->OnInitialize();
+		pGunshipObject->SetPosition(randX, randY, randZ);
+		pGunshipObject->SetScale(3.0f + ADDITIONAL_SIZE, 3.0f + ADDITIONAL_SIZE, 3.0f + ADDITIONAL_SIZE);
+		pGunshipObject->Rotate(0.0f, -90.0f, 0.0f);
+		pGunshipObject->isEnable = false;
+		v_GameObjects.push_back(pGunshipObject);
 	}
 	break;
 	case 1:
 	{
-		if (index != v_GameObjects.end())
-		{
-
-		}
-		else
-		{
-			CSuperCobraObject* pSuperCobraObject = NULL;
-			pSuperCobraObject = new CSuperCobraObject();
-			pSuperCobraObject->SetChild(pModel, true);
-			pSuperCobraObject->OnInitialize();
-			pSuperCobraObject->SetPosition(randX, randY, randZ);
-			pSuperCobraObject->SetScale(4.0f + ADDITIONAL_SIZE, 4.0f + ADDITIONAL_SIZE, 4.0f + ADDITIONAL_SIZE);
-			pSuperCobraObject->Rotate(0.0f, -90.0f, 0.0f);
-			pSuperCobraObject->isEnable = true;
-			v_GameObjects.push_back(pSuperCobraObject);
-		}
+		CSuperCobraObject* pSuperCobraObject = NULL;
+		pSuperCobraObject = new CSuperCobraObject(m_pTerrain);
+		pSuperCobraObject->SetChild(pModel, true);
+		pSuperCobraObject->OnInitialize();
+		pSuperCobraObject->SetPosition(randX, randY, randZ);
+		pSuperCobraObject->SetScale(4.0f + ADDITIONAL_SIZE, 4.0f + ADDITIONAL_SIZE, 4.0f + ADDITIONAL_SIZE);
+		pSuperCobraObject->Rotate(0.0f, -90.0f, 0.0f);
+		pSuperCobraObject->isEnable = false;
+		v_GameObjects.push_back(pSuperCobraObject);
 	}
 	break;
 	case 2:
 	{
-		if (index != v_GameObjects.end())
-		{
-
-		}
-		else
-		{
-			CMi24Object* pMi24Object = NULL;
-			pMi24Object = new CMi24Object();
-			pMi24Object->SetChild(pModel, true);
-			pMi24Object->OnInitialize();
-			pMi24Object->SetPosition(randX, randY, randZ);
-			pMi24Object->SetScale(3.5f + ADDITIONAL_SIZE, 3.5f + ADDITIONAL_SIZE, 3.5f + ADDITIONAL_SIZE);
-			pMi24Object->Rotate(0.0f, -90.0f, 0.0f);
-			pMi24Object->isEnable = true;
-			v_GameObjects.push_back(pMi24Object);
-		}
+		CMi24Object* pMi24Object = NULL;
+		pMi24Object = new CMi24Object(m_pTerrain);
+		pMi24Object->SetChild(pModel, true);
+		pMi24Object->OnInitialize();
+		pMi24Object->SetPosition(randX, randY, randZ);
+		pMi24Object->SetScale(3.5f + ADDITIONAL_SIZE, 3.5f + ADDITIONAL_SIZE, 3.5f + ADDITIONAL_SIZE);
+		pMi24Object->Rotate(0.0f, -90.0f, 0.0f);
+		pMi24Object->isEnable = false;
+		v_GameObjects.push_back(pMi24Object);
 	}
 	break;
 	case 3:
 	{
-		if (index != v_GameObjects.end())
-		{
-
-		}
-		else
-		{
-			CApacheObject* pApacheObject = NULL;
-			pApacheObject = new CApacheObject();
-			pApacheObject->SetChild(pModel, true);
-			pApacheObject->OnInitialize();
-			pApacheObject->SetPosition(randX, randY, randZ);
-			pApacheObject->SetScale(0.5f + ADDITIONAL_SIZE, 0.5f + ADDITIONAL_SIZE, 0.5f + ADDITIONAL_SIZE);
-			pApacheObject->Rotate(0.0f, 90.0f, 0.0f);
-			pApacheObject->isEnable = true;
-			v_GameObjects.push_back(pApacheObject);
-		}
+		CApacheObject* pApacheObject = NULL;
+		pApacheObject = new CApacheObject(m_pTerrain);
+		pApacheObject->SetChild(pModel, true);
+		pApacheObject->OnInitialize();
+		pApacheObject->SetPosition(randX, randY, randZ);
+		pApacheObject->SetScale(-1.5f + ADDITIONAL_SIZE, -1.5f + ADDITIONAL_SIZE, -1.5f + ADDITIONAL_SIZE);
+		pApacheObject->Rotate(0.0f, 90.0f, 0.0f);
+		pApacheObject->isEnable = false;
+		v_GameObjects.push_back(pApacheObject);
 	}
 	break;
+	}
+}
+
+void CScene::BuildDefaultEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList)
+{
+	for (int i = 0; i < MAX_ENEMY; ++i)
+	{
+		std::vector<CGameObject*>::iterator index = std::find_if(v_GameObjects.begin(), v_GameObjects.end(), [](const CGameObject* target) { return !target->isEnable; });
+		BuildRandomEnemy(pd3dDevice, pd3dCommandList);
 	}
 }
 
@@ -186,8 +176,7 @@ void CScene::BuildObjects(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *p
 #endif
 
 	BuildDefaultLightsAndMaterials(m_pTerrain->GetWidth() * 0.5f, m_pTerrain->GetHeight(m_pTerrain->GetWidth() * 0.5f, m_pTerrain->GetLength() * 0.5f) + 200.0f, m_pTerrain->GetLength() * 0.5f);
-	for (int i = 0; i < 10; ++i)
-		SpawnEnemy(pd3dDevice, pd3dCommandList);
+	BuildDefaultEnemy(pd3dDevice, pd3dCommandList);
 	CreateShaderVariables(pd3dDevice, pd3dCommandList);
 }
 
@@ -312,6 +301,12 @@ bool CScene::ProcessInput(UCHAR *pKeysBuffer)
 void CScene::AnimateObjects(float fTimeElapsed)
 {
 	m_fElapsedTime = fTimeElapsed;
+	RespawnTime += fTimeElapsed;
+	if (RespawnTime > 3.0f)
+	{
+		RespawnTime = 0.0f;
+		SpawnEnemy();
+	}
 	for (int i = 0; i < v_GameObjects.size(); ++i)
 		v_GameObjects[i]->Animate(fTimeElapsed, NULL);
 
@@ -352,6 +347,20 @@ void CScene::CheckCollide(CGameObject* target)
 	for (int i = 0; i < v_GameObjects.size(); ++i)
 	{
 		if (v_GameObjects[i]->isEnable && v_GameObjects[i]->checkObjectCollision(target))
+		{
 			v_GameObjects[i]->isEnable = false;
+			((CBullet*)target)->Reset();
+		}
+	}
+}
+
+void CScene::Update(CGameObject* m_pPlayer, float fTimeElapsed)
+{
+	for (int i = 0; i < v_GameObjects.size(); ++i)
+	{
+		if (v_GameObjects[i]->isEnable)
+		{
+			((CHellicopterObject*)v_GameObjects[i])->Update(m_pPlayer, fTimeElapsed);
+		}
 	}
 }

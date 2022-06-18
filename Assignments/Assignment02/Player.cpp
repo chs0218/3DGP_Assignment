@@ -251,13 +251,16 @@ CBullet::~CBullet()
 {
 
 }
+
+void CBullet::Reset()
+{
+	f_movingDistance = 0;
+	isEnable = false;
+}
 void CBullet::Animate(float fTimeElapsed)
 {
 	if (f_movingDistance > 1000.0f)
-	{
-		f_movingDistance = 0;
-		isEnable = false;
-	}
+		Reset();
 	else
 	{
 		float fDistance = f_movingSpeed * fTimeElapsed;

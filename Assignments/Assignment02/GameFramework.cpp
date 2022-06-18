@@ -466,6 +466,7 @@ void CGameFramework::ProcessInput()
 		}
 	}
 	m_pPlayer->Update(m_GameTimer.GetTimeElapsed());
+	m_pScene->Update(m_pPlayer, m_GameTimer.GetTimeElapsed());
 }
 
 void CGameFramework::AnimateObjects()
@@ -512,7 +513,8 @@ void CGameFramework::FrameAdvance()
 	ProcessInput();
 
     AnimateObjects();
-	m_pScene->CheckCollide(m_pPlayer);
+	for (auto bullet : ((CAirplanePlayer*)m_pPlayer)->myBullets)
+		m_pScene->CheckCollide(bullet);
 
 	HRESULT hResult = m_pd3dCommandAllocator->Reset();
 	hResult = m_pd3dCommandList->Reset(m_pd3dCommandAllocator, NULL);

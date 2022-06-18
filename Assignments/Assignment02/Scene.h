@@ -66,13 +66,16 @@ public:
 
 	void ReleaseUploadBuffers();
 	
-	void BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, std::vector<CGameObject*>::iterator index);
-	void SpawnEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList);
+	void BuildDefaultEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList);
+	void BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList);
+	void SpawnEnemy();
 	void CheckCollide(CGameObject* target);
 	CHeightMapTerrain* GetTerrain() { return(m_pTerrain); }
+	void Update(CGameObject* m_pPlayer, float fTimeElapsed);
 
 	CPlayer						*m_pPlayer = NULL;
 	CHeightMapTerrain* m_pTerrain = NULL;
+	float RespawnTime = 0.0f;
 public:
 	ID3D12RootSignature			*m_pd3dGraphicsRootSignature = NULL;
 
