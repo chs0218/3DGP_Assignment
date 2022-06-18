@@ -27,6 +27,7 @@ class CShader;
 #define MATERIAL_DETAIL_NORMAL_MAP	0x40
 
 #define ADDITIONAL_SIZE		3
+#define PADDING				10.0f
 
 struct MATERIALLOADINFO
 {

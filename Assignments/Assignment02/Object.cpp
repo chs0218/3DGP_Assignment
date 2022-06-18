@@ -315,6 +315,8 @@ void CGameObject::Rotate(XMFLOAT4 *pxmf4Quaternion)
 
 void CGameObject::Respawn(XMFLOAT3 position)
 {
+	m_xmf4x4Transform = Matrix4x4::Identity();
+	m_xmf4x4World = Matrix4x4::Identity();
 	SetPosition(position);
 	isEnable = true;
 }
@@ -707,6 +709,7 @@ void CHellicopterObject::Move(const XMFLOAT3& xmf3Shift)
 void CHellicopterObject::Update(CGameObject* m_pPlayer, float fTimeElapsed)
 {
 	XMFLOAT3 direction = Vector3::Subtract(m_pPlayer->GetPosition(), GetPosition());
+	float distance = (direction.x * direction.x) + (direction.y * direction.y) + (direction.z * direction.z);
 	direction = Vector3::Normalize(direction);
 
 	XMFLOAT4X4 xmf4x4View = Matrix4x4::LookAtLH(GetPosition(), m_pPlayer->GetPosition(), GetUp());
@@ -716,9 +719,11 @@ void CHellicopterObject::Update(CGameObject* m_pPlayer, float fTimeElapsed)
 
 	SetScale(ScaleSize, ScaleSize, ScaleSize);
 
-	m_xmf3Velocity = Vector3::ScalarProduct(direction, velocity * fTimeElapsed);
-	Move(m_xmf3Velocity);
-
+	if (distance > 5000.0f)
+	{
+		m_xmf3Velocity = Vector3::ScalarProduct(direction, velocity * fTimeElapsed);
+		Move(m_xmf3Velocity);
+	}
 	if (m_pUpdatedContext) OnUpdateCallback(fTimeElapsed);
 }
 
@@ -751,6 +756,15 @@ void CHellicopterObject::OnUpdateCallback(float fTimeElapsed)
 		xmf3Position.y = fHeight;
 		SetPosition(xmf3Position);
 	}
+
+	if (xmf3Position.x < PADDING)
+		xmf3Position.x = PADDING;
+	if (xmf3Position.z < PADDING)
+		xmf3Position.z = PADDING;
+	if (xmf3Position.x > pTerrain->GetWidth() - PADDING)
+		xmf3Position.x = pTerrain->GetWidth() - PADDING;
+	if (xmf3Position.z > pTerrain->GetLength() - PADDING)
+		xmf3Position.z = pTerrain->GetLength() - PADDING;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //

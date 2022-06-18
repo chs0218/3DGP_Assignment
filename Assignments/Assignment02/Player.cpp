@@ -64,7 +64,6 @@ void CPlayer::Move(DWORD dwDirection, float fDistance, bool bUpdateVelocity)
 		if (dwDirection & DIR_LEFT) xmf3Shift = Vector3::Add(xmf3Shift, m_xmf3Right, -fDistance);
 		if (dwDirection & DIR_UP) xmf3Shift = Vector3::Add(xmf3Shift, m_xmf3Up, fDistance);
 		if (dwDirection & DIR_DOWN) xmf3Shift = Vector3::Add(xmf3Shift, m_xmf3Up, -fDistance);
-
 		Move(xmf3Shift, bUpdateVelocity);
 	}
 }
@@ -170,6 +169,8 @@ void CPlayer::Update(float fTimeElapsed)
 	float fDeceleration = (m_fFriction * fTimeElapsed);
 	if (fDeceleration > fLength) fDeceleration = fLength;
 	m_xmf3Velocity = Vector3::Add(m_xmf3Velocity, Vector3::ScalarProduct(m_xmf3Velocity, -fDeceleration, true));
+
+	OnPrepareRender();
 }
 
 CCamera *CPlayer::OnChangeCamera(DWORD nNewCameraMode, DWORD nCurrentCameraMode)
@@ -276,10 +277,9 @@ void CBullet::Animate(float fTimeElapsed)
 // CAirplanePlayer
 CAirplanePlayer::CAirplanePlayer(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *pd3dCommandList, ID3D12RootSignature *pd3dGraphicsRootSignature, void* pContext)
 {
-	m_pCamera = ChangeCamera(THIRD_PERSON_CAMERA, 0.0f);
+	m_pCamera = ChangeCamera(FIRST_PERSON_CAMERA, 0.0f);
 	isEnable = true;
 
-//	CGameObject *pGameObject = CGameObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, pd3dGraphicsRootSignature, "Model/Apache.bin");
 	CGameObject *pGameObject = CGameObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, pd3dGraphicsRootSignature, "Model/GunShip.bin");
 
 
@@ -303,9 +303,6 @@ CAirplanePlayer::~CAirplanePlayer()
 
 void CAirplanePlayer::OnInitialize()
 {
-//	m_pMainRotorFrame = FindFrame("rotor");
-//	m_pTailRotorFrame = FindFrame("black_m_7");
-
 	m_pMainRotorFrame = FindFrame("Rotor");
 	m_pTailRotorFrame = FindFrame("Back_Rotor");
 }
@@ -406,8 +403,19 @@ void CAirplanePlayer::OnPlayerUpdateCallback(float fTimeElapsed)
 		xmf3PlayerVelocity.y = 0.0f;
 		SetVelocity(xmf3PlayerVelocity);
 		xmf3PlayerPosition.y = fHeight;
-		SetPosition(xmf3PlayerPosition);
 	}
+	if (xmf3PlayerPosition.y > 512.0f - PADDING)
+		xmf3PlayerPosition.y = 512.0f - PADDING;
+	if (xmf3PlayerPosition.x < PADDING)
+		xmf3PlayerPosition.x = PADDING;
+	if (xmf3PlayerPosition.z < PADDING)
+		xmf3PlayerPosition.z = PADDING;
+	if (xmf3PlayerPosition.x > pTerrain->GetWidth() - PADDING)
+		xmf3PlayerPosition.x = pTerrain->GetWidth() - PADDING;
+	if (xmf3PlayerPosition.z > pTerrain->GetLength() - PADDING)
+		xmf3PlayerPosition.z = pTerrain->GetLength() - PADDING;
+
+	SetPosition(xmf3PlayerPosition);
 }
 
 void CAirplanePlayer::OnCameraUpdateCallback(float fTimeElapsed)
