@@ -319,6 +319,9 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 				case VK_F3:
 					m_pCamera = m_pPlayer->ChangeCamera((DWORD)(wParam - VK_F1 + 1), m_GameTimer.GetTimeElapsed());
 					break;
+				case VK_F4:
+					m_pScene->CommandF(m_pPlayer);
+					break;
 				case VK_F9:
 					ChangeSwapChainState();
 					break;
@@ -439,8 +442,6 @@ void CGameFramework::ProcessInput()
 		if (pKeysBuffer['S'] & 0xF0) dwDirection |= DIR_BACKWARD;
 		if (pKeysBuffer['A'] & 0xF0) dwDirection |= DIR_LEFT;
 		if (pKeysBuffer['D'] & 0xF0) dwDirection |= DIR_RIGHT;
-		if (pKeysBuffer['Q'] & 0xF0) m_pPlayer->Rotate(0.0, -0.5f, 0.0);
-		if (pKeysBuffer['E'] & 0xF0) m_pPlayer->Rotate(0.0, 0.5f, 0.0);
 		if (pKeysBuffer[VK_PRIOR] & 0xF0) dwDirection |= DIR_UP;
 		if (pKeysBuffer[VK_NEXT] & 0xF0) dwDirection |= DIR_DOWN;
 
@@ -516,8 +517,10 @@ void CGameFramework::FrameAdvance()
 
     AnimateObjects();
 	for (auto bullet : ((CAirplanePlayer*)m_pPlayer)->myBullets)
-		m_pScene->CheckCollide(bullet);
-
+	{
+		if(bullet->isEnable)
+			m_pScene->CheckCollide(bullet);
+	}
 	HRESULT hResult = m_pd3dCommandAllocator->Reset();
 	hResult = m_pd3dCommandList->Reset(m_pd3dCommandAllocator, NULL);
 

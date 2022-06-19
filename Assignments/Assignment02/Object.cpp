@@ -6,6 +6,9 @@
 #include "Object.h"
 #include "Shader.h"
 
+std::random_device rdHellicopter{};
+std::default_random_engine dreHellicopter{ rdHellicopter() };
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 CMaterialColors::CMaterialColors(MATERIALLOADINFO *pMaterialInfo)
@@ -695,6 +698,20 @@ CHellicopterObject::~CHellicopterObject()
 {
 }
 
+void CHellicopterObject::CommandF4(CGameObject* m_pPlayer)
+{
+	std::uniform_int_distribution<int> uidX(-500, 500);
+	std::uniform_int_distribution<int> uidZ(-500, 500);
+	CHeightMapTerrain* pTerrain = (CHeightMapTerrain*)m_pUpdatedContext;
+	XMFLOAT3 playerPosition = m_pPlayer->GetPosition();
+	XMFLOAT3 randomPosition;
+	randomPosition.x = playerPosition.x + uidX(dreHellicopter);
+	randomPosition.z = playerPosition.z + uidZ(dreHellicopter);
+	randomPosition.y = pTerrain->GetHeight(randomPosition.x, randomPosition.z) + 6.0f;
+	SetPosition(randomPosition);
+	OnUpdateCallback();
+}
+
 void CHellicopterObject::OnInitialize()
 {
 }
@@ -724,7 +741,7 @@ void CHellicopterObject::Update(CGameObject* m_pPlayer, float fTimeElapsed)
 		m_xmf3Velocity = Vector3::ScalarProduct(direction, velocity * fTimeElapsed);
 		Move(m_xmf3Velocity);
 	}
-	if (m_pUpdatedContext) OnUpdateCallback(fTimeElapsed);
+	if (m_pUpdatedContext) OnUpdateCallback();
 }
 
 void CHellicopterObject::Animate(float fTimeElapsed, XMFLOAT4X4 *pxmf4x4Parent)
@@ -743,7 +760,7 @@ void CHellicopterObject::Animate(float fTimeElapsed, XMFLOAT4X4 *pxmf4x4Parent)
 	CGameObject::Animate(fTimeElapsed, pxmf4x4Parent);
 }
 
-void CHellicopterObject::OnUpdateCallback(float fTimeElapsed)
+void CHellicopterObject::OnUpdateCallback()
 {
 	XMFLOAT3 xmf3Position = GetPosition();
 	CHeightMapTerrain* pTerrain = (CHeightMapTerrain*)m_pUpdatedContext;
@@ -754,7 +771,6 @@ void CHellicopterObject::OnUpdateCallback(float fTimeElapsed)
 		xmf3Velocity.y = 0.0f;
 		SetVelocity(xmf3Velocity);
 		xmf3Position.y = fHeight;
-		SetPosition(xmf3Position);
 	}
 
 	if (xmf3Position.x < PADDING)
@@ -765,6 +781,8 @@ void CHellicopterObject::OnUpdateCallback(float fTimeElapsed)
 		xmf3Position.x = pTerrain->GetWidth() - PADDING;
 	if (xmf3Position.z > pTerrain->GetLength() - PADDING)
 		xmf3Position.z = pTerrain->GetLength() - PADDING;
+
+	SetPosition(xmf3Position);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //

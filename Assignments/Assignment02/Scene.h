@@ -13,7 +13,7 @@
 #define SPOT_LIGHT			2
 #define DIRECTIONAL_LIGHT	3
 
-#define MAX_ENEMY			5
+#define MAX_ENEMY			20
 
 struct LIGHT
 {
@@ -52,7 +52,7 @@ public:
 	virtual void UpdateShaderVariables(ID3D12GraphicsCommandList *pd3dCommandList);
 	virtual void ReleaseShaderVariables();
 
-	void BuildDefaultLightsAndMaterials(float x, float y, float z);
+	void BuildDefaultLightsAndMaterials();
 	void BuildObjects(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *pd3dCommandList);
 	void ReleaseObjects();
 
@@ -69,8 +69,11 @@ public:
 	void BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList);
 	void SpawnEnemy();
 	void CheckCollide(CGameObject* target);
+
 	CHeightMapTerrain* GetTerrain() { return(m_pTerrain); }
 	void Update(CGameObject* m_pPlayer, float fTimeElapsed);
+	void CommandF(CGameObject* m_pPlayer);
+
 
 	CPlayer						*m_pPlayer = NULL;
 	CHeightMapTerrain* m_pTerrain = NULL;

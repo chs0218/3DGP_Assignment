@@ -16,53 +16,29 @@ CScene::~CScene()
 {
 }
 
-void CScene::BuildDefaultLightsAndMaterials(float x, float y, float z)
+void CScene::BuildDefaultLightsAndMaterials()
 {
-	m_nLights = 4;
+	m_nLights = 2;
 	m_pLights = new LIGHT[m_nLights];
 	::ZeroMemory(m_pLights, sizeof(LIGHT) * m_nLights);
 
 	m_xmf4GlobalAmbient = XMFLOAT4(0.15f, 0.15f, 0.15f, 1.0f);
-
 	m_pLights[0].m_bEnable = true;
-	m_pLights[0].m_nType = POINT_LIGHT;
-	m_pLights[0].m_fRange = 1000.0f;
-	m_pLights[0].m_xmf4Ambient = XMFLOAT4(0.1f, 0.0f, 0.0f, 1.0f);
-	m_pLights[0].m_xmf4Diffuse = XMFLOAT4(0.8f, 0.0f, 0.0f, 1.0f);
-	m_pLights[0].m_xmf4Specular = XMFLOAT4(0.5f, 0.5f, 0.5f, 0.0f);
-	m_pLights[0].m_xmf3Position = XMFLOAT3(30.0f + x, 30.0f + y, 30.0f + z);
-	m_pLights[0].m_xmf3Direction = XMFLOAT3(0.0f, 0.0f, 0.0f);
-	m_pLights[0].m_xmf3Attenuation = XMFLOAT3(1.0f, 0.001f, 0.0001f);
+	m_pLights[0].m_nType = DIRECTIONAL_LIGHT;
+	m_pLights[0].m_xmf4Ambient = XMFLOAT4(0.3f, 0.3f, 0.3f, 1.0f);
+	m_pLights[0].m_xmf4Diffuse = XMFLOAT4(0.8f, 0.8f, 0.8f, 1.0f);
+	m_pLights[0].m_xmf4Specular = XMFLOAT4(0.4f, 0.4f, 0.4f, 0.0f);
+	m_pLights[0].m_xmf3Direction = XMFLOAT3(1.0f, 0.0f, 0.0f);
 	m_pLights[1].m_bEnable = true;
 	m_pLights[1].m_nType = SPOT_LIGHT;
-	m_pLights[1].m_fRange = 500.0f;
+	m_pLights[1].m_fRange = 1000.0f;
 	m_pLights[1].m_xmf4Ambient = XMFLOAT4(0.1f, 0.1f, 0.1f, 1.0f);
 	m_pLights[1].m_xmf4Diffuse = XMFLOAT4(0.4f, 0.4f, 0.4f, 1.0f);
 	m_pLights[1].m_xmf4Specular = XMFLOAT4(0.3f, 0.3f, 0.3f, 0.0f);
-	m_pLights[1].m_xmf3Position = XMFLOAT3(-50.0f + x, 20.0f + y, -5.0f + z);
-	m_pLights[1].m_xmf3Direction = XMFLOAT3(0.0f, 0.0f, 1.0f);
 	m_pLights[1].m_xmf3Attenuation = XMFLOAT3(1.0f, 0.01f, 0.0001f);
 	m_pLights[1].m_fFalloff = 8.0f;
-	m_pLights[1].m_fPhi = (float)cos(XMConvertToRadians(40.0f));
-	m_pLights[1].m_fTheta = (float)cos(XMConvertToRadians(20.0f));
-	m_pLights[2].m_bEnable = true;
-	m_pLights[2].m_nType = DIRECTIONAL_LIGHT;
-	m_pLights[2].m_xmf4Ambient = XMFLOAT4(0.3f, 0.3f, 0.3f, 1.0f);
-	m_pLights[2].m_xmf4Diffuse = XMFLOAT4(0.8f, 0.8f, 0.8f, 1.0f);
-	m_pLights[2].m_xmf4Specular = XMFLOAT4(0.4f, 0.4f, 0.4f, 0.0f);
-	m_pLights[2].m_xmf3Direction = XMFLOAT3(1.0f, 0.0f, 0.0f);
-	m_pLights[3].m_bEnable = true;
-	m_pLights[3].m_nType = SPOT_LIGHT;
-	m_pLights[3].m_fRange = 600.0f;
-	m_pLights[3].m_xmf4Ambient = XMFLOAT4(0.3f, 0.3f, 0.3f, 1.0f);
-	m_pLights[3].m_xmf4Diffuse = XMFLOAT4(0.3f, 0.7f, 0.0f, 1.0f);
-	m_pLights[3].m_xmf4Specular = XMFLOAT4(0.3f, 0.3f, 0.3f, 0.0f);
-	m_pLights[3].m_xmf3Position = XMFLOAT3(50.0f + x, 30.0f + y, 30.0f + z);
-	m_pLights[3].m_xmf3Direction = XMFLOAT3(0.0f, 1.0f, 1.0f);
-	m_pLights[3].m_xmf3Attenuation = XMFLOAT3(1.0f, 0.01f, 0.0001f);
-	m_pLights[3].m_fFalloff = 8.0f;
-	m_pLights[3].m_fPhi = (float)cos(XMConvertToRadians(90.0f));
-	m_pLights[3].m_fTheta = (float)cos(XMConvertToRadians(30.0f));
+	m_pLights[1].m_fPhi = (float)cos(XMConvertToRadians(60.0f));
+	m_pLights[1].m_fTheta = (float)cos(XMConvertToRadians(40.0f));
 }
 
 void CScene::SpawnEnemy()
@@ -83,13 +59,8 @@ void CScene::SpawnEnemy()
 void CScene::BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList)
 {
 	uniform_int_distribution<int> uidEnemy(0, Models.size() - 1);
-	std::uniform_int_distribution<int> uidX(0, m_pTerrain->GetWidth());
-	std::uniform_int_distribution<int> uidZ(0, m_pTerrain->GetLength());
 	
 	int Seed = uidEnemy(dre);
-	float randX = (float)uidX(dre);
-	float randZ = (float)uidZ(dre);
-	float randY = m_pTerrain->GetHeight(randX, randZ) + 50.0f;
 	CGameObject* pModel = CGameObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, m_pd3dGraphicsRootSignature, Models[Seed]);
 	switch (Seed)
 	{
@@ -99,7 +70,6 @@ void CScene::BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLis
 		pGunshipObject = new CGunshipObject(m_pTerrain);
 		pGunshipObject->SetChild(pModel, true);
 		pGunshipObject->OnInitialize();
-		pGunshipObject->SetPosition(randX, randY, randZ);
 		pGunshipObject->isEnable = false;
 		v_GameObjects.push_back(pGunshipObject);
 	}
@@ -110,7 +80,6 @@ void CScene::BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLis
 		pSuperCobraObject = new CSuperCobraObject(m_pTerrain);
 		pSuperCobraObject->SetChild(pModel, true);
 		pSuperCobraObject->OnInitialize();
-		pSuperCobraObject->SetPosition(randX, randY, randZ);
 		pSuperCobraObject->isEnable = false;
 		v_GameObjects.push_back(pSuperCobraObject);
 	}
@@ -121,7 +90,6 @@ void CScene::BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLis
 		pMi24Object = new CMi24Object(m_pTerrain);
 		pMi24Object->SetChild(pModel, true);
 		pMi24Object->OnInitialize();
-		pMi24Object->SetPosition(randX, randY, randZ);
 		pMi24Object->isEnable = false;
 		v_GameObjects.push_back(pMi24Object);
 	}
@@ -132,7 +100,6 @@ void CScene::BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLis
 		pApacheObject = new CApacheObject(m_pTerrain);
 		pApacheObject->SetChild(pModel, true);
 		pApacheObject->OnInitialize();
-		pApacheObject->SetPosition(randX, randY, randZ);
 		pApacheObject->isEnable = false;
 		v_GameObjects.push_back(pApacheObject);
 	}
@@ -143,10 +110,7 @@ void CScene::BuildRandomEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandLis
 void CScene::BuildDefaultEnemy(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList)
 {
 	for (int i = 0; i < MAX_ENEMY; ++i)
-	{
-		std::vector<CGameObject*>::iterator index = std::find_if(v_GameObjects.begin(), v_GameObjects.end(), [](const CGameObject* target) { return !target->isEnable; });
 		BuildRandomEnemy(pd3dDevice, pd3dCommandList);
-	}
 }
 
 void CScene::BuildObjects(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *pd3dCommandList)
@@ -155,19 +119,10 @@ void CScene::BuildObjects(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *p
 
 	CMaterial::PrepareShaders(pd3dDevice, pd3dCommandList, m_pd3dGraphicsRootSignature);
 
-	//지형을 확대할 스케일 벡터이다. x-축과 z-축은 8배, y-축은 2배 확대한다. 
 	XMFLOAT3 xmf3Scale(8.0f, 2.0f, 8.0f);
-	XMFLOAT4 xmf4Color(0.0f, 0.2f, 0.0f, 0.0f);
-#ifdef _WITH_TERRAIN_PARTITION
-	m_pTerrain = new CHeightMapTerrain(pd3dDevice, pd3dCommandList,
-		m_pd3dGraphicsRootSignature, _T("../Assets/Image/Terrain/HeightMap.raw"), 257, 257, 17,
-		17, xmf3Scale, xmf4Color);
-#else
-	//지형을 하나의 격자 메쉬(257x257)로 생성한다. 
-	m_pTerrain = new CHeightMapTerrain(pd3dDevice, pd3dCommandList, m_pd3dGraphicsRootSignature, _T("HeightMap3.raw"), 512, 512, 512, 512, xmf3Scale, xmf4Color);
-#endif
-
-	BuildDefaultLightsAndMaterials(m_pTerrain->GetWidth() * 0.5f, m_pTerrain->GetHeight(m_pTerrain->GetWidth() * 0.5f, m_pTerrain->GetLength() * 0.5f) + 200.0f, m_pTerrain->GetLength() * 0.5f);
+	XMFLOAT4 xmf4Color(0.0f, 0.2f, 0.2f, 0.0f);
+	m_pTerrain = new CHeightMapTerrain(pd3dDevice, pd3dCommandList, m_pd3dGraphicsRootSignature, _T("HeightMap.raw"), 512, 512, 512, 512, xmf3Scale, xmf4Color);
+	BuildDefaultLightsAndMaterials();
 	BuildDefaultEnemy(pd3dDevice, pd3dCommandList);
 	CreateShaderVariables(pd3dDevice, pd3dCommandList);
 }
@@ -294,14 +249,11 @@ void CScene::AnimateObjects(float fTimeElapsed)
 {
 	m_fElapsedTime = fTimeElapsed;
 	RespawnTime += fTimeElapsed;
-	if (RespawnTime > 0.5f)
+	if (RespawnTime > 3.0f)
 	{
 		RespawnTime = 0.0f;
 		SpawnEnemy();
 	}
-	for (int i = 0; i < v_GameObjects.size(); ++i)
-		v_GameObjects[i]->Animate(fTimeElapsed, NULL);
-
 	if (m_pLights)
 	{
 		m_pLights[1].m_xmf3Position = m_pPlayer->GetPosition();
@@ -338,7 +290,7 @@ void CScene::CheckCollide(CGameObject* target)
 {
 	for (int i = 0; i < v_GameObjects.size(); ++i)
 	{
-		if (target->isEnable && v_GameObjects[i]->isEnable && v_GameObjects[i]->checkObjectCollision(target))
+		if (v_GameObjects[i]->isEnable && v_GameObjects[i]->checkObjectCollision(target))
 		{
 			v_GameObjects[i]->isEnable = false;
 			((CBullet*)target)->Reset();
@@ -353,6 +305,17 @@ void CScene::Update(CGameObject* m_pPlayer, float fTimeElapsed)
 		if (v_GameObjects[i]->isEnable)
 		{
 			((CHellicopterObject*)v_GameObjects[i])->Update(m_pPlayer, fTimeElapsed);
+		}
+	}
+}
+
+void  CScene::CommandF(CGameObject* m_pPlayer)
+{
+	for (int i = 0; i < v_GameObjects.size(); ++i)
+	{
+		if (v_GameObjects[i]->isEnable)
+		{
+			((CHellicopterObject*)v_GameObjects[i])->CommandF4(m_pPlayer);
 		}
 	}
 }

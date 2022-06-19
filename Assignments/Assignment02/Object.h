@@ -278,11 +278,12 @@ public:
 	void SetVelocity(const XMFLOAT3& xmf3Velocity) { m_xmf3Velocity = xmf3Velocity; }
 	const XMFLOAT3& GetVelocity() const { return(m_xmf3Velocity); }
 	virtual void OnInitialize();
+	virtual void CommandF4(CGameObject* m_pPlayer);
 	virtual void Move(const XMFLOAT3& xmf3Shift);
 	virtual void Update(CGameObject* m_pPlayer, float fTimeElapsed);
 	virtual void SetUpdatedContext(LPVOID pContext) { m_pUpdatedContext = pContext; }
 	virtual void Animate(float fTimeElapsed, XMFLOAT4X4 *pxmf4x4Parent = NULL);
-	virtual void OnUpdateCallback(float fTimeElapsed);
+	virtual void OnUpdateCallback();
 };
 
 class CApacheObject : public CHellicopterObject

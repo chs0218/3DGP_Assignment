@@ -93,6 +93,7 @@ public:
 	virtual ~CBullet();
 	void Animate(float fTimeElapsed);
 	void Reset();
+	void OnUpdateCallback();
 	void SetDirection(XMFLOAT3 direction) { xmf_movingDirection = direction; }
 	void SetUpdatedContext(LPVOID pContext) { m_pUpdatedContext = pContext; }
 };

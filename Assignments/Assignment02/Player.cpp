@@ -271,13 +271,24 @@ void CBullet::Animate(float fTimeElapsed)
 		xmf3Position = Vector3::Add(xmf3Position, xmf3Movement);
 		SetPosition(xmf3Position);
 	}
+	OnUpdateCallback();
 }
+void CBullet::OnUpdateCallback()
+{
+	XMFLOAT3 xmf3Position = GetPosition();
+	CHeightMapTerrain* pTerrain = (CHeightMapTerrain*)m_pUpdatedContext;
+	float fHeight = pTerrain->GetHeight(xmf3Position.x, xmf3Position.z);
 
+	if (xmf3Position.y < fHeight || xmf3Position.y > 512.0f 
+		|| xmf3Position.x < 0 || xmf3Position.x > pTerrain->GetWidth()
+		|| xmf3Position.z < 0 || xmf3Position.z > pTerrain->GetLength())
+		Reset();
+}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CAirplanePlayer
 CAirplanePlayer::CAirplanePlayer(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *pd3dCommandList, ID3D12RootSignature *pd3dGraphicsRootSignature, void* pContext)
 {
-	m_pCamera = ChangeCamera(FIRST_PERSON_CAMERA, 0.0f);
+	m_pCamera = ChangeCamera(SPACESHIP_CAMERA, 0.0f);
 	isEnable = true;
 
 	CGameObject *pGameObject = CGameObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, pd3dGraphicsRootSignature, "Model/GunShip.bin");
@@ -389,14 +400,8 @@ void CAirplanePlayer::OnPlayerUpdateCallback(float fTimeElapsed)
 {
 	XMFLOAT3 xmf3PlayerPosition = GetPosition();
 	CHeightMapTerrain* pTerrain = (CHeightMapTerrain*)m_pPlayerUpdatedContext;
-	/*지형에서 플레이어의 현재 위치 (x, z)의 지형 높이(y)를 구한다. 그리고 플레이어 메쉬의 높이가 12이고 플레이어의
-	중심이 직육면체의 가운데이므로 y 값에 메쉬의 높이의 절반을 더하면 플레이어의 위치가 된다.*/
 	float fHeight = pTerrain->GetHeight(xmf3PlayerPosition.x, xmf3PlayerPosition.z) + 6.0f;
-	/*플레이어의 위치 벡터의 y-값이 음수이면(예를 들어, 중력이 적용되는 경우) 플레이어의 위치 벡터의 y-값이 점점
-	작아지게 된다. 이때 플레이어의 현재 위치 벡터의 y 값이 지형의 높이(실제로 지형의 높이 + 6)보다 작으면 플레이어
-	의 일부가 지형 아래에 있게 된다. 이러한 경우를 방지하려면 플레이어의 속도 벡터의 y 값을 0으로 만들고 플레이어
-	의 위치 벡터의 y-값을 지형의 높이(실제로 지형의 높이 + 6)로 설정한다. 그러면 플레이어는 항상 지형 위에 있게 된
-	다.*/
+	
 	if (xmf3PlayerPosition.y < fHeight)
 	{
 		XMFLOAT3 xmf3PlayerVelocity = GetVelocity();
@@ -421,11 +426,6 @@ void CAirplanePlayer::OnPlayerUpdateCallback(float fTimeElapsed)
 void CAirplanePlayer::OnCameraUpdateCallback(float fTimeElapsed)
 {
 	XMFLOAT3 xmf3CameraPosition = m_pCamera->GetPosition();
-	/*높이 맵에서 카메라의 현재 위치 (x, z)에 대한 지형의 높이(y 값)를 구한다. 이 값이 카메라의 위치 벡터의 y-값 보
-	다 크면 카메라가 지형의 아래에 있게 된다. 이렇게 되면 다음 그림의 왼쪽과 같이 지형이 그려지지 않는 경우가 발생
-	한다(카메라가 지형 안에 있으므로 삼각형의 와인딩 순서가 바뀐다). 이러한 경우가 발생하지 않도록 카메라의 위치 벡
-	터의 y-값의 최소값은 (지형의 높이 + 5)로 설정한다. 카메라의 위치 벡터의 y-값의 최소값은 지형의 모든 위치에서
-	카메라가 지형 아래에 위치하지 않도록 설정해야 한다.*/
 	CHeightMapTerrain* pTerrain = (CHeightMapTerrain*)m_pCameraUpdatedContext;
 	float fHeight = pTerrain->GetHeight(xmf3CameraPosition.x, xmf3CameraPosition.z) +
 		5.0f;
