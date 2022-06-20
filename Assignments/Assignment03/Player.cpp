@@ -238,7 +238,7 @@ CAirplanePlayer::CAirplanePlayer(ID3D12Device *pd3dDevice, ID3D12GraphicsCommand
 
 	m_pCamera = ChangeCamera(THIRD_PERSON_CAMERA, 0.0f);
 
-	SetPosition(XMFLOAT3(-3.944041f, 7.696952f, -2.04254f));
+	SetPosition(XMFLOAT3(0.0f, 10.0f, 0.0f));
 
 	CreateShaderVariables(pd3dDevice, pd3dCommandList);
 
