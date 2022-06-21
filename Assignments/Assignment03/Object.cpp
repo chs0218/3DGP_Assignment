@@ -327,7 +327,7 @@ void CMyObject::SetMesh(CMyMesh* pMesh)
 void CMyObject::ReleaseUploadBuffers()
 {
 	//정점 버퍼를 위한 업로드 버퍼를 소멸시킨다. 
-	if (m_pMesh) m_pMesh->ReleaseUploadBuffers();
+	//if (m_pMesh) m_pMesh->ReleaseUploadBuffers();
 }
 
 void CMyObject::Animate(float fTimeElapsed)

@@ -507,7 +507,7 @@ void CGameFramework::FrameAdvance()
 	m_pd3dCommandList->OMSetRenderTargets(1, &d3dRtvCPUDescriptorHandle, FALSE, &d3dDsvCPUDescriptorHandle);
 	//렌더 타겟 뷰(서술자)와 깊이-스텐실 뷰(서술자)를 출력-병합 단계(OM)에 연결한다.
 
-	float pfClearColor[4] = { 0.0f, 0.12f, 0.3f, 1.0f };
+	float pfClearColor[4] = { 0.0525f, 0.0525f, 0.0525f, 1.0f };
 	m_pd3dCommandList->ClearRenderTargetView(d3dRtvCPUDescriptorHandle, pfClearColor/*Colors::Azure*/, 0, NULL);
 	//원하는 색상으로 렌더 타겟(뷰)을 지운다.
 

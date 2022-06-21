@@ -206,8 +206,8 @@ public:
 
 private:
 	virtual void OnInitialize();
-	virtual void Animate(float fTimeElapsed, XMFLOAT4X4* pxmf4x4Parent = NULL);
 public:
 	virtual CCamera* ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed);
 	virtual void OnPrepareRender();
+	virtual void Animate(float fTimeElapsed, XMFLOAT4X4* pxmf4x4Parent = NULL);
 };
