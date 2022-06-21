@@ -75,16 +75,17 @@ private:
 #if defined(_DEBUG)
 	ID3D12Debug					*m_pd3dDebugController;
 #endif
-
 	CRaceScene					*m_pRaceScene = NULL;
 	CScene						*m_pCityScene = NULL;
 	CPlayer						*m_pPlayer = NULL;
 	CMyPlayer					*m_pCarPlayer = NULL;
 	CCamera						*m_pCamera = NULL;
-	CCamera						*m_pTmpCamera = NULL;
+	CMyCamera					*m_pRaceCamera = NULL;
 	POINT						m_ptOldCursorPos;
 
 	CGameTimer					m_GameTimer;
 	_TCHAR						m_pszFrameRate[50];
+
+	bool						ShowBuilding = false;
 };
 

@@ -122,7 +122,7 @@ protected:
 	int xNextRail = 2;
 	float tx = 0.0f;
 	float tz = 0.0f;
-	CCamera* m_pCamera = NULL;
+	CMyCamera* m_pCamera = NULL;
 	CMyObject** m_Track = NULL;
 public:
 	int UpdateCount = 0;
@@ -154,8 +154,8 @@ public:
 	float GetPitch() const { return(m_fPitch); }
 	float GetRoll() const { return(m_fRoll); }
 
-	CCamera* GetCamera() { return(m_pCamera); }
-	void SetCamera(CCamera* pCamera) { m_pCamera = pCamera; }
+	CMyCamera* GetCamera() { return(m_pCamera); }
+	void SetCamera(CMyCamera* pCamera) { m_pCamera = pCamera; }
 
 	void Move(ULONG nDirection, float fDistance, bool bVelocity = false);
 	void Move(const XMFLOAT3& xmf3Shift, bool bVelocity = false);
@@ -174,11 +174,11 @@ public:
 	virtual void ReleaseShaderVariables();
 	virtual void UpdateShaderVariables(ID3D12GraphicsCommandList* pd3dCommandList);
 
-	CCamera* OnChangeCamera(DWORD nNewCameraMode, DWORD nCurrentCameraMode);
+	CMyCamera* OnChangeCamera(DWORD nNewCameraMode, DWORD nCurrentCameraMode);
 
-	virtual CCamera* ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed) { return(NULL); }
+	virtual CMyCamera* ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed) { return(NULL); }
 	virtual void OnPrepareRender();
-	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera = NULL);
+	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CMyCamera* pCamera = NULL);
 
 	void SpeedUp()
 	{
@@ -207,7 +207,7 @@ public:
 private:
 	virtual void OnInitialize();
 public:
-	virtual CCamera* ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed);
+	virtual CMyCamera* ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed);
 	virtual void OnPrepareRender();
 	virtual void Animate(float fTimeElapsed, XMFLOAT4X4* pxmf4x4Parent = NULL);
 };

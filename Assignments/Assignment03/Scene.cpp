@@ -368,7 +368,7 @@ void CRaceScene::AnimateObjects(float fTimeElapsed)
 }
 
 
-void CRaceScene::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera)
+void CRaceScene::Render(ID3D12GraphicsCommandList* pd3dCommandList, CMyCamera* pCamera)
 {
 	pCamera->SetViewportsAndScissorRects(pd3dCommandList);
 	pd3dCommandList->SetGraphicsRootSignature(m_pd3dGraphicsRootSignature);

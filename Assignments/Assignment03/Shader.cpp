@@ -544,7 +544,7 @@ void CMyShader::OnPrepareRender(ID3D12GraphicsCommandList* pd3dCommandList, int 
 	pd3dCommandList->SetPipelineState(m_ppd3dPipelineStates[nPipelineState]);
 }
 
-void CMyShader::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera, int nPipelineState)
+void CMyShader::Render(ID3D12GraphicsCommandList* pd3dCommandList, CMyCamera* pCamera, int nPipelineState)
 {
 	OnPrepareRender(pd3dCommandList, nPipelineState);
 }
@@ -620,7 +620,7 @@ void CRaceShader::ReleaseUploadBuffers()
 	}
 }
 
-void CRaceShader::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera)
+void CRaceShader::Render(ID3D12GraphicsCommandList* pd3dCommandList, CMyCamera* pCamera)
 {
 	CMyShader::Render(pd3dCommandList, pCamera, 0);
 	for (int j = 0; j < m_nObjects; j++)
@@ -793,7 +793,7 @@ void CInstancingShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCom
 		i->SetExplosion(pd3dDevice, pd3dCommandList);
 }
 
-void CInstancingShader::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera)
+void CInstancingShader::Render(ID3D12GraphicsCommandList* pd3dCommandList, CMyCamera* pCamera)
 {
 	CMyShader::Render(pd3dCommandList, pCamera, 0);
 	//모든 게임 객체의 인스턴싱 데이터를 버퍼에 저장한다. 
@@ -874,7 +874,7 @@ void CLightShader::CreateShader(ID3D12Device* pd3dDevice, ID3D12RootSignature* p
 	if (m_d3dPipelineStateDesc.InputLayout.pInputElementDescs) delete[] m_d3dPipelineStateDesc.InputLayout.pInputElementDescs;
 }
 
-void CLightShader::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera, int nPipelineState)
+void CLightShader::Render(ID3D12GraphicsCommandList* pd3dCommandList, CMyCamera* pCamera, int nPipelineState)
 {
 	OnPrepareRender(pd3dCommandList, nPipelineState);
 }

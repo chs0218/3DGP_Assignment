@@ -35,6 +35,7 @@ CGameFramework::CGameFramework()
 
 	m_pCityScene = NULL;
 	m_pCamera = NULL;
+	ShowBuilding = false;
 
 	_tcscpy_s(m_pszFrameRate, _T("LabProject ("));
 }
@@ -355,9 +356,8 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 		case VK_F1:
 		case VK_F2:
 		case VK_F3:
-			if(m_pPlayer)
-				m_pCamera = m_pPlayer->ChangeCamera((DWORD)(wParam - VK_F1 + 1), m_GameTimer.GetTimeElapsed());
-			if (m_pCarPlayer) m_pCamera = m_pCarPlayer->ChangeCamera((wParam - VK_F1 + 1), m_GameTimer.GetTimeElapsed());
+			if(m_pPlayer) m_pCamera = m_pPlayer->ChangeCamera((DWORD)(wParam - VK_F1 + 1), m_GameTimer.GetTimeElapsed());
+			if (m_pCarPlayer) m_pRaceCamera = m_pCarPlayer->ChangeCamera((wParam - VK_F1 + 1), m_GameTimer.GetTimeElapsed());
 			break;
 		case VK_F9:
 			ChangeSwapChainState();
@@ -373,25 +373,34 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 			::PostQuitMessage(0);
 			break;
 		case VK_UP:
-			if (m_pCarPlayer)
+			if (m_pCarPlayer && !ShowBuilding)
 				m_pCarPlayer->SpeedUp();
 			break;
 		case VK_DOWN:
-			if (m_pCarPlayer)
+			if (m_pCarPlayer && !ShowBuilding)
 				m_pCarPlayer->SpeedDown();
 			break;
 		case VK_RIGHT:
 		case VK_LEFT:
 			if (::GetKeyboardState(pKeyBuffer))
 			{
-				if (pKeyBuffer[VK_LEFT] & 0xF0) dwDirection |= DIR_LEFT;
-				if (pKeyBuffer[VK_RIGHT] & 0xF0) dwDirection |= DIR_RIGHT;
-				if (m_pCarPlayer) m_pCarPlayer->SetDir(dwDirection);
+				if (!ShowBuilding)
+				{
+					if (pKeyBuffer[VK_LEFT] & 0xF0) dwDirection |= DIR_LEFT;
+					if (pKeyBuffer[VK_RIGHT] & 0xF0) dwDirection |= DIR_RIGHT;
+					if (m_pCarPlayer) m_pCarPlayer->SetDir(dwDirection);
+				}
 			}
+			break;
+		case '1':
+			ShowBuilding = false;
+			break;
+		case '2':
+			ShowBuilding = true;
 			break;
 		case 'Z':
 		case 'z':
-			if (m_pCarPlayer)
+			if (m_pCarPlayer && !ShowBuilding)
 				m_pCarPlayer->Rotate(0.0f, 90.0f, 0.0f);
 			break;
 		case VK_RETURN:
@@ -466,7 +475,17 @@ void CGameFramework::OnDestroy()
 
 void CGameFramework::BuildObjects()
 {
-	/*m_pd3dCommandList->Reset(m_pd3dCommandAllocator, NULL);
+	m_pd3dCommandList->Reset(m_pd3dCommandAllocator, NULL);
+
+	m_pRaceScene = new CRaceScene();
+	if (m_pRaceScene) m_pRaceScene->BuildObjects(m_pd3dDevice, m_pd3dCommandList);
+
+	CMyMaterial::PrepareShaders(m_pd3dDevice, m_pd3dCommandList, m_pRaceScene->GetGraphicsRootSignature());
+	CCarPlayer* pCCarPlayer = new CCarPlayer(m_pd3dDevice, m_pd3dCommandList, m_pRaceScene->GetGraphicsRootSignature());
+	m_pCarPlayer = pCCarPlayer;
+	m_pCarPlayer->SetTrack(m_pRaceScene->GetTrack());
+	m_pRaceCamera = m_pCarPlayer->GetCamera();
+	m_pRaceScene->SetPlayer(pCCarPlayer);
 
 	m_pCityScene = new CScene();
 	if (m_pCityScene) m_pCityScene->BuildObjects(m_pd3dDevice, m_pd3dCommandList);
@@ -483,25 +502,8 @@ void CGameFramework::BuildObjects()
 
 	if (m_pCityScene) m_pCityScene->ReleaseUploadBuffers();
 	if (m_pPlayer) m_pPlayer->ReleaseUploadBuffers();
-
-	m_GameTimer.Reset();*/
-
-	m_pd3dCommandList->Reset(m_pd3dCommandAllocator, NULL);
-	m_pRaceScene = new CRaceScene();
-	if (m_pRaceScene) m_pRaceScene->BuildObjects(m_pd3dDevice, m_pd3dCommandList);
-
-	CMyMaterial::PrepareShaders(m_pd3dDevice, m_pd3dCommandList, m_pRaceScene->GetGraphicsRootSignature());
-	CCarPlayer* pCCarPlayer = new CCarPlayer(m_pd3dDevice, m_pd3dCommandList, m_pRaceScene->GetGraphicsRootSignature());
-	m_pCarPlayer = pCCarPlayer;
-	m_pCarPlayer->SetTrack(m_pRaceScene->GetTrack());
-	m_pCamera = m_pCarPlayer->GetCamera();
-	m_pRaceScene->SetPlayer(pCCarPlayer);
-
-	m_pd3dCommandList->Close();
-	ID3D12CommandList* ppd3dCommandLists[] = { m_pd3dCommandList };
-	m_pd3dCommandQueue->ExecuteCommandLists(1, ppd3dCommandLists);
-	WaitForGpuComplete();
 	if (m_pRaceScene) m_pRaceScene->ReleaseUploadBuffers();
+
 	m_GameTimer.Reset();
 }
 
@@ -519,7 +521,7 @@ void CGameFramework::ReleaseObjects()
 
 void CGameFramework::ProcessInput()
 {
-	if (m_pPlayer)
+	if (ShowBuilding && m_pPlayer)
 	{
 		static UCHAR pKeysBuffer[256];
 		DWORD dwDirection = 0;
@@ -559,7 +561,7 @@ void CGameFramework::ProcessInput()
 		m_pPlayer->Update(m_GameTimer.GetTimeElapsed());
 	}
 
-	if (m_pCarPlayer)
+	if (!ShowBuilding && m_pCarPlayer)
 	{
 		float cxDelta = 0.0f, cyDelta = 0.0f;
 		POINT ptCursorPos;
@@ -585,9 +587,15 @@ void CGameFramework::ProcessInput()
 
 void CGameFramework::AnimateObjects()
 {
-	if (m_pCityScene) m_pCityScene->AnimateObjects(m_GameTimer.GetTimeElapsed());
-	if (m_pCarPlayer) m_pCarPlayer->Animate(m_GameTimer.GetTimeElapsed(), NULL);
-	if (m_pRaceScene) m_pRaceScene->AnimateObjects(m_GameTimer.GetTimeElapsed());
+	if (ShowBuilding)
+	{
+		if (m_pCityScene) m_pCityScene->AnimateObjects(m_GameTimer.GetTimeElapsed());
+	}
+	else
+	{
+		if (m_pCarPlayer) m_pCarPlayer->Animate(m_GameTimer.GetTimeElapsed(), NULL);
+		if (m_pRaceScene) m_pRaceScene->AnimateObjects(m_GameTimer.GetTimeElapsed());
+	}
 }
 
 void CGameFramework::WaitForGpuComplete()
@@ -648,13 +656,13 @@ void CGameFramework::FrameAdvance()
 
 	m_pd3dCommandList->OMSetRenderTargets(1, &d3dRtvCPUDescriptorHandle, TRUE, &d3dDsvCPUDescriptorHandle);
 
-	//if (m_pCityScene) m_pCityScene->Render(m_pd3dCommandList, m_pCamera);
-	if (m_pRaceScene) m_pRaceScene->Render(m_pd3dCommandList, m_pCamera);
+	if (m_pCityScene && ShowBuilding) m_pCityScene->Render(m_pd3dCommandList, m_pCamera);
+	if (m_pRaceScene && !ShowBuilding) m_pRaceScene->Render(m_pd3dCommandList, m_pRaceCamera);
 #ifdef _WITH_PLAYER_TOP
 	m_pd3dCommandList->ClearDepthStencilView(d3dDsvCPUDescriptorHandle, D3D12_CLEAR_FLAG_DEPTH | D3D12_CLEAR_FLAG_STENCIL, 1.0f, 0, 0, NULL);
 #endif
-	//if (m_pPlayer) m_pPlayer->Render(m_pd3dCommandList, m_pCamera);
-	if (m_pCarPlayer) m_pCarPlayer->Render(m_pd3dCommandList, m_pCamera);
+	if (m_pPlayer && ShowBuilding) m_pPlayer->Render(m_pd3dCommandList, m_pCamera);
+	if (m_pCarPlayer && !ShowBuilding) m_pCarPlayer->Render(m_pd3dCommandList, m_pRaceCamera);
 
 	d3dResourceBarrier.Transition.StateBefore = D3D12_RESOURCE_STATE_RENDER_TARGET;
 	d3dResourceBarrier.Transition.StateAfter = D3D12_RESOURCE_STATE_PRESENT;

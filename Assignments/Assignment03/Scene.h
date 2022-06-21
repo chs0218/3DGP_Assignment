@@ -104,7 +104,7 @@ public:
 	void ReleaseObjects();
 	bool ProcessInput(UCHAR* pKeysBuffer);
 	void AnimateObjects(float fTimeElapsed);
-	void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
+	void Render(ID3D12GraphicsCommandList* pd3dCommandList, CMyCamera* pCamera);
 	void ReleaseUploadBuffers();
 
 	void SetPlayer(CMyPlayer* pPlayer) { m_pPlayer = pPlayer; }

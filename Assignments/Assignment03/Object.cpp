@@ -344,7 +344,7 @@ void CMyObject::Rotate(XMFLOAT3* pxmf3Axis, float fAngle)
 	m_xmf4x4World = Matrix4x4::Multiply(mtxRotate, m_xmf4x4World);
 }
 
-void CMyObject::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera)
+void CMyObject::Render(ID3D12GraphicsCommandList* pd3dCommandList, CMyCamera* pCamera)
 {
 	OnPrepareRender();
 	//객체의 정보를 셰이더 변수(상수 버퍼)로 복사한다. 
@@ -353,7 +353,7 @@ void CMyObject::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCam
 	if (m_pMesh) m_pMesh->Render(pd3dCommandList);
 }
 
-void CMyObject::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera, UINT nInstances)
+void CMyObject::Render(ID3D12GraphicsCommandList* pd3dCommandList, CMyCamera* pCamera, UINT nInstances)
 {
 	OnPrepareRender();
 	if (m_pMesh) m_pMesh->Render(pd3dCommandList, nInstances);
@@ -741,7 +741,7 @@ void CHierarchyObject::SetMaterial(int nMaterial, CMyMaterial* pMaterial)
 	if (m_ppMaterials[nMaterial]) m_ppMaterials[nMaterial]->AddRef();
 }
 
-void CHierarchyObject::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera)
+void CHierarchyObject::Render(ID3D12GraphicsCommandList* pd3dCommandList, CMyCamera* pCamera)
 {
 	if (Show)
 	{

@@ -533,22 +533,22 @@ void CMyPlayer::Update(float fTimeElapsed)
 
 }
 
-CCamera* CMyPlayer::OnChangeCamera(DWORD nNewCameraMode, DWORD nCurrentCameraMode)
+CMyCamera* CMyPlayer::OnChangeCamera(DWORD nNewCameraMode, DWORD nCurrentCameraMode)
 {
-	CCamera* pNewCamera = NULL;
+	CMyCamera* pNewCamera = NULL;
 	switch (nNewCameraMode)
 	{
 	case FIRST_PERSON_CAMERA:
-		pNewCamera = new CFirstPersonCamera(m_pCamera);
+		pNewCamera = new CFirstCarCamera(m_pCamera);
 		break;
 	case THIRD_PERSON_CAMERA:
-		pNewCamera = new CThirdPersonCamera(m_pCamera);
+		pNewCamera = new CThirdCarCamera(m_pCamera);
 		break;
 	case SPACESHIP_CAMERA:
-		pNewCamera = new CSpaceShipCamera(m_pCamera);
+		pNewCamera = new CCarCamera(m_pCamera);
 		break;
 	}
-	if (nCurrentCameraMode == SPACESHIP_CAMERA)
+	if (nCurrentCameraMode == CAR_CAMERA)
 	{
 		m_xmf3Right = Vector3::Normalize(XMFLOAT3(m_xmf3Right.x, 0.0f, m_xmf3Right.z));
 		m_xmf3Up = Vector3::Normalize(XMFLOAT3(0.0f, 1.0f, 0.0f));
@@ -559,7 +559,7 @@ CCamera* CMyPlayer::OnChangeCamera(DWORD nNewCameraMode, DWORD nCurrentCameraMod
 		m_fYaw = Vector3::Angle(XMFLOAT3(0.0f, 0.0f, 1.0f), m_xmf3Look);
 		if (m_xmf3Look.x < 0.0f) m_fYaw = -m_fYaw;
 	}
-	else if ((nNewCameraMode == SPACESHIP_CAMERA) && m_pCamera)
+	else if ((nNewCameraMode == CAR_CAMERA) && m_pCamera)
 	{
 		m_xmf3Right = m_pCamera->GetRightVector();
 		m_xmf3Up = m_pCamera->GetUpVector();
@@ -587,7 +587,7 @@ void CMyPlayer::OnPrepareRender()
 	UpdateTransform(NULL);
 }
 
-void CMyPlayer::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera)
+void CMyPlayer::Render(ID3D12GraphicsCommandList* pd3dCommandList, CMyCamera* pCamera)
 {
 	DWORD nCameraMode = (pCamera) ? pCamera->GetMode() : 0x00;
 	if (nCameraMode == THIRD_PERSON_CAMERA) CHierarchyObject::Render(pd3dCommandList, pCamera);
@@ -652,7 +652,7 @@ void CCarPlayer::OnPrepareRender()
 	CMyPlayer::OnPrepareRender();
 }
 
-CCamera* CCarPlayer::ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed)
+CMyCamera* CCarPlayer::ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed)
 {
 	DWORD nCurrentCameraMode = (m_pCamera) ? m_pCamera->GetMode() : 0x00;
 	if (nCurrentCameraMode == nNewCameraMode) return(m_pCamera);

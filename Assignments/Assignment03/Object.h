@@ -244,7 +244,7 @@ public:
 	}
 	//게임 객체를 회전(x-축, y-축, z-축)한다. 
 	virtual void Rotate(float fPitch = 10.0f, float fYaw = 10.0f, float fRoll = 10.0f);
-	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera, UINT nInstances);
+	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CMyCamera* pCamera, UINT nInstances);
 protected:
 	XMFLOAT4X4 m_xmf4x4World;
 	CMyShader* m_pShader = NULL;
@@ -258,7 +258,7 @@ public:
 	virtual void SetShader(CMyShader* pShader);
 	virtual void Animate(float fTimeElapsed);
 	virtual void OnPrepareRender();
-	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
+	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CMyCamera* pCamera);
 	void UpdateBoundingBox()
 	{
 		if (m_pMesh)
@@ -377,7 +377,7 @@ public:
 	}
 
 	void UpdateShaderVariable(ID3D12GraphicsCommandList* pd3dCommandList, XMFLOAT4X4* pxmf4x4World);
-	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera = NULL);
+	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CMyCamera* pCamera = NULL);
 	static void PrintFrameInfo(CHierarchyObject* pGameObject, CHierarchyObject* pParent);
 
 	static MATERIALSLOADINFO* LoadMaterialsInfoFromFile(wifstream& InFile);
@@ -452,7 +452,7 @@ public:
 		}
 	}
 	void SetExplosion(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList);
-	void Render1(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera)
+	void Render1(ID3D12GraphicsCommandList* pd3dCommandList, CMyCamera* pCamera)
 	{
 		if (IsExPlosing)
 		{
@@ -467,7 +467,7 @@ public:
 		}
 	}
 
-	void Render2(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera)
+	void Render2(ID3D12GraphicsCommandList* pd3dCommandList, CMyCamera* pCamera)
 	{
 		if (!IsExPlosing)
 			p_Obs->Render(pd3dCommandList, pCamera);
