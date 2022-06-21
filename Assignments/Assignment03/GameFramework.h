@@ -76,11 +76,12 @@ private:
 	ID3D12Debug					*m_pd3dDebugController;
 #endif
 
-	CScene						*m_pScene = NULL;
+	CRaceScene					*m_pRaceScene = NULL;
 	CScene						*m_pCityScene = NULL;
 	CPlayer						*m_pPlayer = NULL;
+	CMyPlayer					*m_pCarPlayer = NULL;
 	CCamera						*m_pCamera = NULL;
-
+	CCamera						*m_pTmpCamera = NULL;
 	POINT						m_ptOldCursorPos;
 
 	CGameTimer					m_GameTimer;

@@ -14,6 +14,7 @@ struct VS_CB_CAMERA_INFO
 };
 
 class CPlayer;
+class CMyPlayer;
 
 class CCamera
 {
@@ -40,7 +41,7 @@ protected:
 	D3D12_RECT						m_d3dScissorRect;
 
 	CPlayer							*m_pPlayer;
-
+	CMyPlayer						*m_pMyPlayer;
 	ID3D12Resource					*m_pd3dcbCamera = NULL;
 	VS_CB_CAMERA_INFO				*m_pcbMappedCamera = NULL;
 
@@ -66,6 +67,8 @@ public:
 
 	void SetPlayer(CPlayer *pPlayer) { m_pPlayer = pPlayer; }
 	CPlayer *GetPlayer() { return(m_pPlayer); }
+	void SetPlayer(CMyPlayer* pPlayer) { m_pMyPlayer = pPlayer; }
+	CMyPlayer *GetMyPlayer() { return(m_pMyPlayer); }
 
 	void SetMode(DWORD nMode) { m_nMode = nMode; }
 	DWORD GetMode() { return(m_nMode); }
