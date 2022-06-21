@@ -103,6 +103,5 @@
   <ItemGroup>
     <FxCompile Include="Light.hlsl" />
     <FxCompile Include="Shaders.hlsl" />
-    <FxCompile Include="RaceShaders.hlsl" />
   </ItemGroup>
 </Project>
