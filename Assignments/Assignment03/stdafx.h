@@ -28,10 +28,15 @@
 #include <DirectXColors.h>
 #include <DirectXCollision.h>
 
+#include <fstream>
+#include <vector>
+#include <random>
+
 #include <Mmsystem.h>
 
 using namespace DirectX;
 using namespace DirectX::PackedVector;
+using namespace std;
 
 using Microsoft::WRL::ComPtr;
 
