@@ -32,7 +32,6 @@ CGameFramework::CGameFramework()
 	m_nWndClientHeight = FRAME_BUFFER_HEIGHT;
 
 	m_pCityScene = NULL;
-	m_pRaceScene = NULL;
 	m_pCamera = NULL;
 
 	_tcscpy_s(m_pszFrameRate, _T("LabProject ("));
@@ -428,18 +427,12 @@ void CGameFramework::BuildObjects()
 {
 	m_pd3dCommandList->Reset(m_pd3dCommandAllocator, NULL);
 
-	m_pRaceScene = new CScene();
-	if (m_pRaceScene) m_pRaceScene->BuildObjects(m_pd3dDevice, m_pd3dCommandList);
-
 	m_pCityScene = new CScene();
 	if (m_pCityScene) m_pCityScene->BuildObjects(m_pd3dDevice, m_pd3dCommandList);
 
 	CAirplanePlayer *pAirplanePlayer = new CAirplanePlayer(m_pd3dDevice, m_pd3dCommandList, m_pCityScene->GetGraphicsRootSignature());
 	m_pCityScene->m_pPlayer = m_pPlayer = pAirplanePlayer;
 	m_pCamera = m_pPlayer->GetCamera();
-
-
-	// 자동차 캐릭터 만들고 연결하기
 
 	m_pd3dCommandList->Close();
 	ID3D12CommandList *ppd3dCommandLists[] = { m_pd3dCommandList };
@@ -448,7 +441,6 @@ void CGameFramework::BuildObjects()
 	WaitForGpuComplete();
 
 	if (m_pCityScene) m_pCityScene->ReleaseUploadBuffers();
-	if (m_pRaceScene) m_pRaceScene->ReleaseUploadBuffers();
 	if (m_pPlayer) m_pPlayer->ReleaseUploadBuffers();
 
 	m_GameTimer.Reset();
@@ -460,9 +452,6 @@ void CGameFramework::ReleaseObjects()
 
 	if (m_pCityScene) m_pCityScene->ReleaseObjects();
 	if (m_pCityScene) delete m_pCityScene;
-
-	if (m_pRaceScene) m_pRaceScene->ReleaseObjects();
-	if (m_pRaceScene) delete m_pRaceScene;
 }
 
 void CGameFramework::ProcessInput()
@@ -569,6 +558,7 @@ void CGameFramework::FrameAdvance()
 	m_pd3dCommandList->OMSetRenderTargets(1, &d3dRtvCPUDescriptorHandle, TRUE, &d3dDsvCPUDescriptorHandle);
 
 	if (m_pCityScene) m_pCityScene->Render(m_pd3dCommandList, m_pCamera);
+
 #ifdef _WITH_PLAYER_TOP
 	m_pd3dCommandList->ClearDepthStencilView(d3dDsvCPUDescriptorHandle, D3D12_CLEAR_FLAG_DEPTH | D3D12_CLEAR_FLAG_STENCIL, 1.0f, 0, 0, NULL);
 #endif

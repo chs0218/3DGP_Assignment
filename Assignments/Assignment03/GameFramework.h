@@ -76,7 +76,7 @@ private:
 	ID3D12Debug					*m_pd3dDebugController;
 #endif
 
-	CScene						*m_pRaceScene = NULL;
+	CScene						*m_pScene = NULL;
 	CScene						*m_pCityScene = NULL;
 	CPlayer						*m_pPlayer = NULL;
 	CCamera						*m_pCamera = NULL;
