@@ -754,7 +754,6 @@ void CInstancingShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCom
 	uniform_int_distribution<int> uid(-xObjects, xObjects);
 	int index = 0;
 	std::vector<int> indexes;
-	CHierarchyObject* pGameObject = CHierarchyObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, pd3dGraphicsRootSignature, L"Model/Rock.txt");
 
 	for (int z = 0; z < 2 * zObjects; z++)
 	{
@@ -770,6 +769,7 @@ void CInstancingShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCom
 				if (x == index)
 				{
 					ObstacleObject* tmp = new ObstacleObject;
+					CHierarchyObject* pGameObject = CHierarchyObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, pd3dGraphicsRootSignature, L"Model/Rock.txt");
 					tmp->p_Obs = new CHierarchyObject();
 					tmp->p_Obs->SetChild(pGameObject);
 					tmp->p_Obs->SetScale(20.0f, 20.0f, 20.0f);
