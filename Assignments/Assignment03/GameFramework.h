@@ -77,6 +77,7 @@ private:
 #endif
 
 	CScene						*m_pScene = NULL;
+	CScene						*m_pCityScene = NULL;
 	CPlayer						*m_pPlayer = NULL;
 	CCamera						*m_pCamera = NULL;
 
