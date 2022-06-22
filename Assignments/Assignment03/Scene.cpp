@@ -257,7 +257,7 @@ bool CScene::CheckCollision(CPlayer* target)
 		int nObject = ((CObjectsShader*)m_ppShaders[0])->GetNObjects();
 		for (int i = 0; i < nObject; ++i)
 		{
-			if (target->m_pMesh && AllObjects[i]->checkCollide(target->m_xmOOBB))
+			if (AllObjects[i]->checkCollide(target->m_xmOOBB))
 				return true;
 		}
 	}
