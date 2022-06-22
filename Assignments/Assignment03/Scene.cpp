@@ -13,19 +13,41 @@ CScene::~CScene()
 {
 }
 
+void CScene::ChangeDayNight()
+{
+	isDay = !isDay;
+	if (isDay)
+	{
+		m_pLights->m_xmf4GlobalAmbient = XMFLOAT4(0.8f, 0.8f, 0.8f, 0.8f);
+		m_pLights->m_pLights[0].m_xmf4Ambient = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+		m_pLights->m_pLights[0].m_xmf4Diffuse = XMFLOAT4(0.8f, 0.8f, 0.8f, 1.0f);
+		for (int i = 0; i < LightsPosition.size(); ++i)
+			m_pLights->m_pLights[i + 1].m_bEnable = false;
+	}
+	else
+	{
+		m_pLights->m_xmf4GlobalAmbient = XMFLOAT4(0.034f, 0.034f, 0.034f, 0.034f);
+		m_pLights->m_pLights[0].m_xmf4Ambient = XMFLOAT4(0.2f, 0.2f, 0.2f, 1.0f);
+		m_pLights->m_pLights[0].m_xmf4Diffuse = XMFLOAT4(0.1f, 0.1f, 0.1f, 1.0f);
+		for (int i = 0; i < LightsPosition.size(); ++i)
+			m_pLights->m_pLights[i + 1].m_bEnable = true;
+	}
+}
+
 void CScene::BuildLightsAndMaterials()
 {
-	isDay = false;
+	isDay = true;
 	m_pLights = new LIGHTS;
 	::ZeroMemory(m_pLights, sizeof(LIGHTS));
 
-	m_pLights->m_xmf4GlobalAmbient = XMFLOAT4(0.034f, 0.034f, 0.034f, 0.034f);
+	//m_pLights->m_xmf4GlobalAmbient = XMFLOAT4(0.034f, 0.034f, 0.034f, 0.034f);
+	m_pLights->m_xmf4GlobalAmbient = XMFLOAT4(0.8f, 0.8f, 0.8f, 0.8f);
 
 	// 가로등 조명
 	m_pLights->m_pLights[0].m_bEnable = true;
 	m_pLights->m_pLights[0].m_nType = DIRECTIONAL_LIGHT;
-	m_pLights->m_pLights[0].m_xmf4Ambient = XMFLOAT4(0.2f, 0.2f, 0.2f, 1.0f);
-	m_pLights->m_pLights[0].m_xmf4Diffuse = XMFLOAT4(0.1f, 0.1f, 0.1f, 1.0f);
+	m_pLights->m_pLights[0].m_xmf4Ambient = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	m_pLights->m_pLights[0].m_xmf4Diffuse = XMFLOAT4(0.8f, 0.8f, 0.8f, 1.0f);
 	m_pLights->m_pLights[0].m_xmf4Specular = XMFLOAT4(0.0f, 0.0f, 0.0f, 0.0f);
 	m_pLights->m_pLights[0].m_xmf3Direction = XMFLOAT3(1.0f, -1.0f, 0.0f);
 
@@ -33,15 +55,15 @@ void CScene::BuildLightsAndMaterials()
 	{
 		if ((i - 1) < LightsPosition.size())
 		{
-			m_pLights->m_pLights[i].m_bEnable = true;
+			m_pLights->m_pLights[i].m_bEnable = false;
 			m_pLights->m_pLights[i].m_nType = POINT_LIGHT;
-			m_pLights->m_pLights[i].m_fRange = 200.0f;
+			m_pLights->m_pLights[i].m_fRange = 100.0f;
 			m_pLights->m_pLights[i].m_xmf4Ambient = XMFLOAT4(1.0f, 0.5f, 0.0f, 1.0f);
 			m_pLights->m_pLights[i].m_xmf4Diffuse = XMFLOAT4(1.0f, 0.5f, 0.0f, 1.0f);
 			m_pLights->m_pLights[i].m_xmf4Specular = XMFLOAT4(0.1f, 0.1f, 0.1f, 0.0f);
 			m_pLights->m_pLights[i].m_xmf3Position = XMFLOAT3(LightsPosition[i - 1].x, LightsPosition[i - 1].y + 31.0f, LightsPosition[i - 1].z);
 			m_pLights->m_pLights[i].m_xmf3Direction = XMFLOAT3(0.0f, 0.0f, 0.0f);
-			m_pLights->m_pLights[i].m_xmf3Attenuation = XMFLOAT3(1.0f, 0.022f, 0.0019f);
+			m_pLights->m_pLights[i].m_xmf3Attenuation = XMFLOAT3(1.0f, 0.045f, 0.0075f);
 		}
 		else
 			m_pLights->m_pLights[i].m_bEnable = false;
@@ -273,23 +295,6 @@ bool CScene::CheckCollision(CPlayer* target)
 		}
 	}
 	return false;
-}
-
-void CScene::ChangeDayNight()
-{
-	isDay = !isDay;
-	if (isDay)
-	{
-		m_pLights->m_xmf4GlobalAmbient = XMFLOAT4(0.8f, 0.8f, 0.8f, 0.8f);
-		m_pLights->m_pLights[0].m_xmf4Ambient = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-		m_pLights->m_pLights[0].m_xmf4Diffuse = XMFLOAT4(0.8f, 0.8f, 0.8f, 1.0f);
-	}
-	else
-	{
-		m_pLights->m_xmf4GlobalAmbient = XMFLOAT4(0.034f, 0.034f, 0.034f, 0.034f);
-		m_pLights->m_pLights[0].m_xmf4Ambient = XMFLOAT4(0.2f, 0.2f, 0.2f, 1.0f);
-		m_pLights->m_pLights[0].m_xmf4Diffuse = XMFLOAT4(0.1f, 0.1f, 0.1f, 1.0f);
-	}
 }
 
 CRaceScene::CRaceScene()

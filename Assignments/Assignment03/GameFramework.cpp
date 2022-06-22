@@ -340,9 +340,7 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 		case VK_RETURN:
 			break;
 		case VK_F1:
-		case VK_F2:
 		case VK_F3:
-			if(m_pPlayer) m_pCamera = m_pPlayer->ChangeCamera((DWORD)(wParam - VK_F1 + 1), m_GameTimer.GetTimeElapsed());
 			if (m_pCarPlayer) m_pRaceCamera = m_pCarPlayer->ChangeCamera((wParam - VK_F1 + 1), m_GameTimer.GetTimeElapsed());
 			break;
 		case VK_F9:
@@ -382,12 +380,24 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 			ShowBuilding = false;
 			break;
 		case '2':
+			if (!ShowBuilding)
+			{
+				m_pPlayer->Reset();
+				m_pCamera = m_pPlayer->ChangeCamera(THIRD_PERSON_CAMERA, 0.0f);
+				m_pPlayer->SetPosition(XMFLOAT3{ -340.0f, 200.0f, -340.0f });
+				m_pPlayer->Rotate(0.0f, 45.0f, 0.0f);
+			}
 			ShowBuilding = true;
+
 			break;
 		case 'Z':
 		case 'z':
 			if (m_pCarPlayer && !ShowBuilding)
 				m_pCarPlayer->Rotate(0.0f, 90.0f, 0.0f);
+			break;
+		case 'R':
+		case 'r':
+			if (m_pPlayer) m_pCamera = m_pPlayer->ToggleCamera();
 			break;
 		case 'N':
 		case 'n':
@@ -515,7 +525,7 @@ void CGameFramework::ProcessInput()
 	{
 		static UCHAR pKeysBuffer[256];
 		DWORD dwDirection = 0;
-		if (::GetKeyboardState(pKeysBuffer))
+		if (::GetKeyboardState(pKeysBuffer) && m_pPlayer->GetCamera()->GetMode() == FIRST_PERSON_CAMERA)
 		{
 			if (pKeysBuffer[VK_UP] & 0xF0) dwDirection |= DIR_FORWARD;
 			if (pKeysBuffer[VK_DOWN] & 0xF0) dwDirection |= DIR_BACKWARD;

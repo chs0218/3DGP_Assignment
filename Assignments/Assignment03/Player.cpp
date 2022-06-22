@@ -169,7 +169,7 @@ void CPlayer::Update(float fTimeElapsed, CScene* myScene)
 	{
 		OnPrepareRender();
 		UpdateBoundingBox();
-		XMFLOAT3 backVelocity = Vector3::ScalarProduct(XMFLOAT3{ 0.0f, m_xmf3Velocity.y, 0.0f }, -2.0f, false);
+		XMFLOAT3 backVelocity = Vector3::ScalarProduct(XMFLOAT3{ 0.0f, m_xmf3Velocity.y, 0.0f }, -1.0f, false);
 
 		if (myScene->CheckCollision(this))
 			Move(backVelocity, false);
@@ -248,22 +248,29 @@ void CPlayer::Render(ID3D12GraphicsCommandList *pd3dCommandList, CCamera *pCamer
 	if (nCameraMode == THIRD_PERSON_CAMERA) CGameObject::Render(pd3dCommandList, pCamera);
 }
 
+CCamera* CPlayer::ToggleCamera()
+{
+	toggleCamera = !toggleCamera;
+	if (toggleCamera)
+		return ChangeCamera(THIRD_PERSON_CAMERA, 0.0f);
+	else
+		return ChangeCamera(FIRST_PERSON_CAMERA, 0.0f);
+	
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 
 CAirplanePlayer::CAirplanePlayer(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *pd3dCommandList, ID3D12RootSignature *pd3dGraphicsRootSignature, void *pContext)
 {
-	//LoadGameObjectFromFile(pd3dDevice, pd3dCommandList, "Models/FlyerPlayershipObject.bin");
-
 	CPlayerShader *pShader = new CPlayerShader();
 	pShader->CreateShader(pd3dDevice, pd3dGraphicsRootSignature);
 	pShader->CreateShaderVariables(pd3dDevice, pd3dCommandList);
 
 	m_pCamera = ChangeCamera(THIRD_PERSON_CAMERA, 0.0f);
-
-	SetPosition(XMFLOAT3(0.0f, 100.0f, 0.0f));
+	toggleCamera = true;
 
 	CreateShaderVariables(pd3dDevice, pd3dCommandList);
-	m_xmPlayerBoundingBox = BoundingBox( XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.6f, 0.6f, 0.6f));
+	m_xmPlayerBoundingBox = BoundingBox( XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.5f, 3.0f, 0.5f));
 	SetShader(pShader);
 }
 
@@ -289,9 +296,12 @@ CCamera *CAirplanePlayer::ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed)
 	{
 	case FIRST_PERSON_CAMERA:
 		SetFriction(200.0f);
-		SetGravity(XMFLOAT3(0.0f, -50.0f, 0.0f));
+		SetGravity(XMFLOAT3(0.0f, -150.0f, 0.0f));
 		SetMaxVelocityXZ(125.0f);
 		SetMaxVelocityY(400.0f);
+		SetPosition(XMFLOAT3{ 0.0f, 10.0f, 0.0f });
+		m_fPitch = 0.0f;
+		m_fRoll = 0.0f;
 		m_pCamera = OnChangeCamera(FIRST_PERSON_CAMERA, nCurrentCameraMode);
 		m_pCamera->SetTimeLag(0.0f);
 		m_pCamera->SetOffset(XMFLOAT3(0.0f, 0.6f, 0.0f));
@@ -300,7 +310,7 @@ CCamera *CAirplanePlayer::ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed)
 		m_pCamera->SetScissorRect(0, 0, FRAME_BUFFER_WIDTH, FRAME_BUFFER_HEIGHT);
 		break;
 	case SPACESHIP_CAMERA:
-		SetFriction(125.0f);
+		/*SetFriction(125.0f);
 		SetGravity(XMFLOAT3(0.0f, 0.0f, 0.0f));
 		SetMaxVelocityXZ(400.0f);
 		SetMaxVelocityY(400.0f);
@@ -310,18 +320,24 @@ CCamera *CAirplanePlayer::ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed)
 		m_pCamera->GenerateProjectionMatrix(1.01f, 5000.0f, ASPECT_RATIO, 60.0f);
 		m_pCamera->SetViewport(0, 0, FRAME_BUFFER_WIDTH, FRAME_BUFFER_HEIGHT, 0.0f, 1.0f);
 		m_pCamera->SetScissorRect(0, 0, FRAME_BUFFER_WIDTH, FRAME_BUFFER_HEIGHT);
+		SetPosition(XMFLOAT3{ -340.0f, 200.0f, -340.0f });
+		Rotate(0.0f, 45.0f, 0.0f);*/
 		break;
 	case THIRD_PERSON_CAMERA:
 		SetFriction(250.0f);
 		SetGravity(XMFLOAT3(0.0f, 0.0f, 0.0f));
 		SetMaxVelocityXZ(125.0f);
 		SetMaxVelocityY(400.0f);
+		m_fPitch = 0.0f;
+		m_fRoll = 0.0f;
 		m_pCamera = OnChangeCamera(THIRD_PERSON_CAMERA, nCurrentCameraMode);
-		m_pCamera->SetTimeLag(0.25f);
+		m_pCamera->SetTimeLag(0.0f);
 		m_pCamera->SetOffset(XMFLOAT3(0.0f, 10.0f, -20.0f));
 		m_pCamera->GenerateProjectionMatrix(1.01f, 5000.0f, ASPECT_RATIO, 60.0f);
 		m_pCamera->SetViewport(0, 0, FRAME_BUFFER_WIDTH, FRAME_BUFFER_HEIGHT, 0.0f, 1.0f);
 		m_pCamera->SetScissorRect(0, 0, FRAME_BUFFER_WIDTH, FRAME_BUFFER_HEIGHT);
+		SetPosition(XMFLOAT3{ -340.0f, 200.0f, -340.0f });
+		Rotate(0.0f, 45.0f, 0.0f);
 		break;
 	default:
 		break;

@@ -36,6 +36,7 @@ protected:
 
 	CCamera						*m_pCamera = NULL;
 	BoundingBox					m_xmPlayerBoundingBox;
+	bool						toggleCamera;
 public:
 	CPlayer() { }
 	CPlayer(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *pd3dCommandList, ID3D12RootSignature *pd3dGraphicsRootSignature, void *pContext=NULL);
@@ -80,6 +81,24 @@ public:
 
 	CCamera *OnChangeCamera(DWORD nNewCameraMode, DWORD nCurrentCameraMode);
 
+	CCamera* ToggleCamera();
+	void Reset()
+	{
+		m_xmf3Position = XMFLOAT3(0.0f, 0.0f, 0.0f);
+		m_xmf3Right = XMFLOAT3(1.0f, 0.0f, 0.0f);
+		m_xmf3Up = XMFLOAT3(0.0f, 1.0f, 0.0f);
+		m_xmf3Look = XMFLOAT3(0.0f, 0.0f, 1.0f);
+
+		m_xmf3Velocity = XMFLOAT3(0.0f, 0.0f, 0.0f);
+		m_xmf3Gravity = XMFLOAT3(0.0f, 0.0f, 0.0f);
+		m_fMaxVelocityXZ = 0.0f;
+		m_fMaxVelocityY = 0.0f;
+		m_fFriction = 0.0f;
+
+		m_fPitch = 0.0f;
+		m_fRoll = 0.0f;
+		m_fYaw = 0.0f;
+	}
 	virtual CCamera *ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed) { return(NULL); }
 	virtual void OnPrepareRender();
 	virtual void Render(ID3D12GraphicsCommandList *pd3dCommandList, CCamera *pCamera = NULL);
