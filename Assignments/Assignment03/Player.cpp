@@ -151,17 +151,28 @@ void CPlayer::Update(float fTimeElapsed, CScene* myScene)
 	fLength = sqrtf(m_xmf3Velocity.y * m_xmf3Velocity.y);
 	if (fLength > m_fMaxVelocityY) m_xmf3Velocity.y *= (fMaxVelocityY / fLength);
 
-	Move(m_xmf3Velocity, false);
+	Move(XMFLOAT3{ m_xmf3Velocity.x, 0.0f, m_xmf3Velocity.z }, false);
 
 	if (myScene)
 	{
 		OnPrepareRender();
 		UpdateBoundingBox();
+		XMFLOAT3 backVelocity = Vector3::ScalarProduct(XMFLOAT3{ m_xmf3Velocity.x, 0.0f, m_xmf3Velocity.z }, -1.0f, false);
+
 		if (myScene->CheckCollision(this))
-		{
-			XMFLOAT3 backVelocity = Vector3::ScalarProduct(m_xmf3Velocity, -1.0f, false);
 			Move(backVelocity, false);
-		}
+	}
+
+	Move(XMFLOAT3{ 0.0f, m_xmf3Velocity.y, 0.0f }, false);
+
+	if (myScene)
+	{
+		OnPrepareRender();
+		UpdateBoundingBox();
+		XMFLOAT3 backVelocity = Vector3::ScalarProduct(XMFLOAT3{ 0.0f, m_xmf3Velocity.y, 0.0f }, -1.0f, false);
+
+		if (myScene->CheckCollision(this))
+			Move(backVelocity, false);
 	}
 
 	if (m_pPlayerUpdatedContext) OnPlayerUpdateCallback(fTimeElapsed);
@@ -278,7 +289,7 @@ CCamera *CAirplanePlayer::ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed)
 	{
 	case FIRST_PERSON_CAMERA:
 		SetFriction(200.0f);
-		SetGravity(XMFLOAT3(0.0f, 0.0f, 0.0f));
+		SetGravity(XMFLOAT3(0.0f, -50.0f, 0.0f));
 		SetMaxVelocityXZ(125.0f);
 		SetMaxVelocityY(400.0f);
 		m_pCamera = OnChangeCamera(FIRST_PERSON_CAMERA, nCurrentCameraMode);
