@@ -70,6 +70,7 @@ public:
     void Render(ID3D12GraphicsCommandList *pd3dCommandList, CCamera *pCamera=NULL);
 
 	void ReleaseUploadBuffers();
+	bool CheckCollision(CPlayer* target);
 
 	CPlayer						*m_pPlayer = NULL;
 

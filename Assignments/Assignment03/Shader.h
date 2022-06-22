@@ -91,7 +91,8 @@ public:
 	virtual void ReleaseUploadBuffers();
 
 	virtual void Render(ID3D12GraphicsCommandList *pd3dCommandList, CCamera *pCamera);
-
+	virtual CGameObject** GetObjects() { return m_ppObjects; }
+	virtual int GetNObjects() { return m_nObjects; }
 protected:
 	CGameObject						**m_ppObjects = 0;
 	int								m_nObjects = 0;
