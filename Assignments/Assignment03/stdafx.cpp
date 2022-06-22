@@ -8,6 +8,7 @@
 // 이 파일이 아닌 STDAFX.H에서 참조합니다.
 
 //UINT gnCbvSrvDescriptorIncrementSize;
+std::vector<XMFLOAT3> LightsPosition;
 
 ID3D12Resource *CreateBufferResource(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *pd3dCommandList, void *pData, UINT nBytes, D3D12_HEAP_TYPE d3dHeapType, D3D12_RESOURCE_STATES d3dResourceStates, ID3D12Resource **ppd3dUploadBuffer)
 {
@@ -149,6 +150,9 @@ CGameObject **LoadGameObjectsFromFile(ID3D12Device *pd3dDevice, ID3D12GraphicsCo
 		}
 
 		nReads = (UINT)::fread(&pGameObject->m_xmf4x4World, sizeof(float), 16, pFile);
+
+		if (strcmp(pstrGameObjectName, "SignPole") == 0)
+			LightsPosition.push_back(XMFLOAT3{ pGameObject->m_xmf4x4World._41, pGameObject->m_xmf4x4World._42, pGameObject->m_xmf4x4World._43 });
 
 		if (!pObjectFound)
 		{

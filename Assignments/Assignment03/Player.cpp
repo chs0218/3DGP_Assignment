@@ -169,7 +169,7 @@ void CPlayer::Update(float fTimeElapsed, CScene* myScene)
 	{
 		OnPrepareRender();
 		UpdateBoundingBox();
-		XMFLOAT3 backVelocity = Vector3::ScalarProduct(XMFLOAT3{ 0.0f, m_xmf3Velocity.y, 0.0f }, -1.0f, false);
+		XMFLOAT3 backVelocity = Vector3::ScalarProduct(XMFLOAT3{ 0.0f, m_xmf3Velocity.y, 0.0f }, -2.0f, false);
 
 		if (myScene->CheckCollision(this))
 			Move(backVelocity, false);

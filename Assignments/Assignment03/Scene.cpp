@@ -28,13 +28,24 @@ void CScene::BuildLightsAndMaterials()
 	m_pLights->m_pLights[0].m_xmf4Diffuse = XMFLOAT4(0.1f, 0.1f, 0.1f, 1.0f);
 	m_pLights->m_pLights[0].m_xmf4Specular = XMFLOAT4(0.0f, 0.0f, 0.0f, 0.0f);
 	m_pLights->m_pLights[0].m_xmf3Direction = XMFLOAT3(1.0f, -1.0f, 0.0f);
-	m_pLights->m_pLights[1].m_bEnable = false;
-	m_pLights->m_pLights[2].m_bEnable = false;
-	m_pLights->m_pLights[3].m_bEnable = false;
-	m_pLights->m_pLights[4].m_bEnable = false;
-	m_pLights->m_pLights[5].m_bEnable = false;
-	m_pLights->m_pLights[6].m_bEnable = false;
-	m_pLights->m_pLights[7].m_bEnable = false;
+
+	for (int i = 1; i < 36; ++i)
+	{
+		if ((i - 1) < LightsPosition.size())
+		{
+			m_pLights->m_pLights[i].m_bEnable = true;
+			m_pLights->m_pLights[i].m_nType = POINT_LIGHT;
+			m_pLights->m_pLights[i].m_fRange = 200.0f;
+			m_pLights->m_pLights[i].m_xmf4Ambient = XMFLOAT4(1.0f, 0.5f, 0.0f, 1.0f);
+			m_pLights->m_pLights[i].m_xmf4Diffuse = XMFLOAT4(1.0f, 0.5f, 0.0f, 1.0f);
+			m_pLights->m_pLights[i].m_xmf4Specular = XMFLOAT4(0.1f, 0.1f, 0.1f, 0.0f);
+			m_pLights->m_pLights[i].m_xmf3Position = XMFLOAT3(LightsPosition[i - 1].x, LightsPosition[i - 1].y + 31.0f, LightsPosition[i - 1].z);
+			m_pLights->m_pLights[i].m_xmf3Direction = XMFLOAT3(0.0f, 0.0f, 0.0f);
+			m_pLights->m_pLights[i].m_xmf3Attenuation = XMFLOAT3(1.0f, 0.022f, 0.0019f);
+		}
+		else
+			m_pLights->m_pLights[i].m_bEnable = false;
+	}
 
 	m_pMaterials = new MATERIALS;
 	::ZeroMemory(m_pMaterials, sizeof(MATERIALS));
