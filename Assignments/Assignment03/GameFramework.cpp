@@ -389,6 +389,10 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 			if (m_pCarPlayer && !ShowBuilding)
 				m_pCarPlayer->Rotate(0.0f, 90.0f, 0.0f);
 			break;
+		case 'N':
+		case 'n':
+			m_pCityScene->ChangeDayNight();
+			break;
 		case VK_RETURN:
 			break;
 		case VK_CONTROL:
