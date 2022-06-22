@@ -133,7 +133,7 @@ protected:
 
 public:
 	CB_GAMEOBJECT_INFO				*m_pcbMappedGameObject = NULL;
-
+	BoundingBox						m_xmOOBB;
 public:
 	void SetMesh(CMesh *pMesh);
 	void SetShader(CShader *pShader);
@@ -146,11 +146,17 @@ public:
 	virtual void ReleaseShaderVariables();
 	virtual void UpdateShaderVariables(ID3D12GraphicsCommandList *pd3dCommandList);
 
-	virtual void Animate(float fTimeElapsed) { }
+	virtual void Animate(float fTimeElapsed) { UpdateBoundingBox(); }
 	virtual void OnPrepareRender() { }
 	virtual void Render(ID3D12GraphicsCommandList *pd3dCommandList, CCamera *pCamera=NULL);
 
 	virtual void ReleaseUploadBuffers();
+
+	virtual void UpdateBoundingBox()
+	{
+		if (m_pMesh)
+			m_pMesh->m_xmBoundingBox.Transform(m_xmOOBB, XMLoadFloat4x4(&m_xmf4x4World));
+	}
 
 	XMFLOAT3 GetPosition();
 	XMFLOAT3 GetLook();
@@ -168,6 +174,11 @@ public:
 	void Rotate(XMFLOAT3 *pxmf3Axis, float fAngle);
 
 	void LoadGameObjectFromFile(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *pd3dCommandList, char *pstrFileName);
+	bool checkCollide(BoundingBox target) { 
+		if (m_xmOOBB.Intersects(target)) 
+			return true; 
+		return false;
+	}
 };
 
 //========================================================================================================

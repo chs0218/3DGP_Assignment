@@ -54,16 +54,12 @@ protected:
 
 	UINT							m_nStartIndex = 0;
 	int								m_nBaseVertex = 0;
-
-	BoundingBox						m_xmBoundingBox;
-
 public:
 	UINT							m_nSubsets = 0;
-
+	BoundingBox						m_xmBoundingBox;
 public:
 	void OnPreRender(ID3D12GraphicsCommandList *pd3dCommandList);
 	virtual void Render(ID3D12GraphicsCommandList *pd3dCommandList, UINT nSubset);
-
 	void LoadMeshFromFile(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *pd3dCommandList, char *pstrFileName);
 };
 

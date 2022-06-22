@@ -35,7 +35,7 @@ CGameFramework::CGameFramework()
 
 	m_pCityScene = NULL;
 	m_pCamera = NULL;
-	ShowBuilding = false;
+	ShowBuilding = true;
 
 	_tcscpy_s(m_pszFrameRate, _T("LabProject ("));
 }
@@ -544,7 +544,7 @@ void CGameFramework::ProcessInput()
 			if (dwDirection) m_pPlayer->Move(dwDirection, 50.0f * m_GameTimer.GetTimeElapsed(), true);
 		}
 
-		m_pPlayer->Update(m_GameTimer.GetTimeElapsed());
+		m_pPlayer->Update(m_GameTimer.GetTimeElapsed(), m_pCityScene);
 	}
 
 	if (!ShowBuilding && m_pCarPlayer)

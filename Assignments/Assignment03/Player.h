@@ -9,7 +9,9 @@
 
 #include "Object.h"
 #include "Camera.h"
+#include "Scene.h"
 
+class CScene;
 class CPlayer : public CGameObject
 {
 protected:
@@ -33,7 +35,7 @@ protected:
 	LPVOID						m_pCameraUpdatedContext = NULL;
 
 	CCamera						*m_pCamera = NULL;
-
+	BoundingBox					m_xmPlayerBoundingBox;
 public:
 	CPlayer() { }
 	CPlayer(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *pd3dCommandList, ID3D12RootSignature *pd3dGraphicsRootSignature, void *pContext=NULL);
@@ -64,7 +66,7 @@ public:
 	void Move(float fxOffset = 0.0f, float fyOffset = 0.0f, float fzOffset = 0.0f);
 	void Rotate(float x, float y, float z);
 
-	void Update(float fTimeElapsed);
+	void Update(float fTimeElapsed, CScene* myScene = NULL);
 
 	virtual void OnPlayerUpdateCallback(float fTimeElapsed) { }
 	void SetPlayerUpdatedContext(LPVOID pContext) { m_pPlayerUpdatedContext = pContext; }
@@ -81,6 +83,9 @@ public:
 	virtual CCamera *ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed) { return(NULL); }
 	virtual void OnPrepareRender();
 	virtual void Render(ID3D12GraphicsCommandList *pd3dCommandList, CCamera *pCamera = NULL);
+	virtual void UpdateBoundingBox() {
+		m_xmPlayerBoundingBox.Transform(m_xmOOBB, XMLoadFloat4x4(&m_xmf4x4World));
+	}
 };
 
 class CAirplanePlayer : public CPlayer

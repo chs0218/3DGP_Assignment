@@ -255,7 +255,13 @@ bool CScene::CheckCollision(CPlayer* target)
 	{
 		CGameObject** AllObjects = ((CObjectsShader*)m_ppShaders[0])->GetObjects();
 		int nObject = ((CObjectsShader*)m_ppShaders[0])->GetNObjects();
+		for (int i = 0; i < nObject; ++i)
+		{
+			if (target->m_pMesh && AllObjects[i]->checkCollide(target->m_xmOOBB))
+				return true;
+		}
 	}
+	return false;
 }
 
 CRaceScene::CRaceScene()
