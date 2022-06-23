@@ -146,7 +146,7 @@ CGameObject **LoadGameObjectsFromFile(ID3D12Device *pd3dDevice, ID3D12GraphicsCo
 		{
 			if (!pObjectFound) {
 				string name{ pstrGameObjectName };
-				if (name.find("Building") == string::npos)
+				if (name.find("Building") == string::npos && name.find("WingTop") == string::npos)
 					pGameObject->SetMaterial(k, (UINT)0);
 				else
 					pGameObject->SetMaterial(k, uid(dreMaterial));
@@ -171,7 +171,7 @@ CGameObject **LoadGameObjectsFromFile(ID3D12Device *pd3dDevice, ID3D12GraphicsCo
 			CMesh *pMesh = new CMesh(pd3dDevice, pd3dCommandList, pstrFilePath);
 			pGameObject->SetMesh(pMesh);
 		}
-
+		pGameObject->UpdateBoundingBox();
 		ppGameObjects[i] = pGameObject;
 	}
 

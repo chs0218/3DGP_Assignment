@@ -35,7 +35,7 @@ CGameFramework::CGameFramework()
 
 	m_pCityScene = NULL;
 	m_pCamera = NULL;
-	ShowBuilding = true;
+	ShowBuilding = false;
 
 	_tcscpy_s(m_pszFrameRate, _T("LabProject ("));
 }
@@ -389,11 +389,11 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 			break;
 		case 'R':
 		case 'r':
-			if (m_pPlayer) m_pCamera = m_pPlayer->ToggleCamera();
+			if (m_pPlayer && ShowBuilding) m_pCamera = m_pPlayer->ToggleCamera();
 			break;
 		case 'N':
 		case 'n':
-			m_pCityScene->ChangeDayNight();
+			if (ShowBuilding)m_pCityScene->ChangeDayNight();
 			break;
 		case VK_RETURN:
 			break;
@@ -482,7 +482,7 @@ void CGameFramework::BuildObjects()
 	m_pCityScene = new CScene();
 	if (m_pCityScene) m_pCityScene->BuildObjects(m_pd3dDevice, m_pd3dCommandList);
 
-	CAirplanePlayer *pAirplanePlayer = new CAirplanePlayer(m_pd3dDevice, m_pd3dCommandList, m_pCityScene->GetGraphicsRootSignature());
+	CBuildingPlayer *pAirplanePlayer = new CBuildingPlayer(m_pd3dDevice, m_pd3dCommandList, m_pCityScene->GetGraphicsRootSignature());
 	m_pCityScene->m_pPlayer = m_pPlayer = pAirplanePlayer;
 	m_pCamera = m_pPlayer->GetCamera();
 
