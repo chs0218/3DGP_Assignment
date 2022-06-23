@@ -30,6 +30,7 @@ protected:
 	float           			m_fMaxVelocityXZ = 0.0f;
 	float           			m_fMaxVelocityY = 0.0f;
 	float           			m_fFriction = 0.0f;
+	float						boaster = 5.0f;
 
 	LPVOID						m_pPlayerUpdatedContext = NULL;
 	LPVOID						m_pCameraUpdatedContext = NULL;

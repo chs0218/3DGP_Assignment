@@ -769,7 +769,7 @@ void CInstancingShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCom
 				if (x == index)
 				{
 					ObstacleObject* tmp = new ObstacleObject;
-					CHierarchyObject* pGameObject = CHierarchyObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, pd3dGraphicsRootSignature, L"Model/Rock.txt");
+					CHierarchyObject* pGameObject = CHierarchyObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, pd3dGraphicsRootSignature, L"Models/Rock.txt");
 					tmp->p_Obs = new CHierarchyObject();
 					tmp->p_Obs->SetChild(pGameObject);
 					tmp->p_Obs->SetScale(20.0f, 20.0f, 20.0f);

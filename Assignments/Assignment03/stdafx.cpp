@@ -8,7 +8,9 @@
 // 이 파일이 아닌 STDAFX.H에서 참조합니다.
 
 //UINT gnCbvSrvDescriptorIncrementSize;
-std::vector<XMFLOAT3> LightsPosition;
+vector<XMFLOAT3> LightsPosition;
+random_device rdMaterial;
+default_random_engine dreMaterial{ rdMaterial() };
 
 ID3D12Resource *CreateBufferResource(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *pd3dCommandList, void *pData, UINT nBytes, D3D12_HEAP_TYPE d3dHeapType, D3D12_RESOURCE_STATES d3dResourceStates, ID3D12Resource **ppd3dUploadBuffer)
 {
@@ -110,6 +112,8 @@ CGameObject **LoadGameObjectsFromFile(ID3D12Device *pd3dDevice, ID3D12GraphicsCo
 	CGameObject **ppGameObjects = new CGameObject*[*pnGameObjects];
 
 	CGameObject *pGameObject = NULL, *pObjectFound = NULL;
+	
+	uniform_int_distribution<UINT> uid{ 1, MAX_SCENE_MATERIALS - 1};
 	for (int i = 0; i < *pnGameObjects; i++)
 	{
 		nReads = (UINT)::fread(&nStrLength, sizeof(BYTE), 1, pFile);
@@ -140,8 +144,13 @@ CGameObject **LoadGameObjectsFromFile(ID3D12Device *pd3dDevice, ID3D12GraphicsCo
 		XMFLOAT4 xmf4AlbedoColor = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f), xmf4EmissionColor = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 		for (UINT k = 0; k < nMaterials; k++)
 		{
-			if (!pObjectFound) pGameObject->SetMaterial(k, rand() % MAX_SCENE_MATERIALS);
-
+			if (!pObjectFound) {
+				string name{ pstrGameObjectName };
+				if (name.find("Building") == string::npos)
+					pGameObject->SetMaterial(k, (UINT)0);
+				else
+					pGameObject->SetMaterial(k, uid(dreMaterial));
+			}
 			nReads = (UINT)::fread(&xmf4AlbedoColor, sizeof(float), 4, pFile);
 			if (!pObjectFound) pGameObject->SetAlbedoColor(k, xmf4AlbedoColor);
 

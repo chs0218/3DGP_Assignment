@@ -380,15 +380,7 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 			ShowBuilding = false;
 			break;
 		case '2':
-			if (!ShowBuilding)
-			{
-				m_pPlayer->Reset();
-				m_pCamera = m_pPlayer->ChangeCamera(THIRD_PERSON_CAMERA, 0.0f);
-				m_pPlayer->SetPosition(XMFLOAT3{ -340.0f, 200.0f, -340.0f });
-				m_pPlayer->Rotate(0.0f, 45.0f, 0.0f);
-			}
 			ShowBuilding = true;
-
 			break;
 		case 'Z':
 		case 'z':
@@ -527,12 +519,11 @@ void CGameFramework::ProcessInput()
 		DWORD dwDirection = 0;
 		if (::GetKeyboardState(pKeysBuffer) && m_pPlayer->GetCamera()->GetMode() == FIRST_PERSON_CAMERA)
 		{
-			if (pKeysBuffer[VK_UP] & 0xF0) dwDirection |= DIR_FORWARD;
-			if (pKeysBuffer[VK_DOWN] & 0xF0) dwDirection |= DIR_BACKWARD;
-			if (pKeysBuffer[VK_LEFT] & 0xF0) dwDirection |= DIR_LEFT;
-			if (pKeysBuffer[VK_RIGHT] & 0xF0) dwDirection |= DIR_RIGHT;
-			if (pKeysBuffer[VK_PRIOR] & 0xF0) dwDirection |= DIR_UP;
-			if (pKeysBuffer[VK_NEXT] & 0xF0) dwDirection |= DIR_DOWN;
+			if (pKeysBuffer['W'] & 0xF0) dwDirection |= DIR_FORWARD;
+			if (pKeysBuffer['S'] & 0xF0) dwDirection |= DIR_BACKWARD;
+			if (pKeysBuffer['A'] & 0xF0) dwDirection |= DIR_LEFT;
+			if (pKeysBuffer['D'] & 0xF0) dwDirection |= DIR_RIGHT;
+			if (pKeysBuffer[VK_SPACE] & 0xF0) dwDirection |= DIR_UP;
 		}
 
 		float cxDelta = 0.0f, cyDelta = 0.0f;
@@ -657,11 +648,9 @@ void CGameFramework::FrameAdvance()
 	m_pd3dCommandList->OMSetRenderTargets(1, &d3dRtvCPUDescriptorHandle, TRUE, &d3dDsvCPUDescriptorHandle);
 
 	if (m_pCityScene && ShowBuilding) m_pCityScene->Render(m_pd3dCommandList, m_pCamera);
-	if (m_pRaceScene && !ShowBuilding) m_pRaceScene->Render(m_pd3dCommandList, m_pRaceCamera);
-#ifdef _WITH_PLAYER_TOP
-	m_pd3dCommandList->ClearDepthStencilView(d3dDsvCPUDescriptorHandle, D3D12_CLEAR_FLAG_DEPTH | D3D12_CLEAR_FLAG_STENCIL, 1.0f, 0, 0, NULL);
-#endif
 	if (m_pPlayer && ShowBuilding) m_pPlayer->Render(m_pd3dCommandList, m_pCamera);
+
+	if (m_pRaceScene && !ShowBuilding) m_pRaceScene->Render(m_pd3dCommandList, m_pRaceCamera);
 	if (m_pCarPlayer && !ShowBuilding) m_pCarPlayer->Render(m_pd3dCommandList, m_pRaceCamera);
 
 	d3dResourceBarrier.Transition.StateBefore = D3D12_RESOURCE_STATE_RENDER_TARGET;

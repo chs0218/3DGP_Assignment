@@ -58,8 +58,7 @@ void CPlayer::Move(DWORD dwDirection, float fDistance, bool bUpdateVelocity)
 		if (dwDirection & DIR_BACKWARD) xmf3Shift = Vector3::Add(xmf3Shift, m_xmf3Look, -fDistance);
 		if (dwDirection & DIR_RIGHT) xmf3Shift = Vector3::Add(xmf3Shift, m_xmf3Right, fDistance);
 		if (dwDirection & DIR_LEFT) xmf3Shift = Vector3::Add(xmf3Shift, m_xmf3Right, -fDistance);
-		if (dwDirection & DIR_UP) xmf3Shift = Vector3::Add(xmf3Shift, m_xmf3Up, fDistance);
-		if (dwDirection & DIR_DOWN) xmf3Shift = Vector3::Add(xmf3Shift, m_xmf3Up, -fDistance);
+		if (dwDirection & DIR_UP) xmf3Shift = Vector3::Add(xmf3Shift, m_xmf3Up, fDistance * boaster);
 
 		Move(xmf3Shift, bUpdateVelocity);
 	}
@@ -270,7 +269,7 @@ CAirplanePlayer::CAirplanePlayer(ID3D12Device *pd3dDevice, ID3D12GraphicsCommand
 	toggleCamera = true;
 
 	CreateShaderVariables(pd3dDevice, pd3dCommandList);
-	m_xmPlayerBoundingBox = BoundingBox( XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.5f, 3.0f, 0.5f));
+	m_xmPlayerBoundingBox = BoundingBox( XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.5f, 5.0f, 0.5f));
 	SetShader(pShader);
 }
 
@@ -324,10 +323,14 @@ CCamera *CAirplanePlayer::ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed)
 		Rotate(0.0f, 45.0f, 0.0f);*/
 		break;
 	case THIRD_PERSON_CAMERA:
+		SetPosition(XMFLOAT3{ -340.0f, 200.0f, -340.0f });
 		SetFriction(250.0f);
 		SetGravity(XMFLOAT3(0.0f, 0.0f, 0.0f));
 		SetMaxVelocityXZ(125.0f);
 		SetMaxVelocityY(400.0f);
+		m_xmf3Right = XMFLOAT3(1.0f, 0.0f, 0.0f);
+		m_xmf3Up = XMFLOAT3(0.0f, 1.0f, 0.0f);
+		m_xmf3Look = XMFLOAT3(0.0f, 0.0f, 1.0f);
 		m_fPitch = 0.0f;
 		m_fRoll = 0.0f;
 		m_pCamera = OnChangeCamera(THIRD_PERSON_CAMERA, nCurrentCameraMode);
@@ -336,7 +339,6 @@ CCamera *CAirplanePlayer::ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed)
 		m_pCamera->GenerateProjectionMatrix(1.01f, 5000.0f, ASPECT_RATIO, 60.0f);
 		m_pCamera->SetViewport(0, 0, FRAME_BUFFER_WIDTH, FRAME_BUFFER_HEIGHT, 0.0f, 1.0f);
 		m_pCamera->SetScissorRect(0, 0, FRAME_BUFFER_WIDTH, FRAME_BUFFER_HEIGHT);
-		SetPosition(XMFLOAT3{ -340.0f, 200.0f, -340.0f });
 		Rotate(0.0f, 45.0f, 0.0f);
 		break;
 	default:
@@ -623,7 +625,7 @@ CCarPlayer::CCarPlayer(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3d
 {
 	m_pCamera = ChangeCamera(THIRD_PERSON_CAMERA, 0.0f);
 
-	CHierarchyObject* pGameObject = CHierarchyObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, pd3dGraphicsRootSignature, L"Model/RallyCar.txt");
+	CHierarchyObject* pGameObject = CHierarchyObject::LoadGeometryFromFile(pd3dDevice, pd3dCommandList, pd3dGraphicsRootSignature, L"Models/RallyCar.txt");
 	pGameObject->Rotate(2.5f, 0.0f, 0.0f);
 	pGameObject->SetScale(10.0f, 10.0f, 10.0f);
 	pGameObject->SetPosition(0.0f, 2.5f, 0.0f);

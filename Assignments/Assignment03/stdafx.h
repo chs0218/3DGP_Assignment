@@ -44,7 +44,7 @@ using Microsoft::WRL::ComPtr;
 #define FRAME_BUFFER_HEIGHT		600
 
 #define MAX_LIGHTS				36 
-#define MAX_SCENE_MATERIALS		16 
+#define MAX_SCENE_MATERIALS		9 
 
 #define POINT_LIGHT				1
 #define SPOT_LIGHT				2
